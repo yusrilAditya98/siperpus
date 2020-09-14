@@ -42,14 +42,17 @@
 <script src="<?= base_url("assets/js/pages/dashboard.js") ?>"></script>
 <!-- AdminLTE for demo purposes -->
 
-<script src="<?= base_url("plugins/datatables/dataTables.bootstrap4.js") ?>"></script>
-<script src="<?= base_url("plugins/datatables/jquery.dataTables.js") ?>"></script>
+<!-- <script src="<?= base_url("plugins/datatables/dataTables.bootstrap4.js") ?>"></script> -->
+<!-- <script src="<?= base_url("plugins/datatables/jquery.dataTables.js") ?>"></script> -->
+<script src="<?= base_url('assets/vendor/datatables/jquery.dataTables.min.js'); ?>"></script>
+<script src="<?= base_url('assets/vendor/datatables/dataTables.bootstrap4.min.js'); ?>"></script>
 
 <!-- my script -->
 <script src="<?= base_url("assets/js/alluser.js") ?>"></script>
 <script>
     $(document).ready(function() {
         $('#example').DataTable();
+        $('#data').DataTable();
     });
 
     if ($('.toasterSuccess').val()) {
