@@ -47,7 +47,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="peminjaman/pelanggaran_peminjaman_admin.html" class="nav-link">
+                                   <a href="<?= base_url('user/admin/list') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Admin</p>
                                    </a>
@@ -72,7 +72,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="admin/daftar_koleksidigital.html" class="nav-link">
+                                   <a href="<?= base_url('data/koleksi_digital') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Koleksi Digital</p>
                                    </a>
@@ -174,7 +174,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="data/jenis_pelanggaran.html" class="nav-link">
+                                   <a href="<?= base_url('data/pelanggaran') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Jenis Pelanggaran</p>
                                    </a>
