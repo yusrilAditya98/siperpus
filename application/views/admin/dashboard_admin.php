@@ -53,10 +53,10 @@
 						<div class="icon">
 							<i class="fas fa-book"></i>
 						</div>
-						<button class="small-box-footer text-white text-center btn-block">
-							More info
+						<a class="small-box-footer text-white text-center btn-block">
+							<span class="text-white">More info </span>
 							<i class="fas fa-arrow-circle-right text-white"></i>
-						</button>
+						</a>
 					</div>
 				</div>
 				<div class="col-lg-3 col-6">
@@ -96,18 +96,15 @@
 					</div>
 				</div>
 				<div class="col-lg-4 col-6">
-					<div class="small-box bg-warning">
-						<div class="inner">
-							<h3 class="text-white">200</h3>
-							<p class="text-white">Buku Proses Peminjaman</p>
+					<div class="small-box bg-warning text-white">
+						<div class="inner text-white">
+							<h3>50</h3>
+							<p>Buku Telah Dikembalikan</p>
 						</div>
-						<div class="icon">
+						<div class="icon ">
 							<i class="fas fa-book"></i>
 						</div>
-						<button class="small-box-footer text-white text-center btn-block">
-							More info
-							<i class="fas fa-arrow-circle-right text-white"></i>
-						</button>
+						<a href="#" class="small-box-footer "><span class="text-white">More info </span><i class="fas fa-arrow-circle-right text-white"></i></a>
 					</div>
 				</div>
 			</div>
