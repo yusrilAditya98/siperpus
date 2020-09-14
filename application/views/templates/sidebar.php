@@ -66,7 +66,7 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="admin/daftar_buku.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Buku</p>
                                    </a>
@@ -124,7 +124,7 @@
                        </li>
 
                        <li class="nav-item">
-                           <a href="sumbangan_buku_admin.html" class="nav-link">
+                           <a href="<?= site_url() ?>sirkulasi/sumbangan_buku/admin" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
@@ -132,7 +132,7 @@
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a href="stock_opname_admin.html" class="nav-link">
+                           <a href="<?= site_url() ?>data/stock_opname" class="nav-link">
                                <i class="nav-icon fas fa-layer-group"></i>
                                <p>
                                    Stock Opname
@@ -150,25 +150,25 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="data/kategori.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/kategori" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Kategori</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="data/sumber_koleksi.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/sumber_koleksi" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Sumber Koleksi</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="data/lama_peminjaman.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/lama_peminjaman" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Lama Peminjaman</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="data/jenis_akses.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/jenis_akses" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Jenis Akses</p>
                                    </a>
@@ -180,7 +180,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="data/jenis_denda.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/denda" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Jenis Denda</p>
                                    </a>
@@ -294,13 +294,13 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="daftar_buku.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Buku</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="opac.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku/opac" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>OPAC</p>
                                    </a>
@@ -376,7 +376,7 @@
                        </li>
 
                        <li class="nav-item">
-                           <a href="sumbangan_buku.html" class="nav-link">
+                           <a href="<?= site_url() ?>sirkulasi/sumbangan_buku" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
@@ -419,13 +419,13 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="daftar_buku.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Buku</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="opac.html" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku/opac" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>OPAC</p>
                                    </a>
@@ -453,7 +453,7 @@
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a href="sumbangan_buku.html" class="nav-link">
+                           <a href="<?= site_url() ?>sirkulasi/sumbangan_buku" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
