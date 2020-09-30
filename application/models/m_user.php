@@ -20,12 +20,13 @@ class M_user extends CI_Model
 
     public function insertUser($role_id)
     {
+
         $data =  [
             'username' => $this->input->post('username'),
             'nama' => $this->input->post('nama'),
             'alamat' => $this->input->post('alamat'),
             'no_hp' => $this->input->post('no_hp'),
-            'password' => $this->input->post('password1'),
+            'password' =>  password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'status_aktif' => $this->input->post('status_aktif'),
             'date_created' => date("Y-m-d"),
             'p_id_prodi' => $this->input->post('prodi'),
@@ -82,5 +83,14 @@ class M_user extends CI_Model
         }
         $this->db->update('user', $data, ['username' => $old_username]);
         return true;
+    }
+
+    public function updatePassword()
+    {
+        $password = password_hash($this->input->post('password1'), PASSWORD_DEFAULT);
+        $username = $this->input->post('username');
+        $this->db->set('password', $password);
+        $this->db->where('username', $username);
+        $this->db->update('user');
     }
 }

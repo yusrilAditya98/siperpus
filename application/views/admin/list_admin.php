@@ -76,7 +76,9 @@
                                             <?php else : ?>
                                                 <td><span class="badge badge-warning">tidak aktif</span></td>
                                             <?php endif; ?>
-                                            <td><a href="<?= base_url('user/admin/ubah/' . $la['username']) ?>" class="btn btn-info">Edit</a>
+                                            <td>
+                                                <button class="btn btn-warning ubah-password" data-toggle="modal" data-target="#passwordModal" data-id="<?= $la['username'] ?>">Password</button>
+                                                <a href="<?= base_url('user/admin/ubah/' . $la['username']) ?>" class="btn btn-info">Edit</a>
                                                 <a href="<?= base_url('user/admin/hapus/' . $la['username']) ?>" class="btn btn-danger">Hapus</a></td>
                                         </tr>
                                     <?php endforeach; ?>
@@ -95,4 +97,35 @@
         <!-- /.container-fluid -->
     </section>
     <!-- /.content -->
+</div>
+
+
+<div class="modal fade" id="passwordModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ubah Password</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="<?= base_url('user/admin/ubahPassword') ?>" method="post">
+                <input type="hidden" name="username" id="ubah_password">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="password1" class="col-form-label">Password Baru:</label>
+                        <input type="password" name="password1" class="form-control" id="password1">
+                    </div>
+                    <div class="form-group">
+                        <label for="password2" class="col-form-label">Konfirmasi Password:</label>
+                        <input type="password" name="password2" class="form-control" id="password2">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>

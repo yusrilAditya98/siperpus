@@ -156,5 +156,6 @@ class Peminjaman extends CI_Controller
         $this->template($title);
         $this->load->view('peminjaman/pengembalian_peminjaman_admin');
         $this->load->view('templates/footer');
+      
     }
 }

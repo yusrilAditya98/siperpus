@@ -4,13 +4,13 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark"><?= $title ?></h1>
+                    <h1 class="m-0 text-dark">Profil Anggota</h1>
                 </div>
                 <!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Manajemen Anggota</li>
+                        <li class="breadcrumb-item active">Profil Anggota</li>
                     </ol>
                 </div>
                 <!-- /.col -->
@@ -35,7 +35,7 @@
                 <div class="col-12">
                     <div class="card card-info">
                         <div class="card-header">
-                            <h3 class="card-title">Form <?= $title ?></h3>
+                            <h3 class="card-title">Form Profil Anggota</h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -44,11 +44,7 @@
                                     <div class="nav flex-column nav-tabs h-100" id="vert-tabs-tab" role="tablist" aria-orientation="vertical">
                                         <a class="nav-link active" id="vert-tabs-home-tab" data-toggle="pill" href="#vert-tabs-home" role="tab" aria-controls="vert-tabs-home" aria-selected="true">Profil</a>
                                         <a class="nav-link" id="vert-tabs-kartu-tab" data-toggle="pill" href="#vert-tabs-kartu" role="tab" aria-controls="vert-tabs-kartu" aria-selected="false">Kartu Anggota</a>
-                                        <a class="nav-link" id="vert-tabs-peminjaman-tab" data-toggle="pill" href="#vert-tabs-peminjaman" role="tab" aria-controls="vert-tabs-peminjaman" aria-selected="false">Peminjaman</a>
-                                        <a class="nav-link" id="vert-tabs-pelanggaran-tab" data-toggle="pill" href="#vert-tabs-pelanggaran" role="tab" aria-controls="vert-tabs-pelanggaran" aria-selected="false">Pelanggaran</a>
-                                        <a class="nav-link" id="vert-tabs-sumbangan -tab" data-toggle="pill" href="#vert-tabs-sumbangan " role="tab" aria-controls="vert-tabs-sumbangan " aria-selected="false">Sumbangan </a>
-                                        <a class="nav-link" id="vert-tabs-perpanjang-tab" data-toggle="pill" href="#vert-tabs-perpanjang" role="tab" aria-controls="vert-tabs-perpanjang" aria-selected="false">Perpanjang</a>
-
+                                        <a class="nav-link" id="vert-tabs-password-tab" data-toggle="pill" href="#vert-tabs-password" role="tab" aria-controls="vert-tabs-password" aria-selected="false">Ubah Password</a>
                                     </div>
                                 </div>
                                 <div class="col-7 col-sm-9">
@@ -61,14 +57,14 @@
                                                 <div class="form-group row">
                                                     <label for="nama" class="col-sm-2 col-form-label">Nama</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama..." value="<?= $list_user['nama'] ?>">
+                                                        <input type="text" class="form-control" id="nama" name="nama" placeholder="masukan nama..." value="<?= $list_user['nama'] ?>" readonly>
                                                         <?= form_error('nama', '<small class="text-danger pl-3">', '</small>'); ?>
                                                     </div>
                                                 </div>
                                                 <div class="form-group row">
                                                     <label for="username" class="col-sm-2 col-form-label">Nomor Induk</label>
                                                     <div class="col-sm-10">
-                                                        <input type="text" name="username" class="form-control" id="username" placeholder="masukan username..." value="<?= $list_user['username'] ?>">
+                                                        <input type="text" name="username" class="form-control" id="username" placeholder="masukan username..." value="<?= $list_user['username'] ?>" readonly>
                                                         <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
                                                     </div>
                                                 </div>
@@ -89,7 +85,7 @@
                                                 <div class="form-group row">
                                                     <label for="status" class="col-sm-2 col-form-label">Status Aktif</label>
                                                     <div class="col-sm-10">
-                                                        <select name="status_aktif" class="form-control" id="status_aktif">
+                                                        <select name="status_aktif" class="form-control" id="status_aktif" readonly>
                                                             <?php if ($list_user['status_aktif'] == 1) : ?>
                                                                 <option selected value="1">aktif</option>
                                                                 <option value="0">tidak aktif</option>
@@ -105,7 +101,7 @@
                                                 <div class="form-group row">
                                                     <label for="prodi" class="col-sm-2 col-form-label">Prodi</label>
                                                     <div class="col-sm-10">
-                                                        <select name="prodi" class="form-control" id="prodi">
+                                                        <select name="prodi" class="form-control" id="prodi" readonly>
                                                             <option value="" selected>Pilih prodi</option>
                                                             <?php foreach ($list_prodi as $lp) : ?>
                                                                 <?php if ($lp['id_prodi'] == $list_user['p_id_prodi']) : ?>
@@ -142,44 +138,30 @@
                                         <div class="tab-pane fade" id="vert-tabs-kartu" role="tabpanel" aria-labelledby="vert-tabs-kartu-tab">
                                             Mauris tincidunt mi at erat gravida, eget tristique urna bibendum. Mauris pharetra purus ut ligula tempor, et vulputate metus facilisis. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Maecenas sollicitudin, nisi a luctus interdum, nisl ligula placerat mi, quis posuere purus ligula eu lectus. Donec nunc tellus, elementum sit amet ultricies at, posuere nec nunc. Nunc euismod pellentesque diam.
                                         </div>
-                                        <div class="tab-pane fade" id="vert-tabs-peminjaman" role="tabpanel" aria-labelledby="vert-tabs-peminjaman-tab">
-                                            Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna.
-                                        </div>
-                                        <div class="tab-pane fade" id="vert-tabs-pelanggaran" role="tabpanel" aria-labelledby="vert-tabs-pelanggaran-tab">
+                                        <div class="tab-pane fade" id="vert-tabs-password" role="tabpanel" aria-labelledby="vert-tabs-password-tab">
+                                            <form action="<?= base_url('user/anggota/ubahPassword') ?>" method="post">
+                                                <input type="hidden" name="username" id="ubah_password" value="<?= $list_user['username'] ?>">
 
-                                        </div>
-                                        <div class="tab-pane fade" id="vert-tabs-sumbangan" role="tabpanel" aria-labelledby="vert-tabs-sumbangan-tab">
+                                                <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="password1" class="col-form-label">Password Baru:</label>
+                                                        <input type="password" name="password1" class="form-control" id="password1">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="password2" class="col-form-label">Konfirmasi Password:</label>
+                                                        <input type="password" name="password2" class="form-control" id="password2">
+                                                    </div>
+                                                    <button type="submit" class="btn btn-primary">Submit</button>
+                                                </div>
 
-                                        </div>
-                                        <div class="tab-pane fade" id="vert-tabs-perpanjang" role="tabpanel" aria-labelledby="vert-tabs-perpanjang-tab">
 
+                                            </form>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                         <!-- /.card-body -->
-                        <div class="card-footer">
-
-                            <a href="<?= base_url('user/anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
-                        </div>
-                        <!-- /.card-footer -->
                         </form>
                     </div>
                 </div>
