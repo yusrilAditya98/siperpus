@@ -24,6 +24,17 @@ class stock_opname extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function create()
+    {
+        $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
+        // $data_stock_opname = $this->m_stock_opname->getData();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('admin/add_stock_opname');
+        $this->load->view('templates/footer');
+    }
+
     // public function addData()
     // {
     //     $res = $this->m_stock_opname->insertData();

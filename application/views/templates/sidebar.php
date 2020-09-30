@@ -66,7 +66,7 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="<?= site_url() ?>data/buku" class="nav-link">
+                                   <a href="<?= site_url() ?>data/buku/katalog_buku_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Buku</p>
                                    </a>

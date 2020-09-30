@@ -62,12 +62,13 @@
                                                 </div>
                                                 <select class="custom-select col-sm-5" name="filter" id="filter" id="inlineFormCustomSelect">
                                                     <option selected>Choose...</option>
-                                                    <option value="1">Judul</option>
-                                                    <option value="2">Pengaran</option>
-                                                    <option value="3">Penerbit</option>
-                                                    <option value="4">Subjek</option>
-                                                    <option value="5">Kategori</option>
-                                                    <option value="6">ISBN</option>
+                                                    <option value="judul_buku">Judul</option>
+                                                    <option value="pengarang">Pengaran</option>
+                                                    <option value="penerbit">Penerbit</option>
+                                                    <option value="tahun_terbit">Tahun Terbit</option>
+                                                    <option value="subject">Subjek</option>
+                                                    <option value="kategori">Kategori</option>
+                                                    <option value="isbn">ISBN</option>
                                                 </select>
                                                 <div class="col-sm-2">
                                                     <button type="button" id="cari" class="btn btn-primary">Cari</button>
@@ -79,7 +80,7 @@
                             </div>
                             <div id="hasil" class="row" style="display:none;">
                                 <div class="col-lg-12">
-                                    <table id="data" class="table table-bordered display">
+                                    <table id="data-opac" class="table table-bordered display">
                                         <thead>
                                             <tr>
                                                 <th>#</th>
@@ -88,7 +89,7 @@
                                                 <th>Pengarang</th>
                                                 <th>Penerbit</th>
                                                 <th>Tahun Terbit</th>
-                                                <th width="15%">Aksi</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody id="show_data">
@@ -113,200 +114,22 @@
             document.getElementById('hasil').removeAttribute('style');
             var keywords = document.getElementById('keywords').value;
             var filter = document.getElementById('filter').value;
-            // console.log(keywords);
-            // console.log(filter);
-            $.ajax({
-                type: 'GET',
-                url: '<?= site_url() ?>data/buku/cariOpac',
-                data: {
-                    "keywords": keywords,
-                    'filter': filter
-                },
-                dataType: 'json',
-                success: function(data) {
-                    console.log(data);
-                    var html = '';
-                    var i;
-                    for (i = 0; i < data.length; i++) {
-                        html += '<tr>' +
-                            '<td>' + (i + 1) + '</td>' +
-                            '<td>' + data[i].register + '</td>' +
-                            '<td>' + data[i].judul_buku + '</td>' +
-                            '<td>' + data[i].pengarang + '</td>' +
-                            '<td>' + data[i].penerbit + '</td>' +
-                            '<td>' + data[i].tahun_terbit + '</td>' +
-                            `<td>
-                                <button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku` + data[i].register + `">
-                                    <i class="fa fa-info"></i>
-                                </button>
-                                <div class="modal fade" id="btnDetailBuku` + data[i].register + `" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
-                                    <div class="modal-dialog modal-dialog-centered">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="btnDetailBukuLabel">Detail Buku</h5>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div class="row">
-                                                    <div class="col-lg-4 col-12">
-
-                                                    </div>
-                                                    <div class="col-lg-8 col-12">
-                                                        <h5>` + data[i].judul_buku + `</h5>
-                                                        <p>` + data[i].pengarang + `</p>
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Register
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].register + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        isbn
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].isbn + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Dewey Number
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].no_dewey + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Judul
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].judul_buku + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Pengarang
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].pengarang + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Penerbit
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].penerbit + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Tahun Terbit
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].tahun_terbit + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Kota Terbit
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].kota_terbit + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Bahasa
-                                                    </div>
-                                                    <div class="col-lg-6">
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        CIRCTYPE
-                                                    </div>
-                                                    <div class="col-lg-6">
-
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Funding
-                                                    </div>
-                                                    <div class="col-lg-6">
-
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Author Abrev
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].author_abrev + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Title Abrev
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].title_abrev + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Volume
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].volume + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Kondisi Fisik
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].kondisi_fisik + `
-                                                    </div>
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-lg-6">
-                                                        Bibliography
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].bibliography + `
-                                                    </div>
-                                                </div>
-                                                <div class="row bg-light">
-                                                    <div class="col-lg-6">
-                                                        Subject
-                                                    </div>
-                                                    <div class="col-lg-6">
-                                                        ` + data[i].subject + `
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>` +
-                            '</tr>';
+            $('#data-opac').DataTable({
+                "processing": true,
+                "serverSide": true,
+                "ajax": {
+                    "url": "<?= site_url('data/buku/cariOpac') ?>",
+                    "type": "POST",
+                    "data": {
+                        "filter": filter,
+                        "keywords": keywords
                     }
-                    $('#show_data').html(html);
-                    $('#data').DataTable();
-                }
+                },
+                "coloumnDefs": [{
 
+                }],
+                "order": []
             });
         });
-
     });
 </script>

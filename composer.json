@@ -12,7 +12,8 @@
 	},
 	"require": {
 		"php": ">=5.3.7",
-		"araditama/siam-ub-auth": "^1.1"
+		"araditama/siam-ub-auth": "^1.1",
+		"endroid/qr-code": "^3.9"
 	},
 	"suggest": {
 		"paragonie/random_compat": "Provides better randomness in PHP 5.x"

@@ -4,33 +4,98 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_katalog_buku extends CI_Model
 {
+    // start datatables
+    var $column_order = array(null, 'b.register', 'b.judul_buku', 'b.pengarang', 'b.penerbit', 'b.tahun_terbit', null);
+    //set column field database for datatable orderable
+    var $column_search = array('b.register', 'b.judul_buku', 'b.pengarang', 'b.penerbit', 'b.tahun_terbit');
+    //set column field database for datatable searchable
+    var $order = array('b.register' => 'asc'); // default order 
+
+    private function _get_datatables_query($keywords = null, $filter = null)
+    {
+        // $this->db->select('*');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber');
+        $this->db->from('buku as b');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+        $i = 0;
+        foreach ($this->column_search as $item) { // loop column 
+            if (@$_POST['search']['value']) { // if datatable send POST for search
+                if ($i === 0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if (count($this->column_search) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order)) {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+    function get_datatables($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_get_datatables_query($keywords, $filter);
+        } else {
+            $this->_get_datatables_query();
+        }
+        if (@$_POST['length'] != -1)
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function count_filtered($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_get_datatables_query($keywords, $filter);
+        } else {
+            $this->_get_datatables_query();
+        }
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function count_all($keywords = null, $filter = null)
+    {
+        $this->db->from('buku');
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+        return $this->db->count_all_results();
+    }
+    // end datatables
+
     public function getData($register = null)
     {
         // $data = $this->db->query('select * from buku ' . $where);
-        $this->db->select('*');
-        $this->db->from('buku');
+        // $this->db->select('*');
+        // $this->db->from('buku');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber, j.nama_jenis');
+        $this->db->from('buku as b');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        $this->db->join('jenis_akses as j', 'b.jenis_akses = j.id_jenis', 'left');
         if ($register != null) {
             $this->db->where('register', $register);
         }
-        $this->db->limit(1000);
         return $this->db->get()->result_array();
         // return $data->result_array();
-    }
-
-    public function buku_list()
-    {
-        $this->db->select('*');
-        $this->db->from('buku');
-        $this->db->order_by('register', 'DESC');
-        $this->db->limit(10);
-        return $this->db->get()->result();
-    }
-
-    public function bahasa_list()
-    {
-        $this->db->select('*');
-        $this->db->from('bahasa');
-        return $this->db->get()->result();
     }
 
     public function getBahasa($where = "")

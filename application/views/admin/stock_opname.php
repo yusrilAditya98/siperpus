@@ -55,8 +55,9 @@
                                         <h5>Halaman ini digunakan untuk melakukan Stock Opaname</h5>
 
                                         <p>Jika akan dilakukan perhitungan stock opname maka bisa melalui halaman ini</p>
-
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#modal-default">Hitung Stock Opname</button>
+                                        <a href="<?= site_url() ?>data/stock_opname/create" style="text-decoration:none;" class="btn btn-info text-white">
+                                            Hitung Stock Opname
+                                        </a>
                                     </div>
                                 </div>
                             </div>
