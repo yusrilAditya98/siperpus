@@ -16,6 +16,13 @@
       </div>
     </div>
 
+
+    <?php if ($this->session->flashdata('success')) : ?>
+      <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+    <?php else : ?>
+      <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+    <?php endif; ?>
+
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
@@ -31,41 +38,44 @@
                 </div>
               </div>
               <div class="card-body">
+                <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
+                  <a href="<?= base_url('data/koleksi_digital/tambah') ?>" class="btn btn-success float-right mb-2">Tambah Koleksi</a>
+                <?php endif; ?>
                 <div class="table-responsive">
                   <table id="example" class="table table-striped table-white" style="width:100%">
                     <thead>
                       <tr>
-                        <th>#</th>
-                        <th>Tanggal Unggah</th>
-                        <th>File</th>
-                        <th>Jenis File</th>
-                        <th>Ukuran File</th>
-                        <th>BIB ID</th>
-                        <th>Data Bibliografis</th>
+                        <th>No</th>
+                        <th>Sampul</th>
+                        <th>Judul</th>
+                        <th>Pengarang</th>
+                        <th>Penerbit</th>
+                        <th>Jenis Koleksi</th>
                         <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>Aug 11, 2020</td>
-                        <td>92 190830045948.pdf</td>
-                        <td>application/pdf</td>
-                        <td>155.57 KB</td>
-                        <td>0010-0520000037</td>
-                        <td>
-                          Monograf <br>
-                          Maaf aku Selingkuh : Dan pernak-pernik kehidupan rumah tangga / Inna Indarpuri
-                          <br>
-                          CET. 1<br>
-                          Jakarta : Bhuana Ilmu Populer, 2015<br>
-                          vii. 118 hlm : ILUST ; 18,5 x 13 cm
-                        </td>
-                        <td>
-                          <a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i> View</a>
-                          <a href="#" class="btn btn-sm btn-success"><i class="fas fa-download"></i> Download</a>
-                        </td>
-                      </tr>
+                      <?php $index = 1; ?>
+                      <?php foreach ($list_koleksi as $lk) : ?>
+                        <tr>
+                          <td><?= $index++ ?></td>
+                          <td><img src="<?= ($lk['sampul_koleksi'] != 'default.png') ? base_url('assets/koleksi_digital/' . $lk['sampul_koleksi']) : base_url('assets/img/default.png') ?>" class="img-thumbnail" style="width: 100px;"></td>
+                          <td><?= $lk['judul_koleksi'] ?></td>
+                          <td><?= $lk['pengarang'] ?></td>
+                          <td><?= $lk['penerbit'] ?></td>
+                          <td><?= $lk['nama_jenis'] ?></td>
+                          <td>
+                            <div class="btn-group">
+                              <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
+                                <a type="button" href="<?= base_url('data/koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-primary text-white"><i class="fas fa-edit mr-2"></i>Edit</a>
+                                <a onclick="return confirm('Apakah yakin akan dihapus?')" type="button" href="<?= base_url('data/koleksi_digital/hapus/' . $lk['id_koleksi']) ?>" class="btn btn-danger text-white"><i class="fas fa-trash mr-2"></i> Hapus</a>
+                              <?php endif; ?>
+                              <a type="button" href="<?= base_url('data/koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-info text-white"><i class="fas fa-eye mr-2"></i>View</a>
+                            </div>
+
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
                     </tbody>
                   </table>
                 </div>

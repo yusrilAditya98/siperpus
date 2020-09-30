@@ -32,3 +32,9 @@ function previewImg() {
 		imgPreview.src = e.target.result
 	}
 }
+
+$('table').on('click', '.ubah-password', function () {
+	console.log('cek')
+	let id = $(this).data('id')
+	$('#ubah_password').val(id)
+})

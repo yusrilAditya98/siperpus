@@ -109,4 +109,20 @@ class Non_Anggota extends CI_Controller
             }
         }
     }
+    public function ubahPassword()
+    {
+
+        $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
+            'matches' => 'password dont matches!',
+            'min_length' => 'Password too short!'
+        ]);
+        $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+        if ($this->form_validation->run() == false) {
+            $this->session->set_flashdata('danger', 'Password tidak sesuai!');
+        } else {
+            $this->u->updatePassword();
+            $this->session->set_flashdata('success', 'Password berhasil diubah');
+        }
+        redirect('user/non_anggota/list');
+    }
 }

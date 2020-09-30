@@ -423,7 +423,38 @@ class Buku extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function katalog_buku_admin()
+    public function buku_anggota()
+    {
+        $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
+        $data_katalog_buku = $this->m_katalog_buku->getData();
+        $data_bahasa = $this->m_katalog_buku->getBahasa();
+        $data_circ = $this->m_katalog_buku->getCirc();
+        $data_funding = $this->m_katalog_buku->getFunding();
+        $data['buku_dipinjam'] = count($this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array());
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar', $data);
+        $this->load->view('templates/sidebar');
+        $this->load->view('page/katalog_buku_anggota', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding));
+        $this->load->view('templates/footer');
+    }
+
+    public function list_buku()
+    {
+        $data['title'] = 'Daftar Buku | Portal FH';
+        $data_katalog_buku = $this->m_katalog_buku->getData();
+        $data_bahasa = $this->m_katalog_buku->getBahasa();
+        $data_circ = $this->m_katalog_buku->getCirc();
+        $data_funding = $this->m_katalog_buku->getFunding();
+
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('page/katalog_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding));
+        $this->load->view('templates/footer');
+    }
+
+     public function katalog_buku_admin()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
 

@@ -104,8 +104,6 @@
                                         <small>*format gambar berupa .jpg dengan ukuran maksimal 1MB</small>
                                         <?= form_error('foto', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
-
-
                                 </div>
 
                                 <div class="form-group row">
