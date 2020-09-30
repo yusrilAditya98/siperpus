@@ -55,8 +55,9 @@
                                         <h5>Halaman ini digunakan untuk melakukan sumbangan</h5>
 
                                         <p>Jika anda berminat menyumbangkan koleksi yang anda punya. bisa melalui halaman ini</p>
-
-                                        <button class="btn btn-info" data-toggle="modal" data-target="#modal-default">Sumbangkan Buku</button>
+                                        <a href="<?= site_url() ?>sirkulasi/sumbangan_buku/tambah_sumbangan_buku" style="text-decoration:none;" class="btn btn-info text-white">
+                                            Tambah Sumbangan Buku
+                                        </a>
                                     </div>
                                 </div>
                             </div>
@@ -79,50 +80,19 @@
                                         </div>
                                         <!-- /.card-header -->
                                         <div class="card-body">
-                                            <table class="table table-bordered">
+                                            <table id="data-anggota" class="table table-bordered display">
                                                 <thead>
                                                     <tr>
                                                         <th>#</th>
-                                                        <th>Kode Sumbangan</th>
+                                                        <th>Register</th>
+                                                        <th>Judul Buku</th>
+                                                        <th>Penyumbang</th>
                                                         <th>Tanggal Sumbangan</th>
-                                                        <th>Keterangan</th>
                                                         <th>Status Sumbangan</th>
-                                                        <th>Aksi</th>
+                                                        <th width="15%">Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>S2020</td>
-                                                        <td>20 Agustus 2020</td>
-                                                        <td>Semoga bermanfaat</td>
-                                                        <td><span class="badge bg-info">Diproses</span></td>
-                                                        <td>
-                                                            <button class="btn btn-secondary">Update</button>
-                                                            <button class="btn btn-danger">Hapus</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>2</td>
-                                                        <td>S2021</td>
-                                                        <td>22 Agustus 2020</td>
-                                                        <td>Semoga bermanfaat</td>
-                                                        <td><span class="badge bg-success">Diterima</span></td>
-                                                        <td>
-                                                            <button class="btn btn-secondary">Detail</button>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>3</td>
-                                                        <td>S2022</td>
-                                                        <td>23 Agustus 2020</td>
-                                                        <td>Semoga bermanfaat</td>
-                                                        <td><span class="badge bg-danger">Ditolak</span></td>
-                                                        <td>
-                                                            <button class="btn btn-secondary">Update</button>
-                                                            <button class="btn btn-danger">Hapus</button>
-                                                        </td>
-                                                    </tr>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -138,3 +108,24 @@
         </div>
     </section>
 </div>
+<script src="<?= base_url("plugins/jquery/jquery.min.js") ?>"></script>
+<script>
+    $(document).ready(function() {
+        $('#data-anggota').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "<?= site_url('sirkulasi/sumbangan_buku/get_ajax_anggota') ?>",
+                "type": "POST",
+                "data": {
+                    "role_id": '<?= substr($this->session->userdata('role_id'), -1) ?>',
+                    "username": '<?= $this->session->userdata('username') ?>',
+                }
+            },
+            "coloumnDefs": [{
+
+            }],
+            "order": []
+        });
+    });
+</script>

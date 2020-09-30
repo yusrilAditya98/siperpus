@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/buku">Katalog Buku</a></li>
+                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/buku/katalog_buku_admin">Katalog Buku</a></li>
                         <li class="breadcrumb-item active">Tambah Buku</li>
                     </ol>
                 </div>
@@ -166,13 +166,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Bahasa</label>
                                             <select id="selectBox" name="b_id_bahasa" class="form-control col-sm-10">
-                                                <?php foreach ($data_bahasa as $bahasa) : ?>
-                                                    <?php if ($bahasa['id_bahasa'] == $data_katalog_buku[0]['b_id_bahasa']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['b_id_bahasa'] ?>">
-                                                            <?= $bahasa['nama_bahasa'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['b_id_bahasa'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_bahasa'] ?>
+                                                </option>
                                                 <?php foreach ($data_bahasa as $bahasa) : ?>
                                                     <option value="<?= $bahasa['id_bahasa'] ?>"><?= $bahasa['nama_bahasa'] ?></option>
                                                 <?php endforeach; ?>
@@ -181,13 +177,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">CIRC Type</label>
                                             <select id="selectBox2" name="ct_id_circ_type" class="form-control col-sm-10">
-                                                <?php foreach ($data_circ as $circ_type) : ?>
-                                                    <?php if ($circ_type['id_circ_type'] == $data_katalog_buku[0]['ct_id_circ_type']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['ct_id_circ_type'] ?>">
-                                                            <?= $circ_type['nama_circ_type'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['ct_id_circ_type'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_circ_type'] ?>
+                                                </option>
                                                 <?php foreach ($data_circ as $circ_type) : ?>
                                                     <option value="<?= $circ_type['id_circ_type'] ?>"><?= $circ_type['nama_circ_type'] ?></option>
                                                 <?php endforeach; ?>
@@ -196,13 +188,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Funding</label>
                                             <select id="selectBox3" name="f_id_funding" class="form-control col-sm-10">
-                                                <?php foreach ($data_funding as $funding) : ?>
-                                                    <?php if ($funding['id_funding'] == $data_katalog_buku[0]['f_id_funding']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['f_id_funding'] ?>">
-                                                            <?= $funding['nama_funding'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['f_id_funding'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_funding'] ?>
+                                                </option>
                                                 <?php foreach ($data_funding as $funding) : ?>
                                                     <option value="<?= $funding['id_funding'] ?>"><?= $funding['nama_funding'] ?></option>
                                                 <?php endforeach; ?>
@@ -211,13 +199,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Sumber Koleksi</label>
                                             <select id="selectBox3" name="sk_id_sumber" class="form-control col-sm-10">
-                                                <?php foreach ($data_sumber as $sumber) : ?>
-                                                    <?php if ($sumber['id_sumber'] == $data_katalog_buku[0]['sk_id_sumber']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['sk_id_sumber'] ?>">
-                                                            <?= $sumber['nama_sumber'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['sk_id_sumber'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_sumber'] ?>
+                                                </option>
                                                 <?php foreach ($data_sumber as $sumber) : ?>
                                                     <option value="<?= $sumber['id_sumber'] ?>"><?= $sumber['nama_sumber'] ?></option>
                                                 <?php endforeach; ?>
@@ -226,13 +210,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Kategori Buku</label>
                                             <select id="selectBox3" name="k_id_kategori" class="form-control col-sm-10">
-                                                <?php foreach ($data_kategori as $kategori) : ?>
-                                                    <?php if ($kategori['id_kategori'] == $data_katalog_buku[0]['k_id_kategori']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['k_id_kategori'] ?>">
-                                                            <?= $kategori['nama_kategori'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['k_id_kategori'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_kategori'] ?>
+                                                </option>
                                                 <?php foreach ($data_kategori as $kategori) : ?>
                                                     <option value="<?= $kategori['id_kategori'] ?>"><?= $kategori['nama_kategori'] ?></option>
                                                 <?php endforeach; ?>
@@ -241,13 +221,9 @@
                                         <div class="form-group row">
                                             <label class="col-sm-2 col-form-label">Jenis Akses</label>
                                             <select id="selectBox3" name="jenis_akses" class="form-control col-sm-10">
-                                                <?php foreach ($data_jenis_akses as $jenis) : ?>
-                                                    <?php if ($jenis['id_jenis'] == $data_katalog_buku[0]['jenis_akses']) : ?>
-                                                        <option value="<?= $data_katalog_buku[0]['jenis_akses'] ?>">
-                                                            <?= $jenis['nama_jenis'] ?>
-                                                        </option>
-                                                    <?php endif; ?>
-                                                <?php endforeach; ?>
+                                                <option value="<?= $data_katalog_buku[0]['jenis_akses'] ?>">
+                                                    <?= $data_katalog_buku[0]['nama_jenis'] ?>
+                                                </option>
                                                 <?php foreach ($data_jenis_akses as $jenis) : ?>
                                                     <option value="<?= $jenis['id_jenis'] ?>"><?= $jenis['nama_jenis'] ?></option>
                                                 <?php endforeach; ?>
