@@ -1,3 +1,7 @@
+  <?php
+    $buku_dipinjam = count($this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0, 'u_username' => $this->session->userdata('username')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array());
+    ?>
+
   <!-- Navbar -->
   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
       <!-- Left navbar links -->
@@ -11,9 +15,11 @@
       <ul class="navbar-nav ml-auto">
           <!-- Messages Dropdown Menu -->
           <li class="nav-item dropdown">
-              <a class="nav-link" href="<?= base_url('/sirkulasi/peminjaman/keranjang_peminjaman')?>" aria-expanded="false">
+              <a class="nav-link" href="<?= base_url('/sirkulasi/peminjaman/keranjang_peminjaman') ?>" aria-expanded="false">
                   <i class="fas fa-shopping-cart"></i>
-                  <span class="badge badge-danger navbar-badge"><?php if($buku_dipinjam) {echo $buku_dipinjam;} ?></span>
+                  <span class="badge badge-danger navbar-badge"><?php if ($buku_dipinjam) {
+                                                                    echo $buku_dipinjam;
+                                                                } ?></span>
               </a>
 
           </li>
