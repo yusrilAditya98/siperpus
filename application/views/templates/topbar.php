@@ -11,9 +11,9 @@
       <ul class="navbar-nav ml-auto">
           <!-- Messages Dropdown Menu -->
           <li class="nav-item dropdown">
-              <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+              <a class="nav-link" href="<?= base_url('/sirkulasi/peminjaman/keranjang_peminjaman')?>" aria-expanded="false">
                   <i class="fas fa-shopping-cart"></i>
-                  <span class="badge badge-danger navbar-badge">3</span>
+                  <span class="badge badge-danger navbar-badge"><?php if($buku_dipinjam) {echo $buku_dipinjam;} ?></span>
               </a>
 
           </li>
