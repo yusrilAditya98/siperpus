@@ -66,7 +66,10 @@
             "serverSide": true,
             "ajax": {
                 "url": "<?= site_url('data/buku/get_ajax') ?>",
-                "type": "POST"
+                "type": "POST",
+                "data": {
+                    "role_id": "<?= $this->session->userdata('role_id') ?>"
+                }
             },
             "coloumnDefs": [{
 

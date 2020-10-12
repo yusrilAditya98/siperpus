@@ -19,14 +19,13 @@ class m_lama_peminjaman extends CI_Model
     {
         $data =  [
             'durasi_peminjaman' => $this->input->post('durasi_peminjaman'),
-            'status_peminjaman' => 0,
+            'status_peminjaman' => $this->input->post('status_peminjaman'),
         ];
         $this->db->insert('lama_peminjaman', $data);
         return true;
     }
-    public function updateData()
+    public function updateData($id_lama_peminjaman)
     {
-        $id_lama_peminjaman = $this->input->post('id_lama_peminjaman');
         $data =  [
             'durasi_peminjaman' => $this->input->post('durasi_peminjaman'),
             'status_peminjaman' => $this->input->post('status_peminjaman'),

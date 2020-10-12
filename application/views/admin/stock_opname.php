@@ -37,15 +37,10 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <?php if ($this->session->flashdata('warning') != null) : ?>
-                                        <div class="alert alert-danger" role="alert">
-                                            <?= $this->session->flashdata('warning') ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ($this->session->flashdata('success') != null) : ?>
-                                        <div class="alert alert-success" role="alert">
-                                            <?= $this->session->flashdata('success') ?>
-                                        </div>
+                                    <?php if ($this->session->flashdata('success')) : ?>
+                                        <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+                                    <?php else : ?>
+                                        <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -56,14 +51,14 @@
 
                                         <p>Jika akan dilakukan perhitungan stock opname maka bisa melalui halaman ini</p>
                                         <a href="<?= site_url() ?>data/stock_opname/create" style="text-decoration:none;" class="btn btn-info text-white">
-                                            Hitung Stock Opname
+                                            Tambah
                                         </a>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-12">
+                                <div class="col-12 col-lg-12">
                                     <div class="card">
                                         <div class="card-header">
                                             <h3 class="card-title">Data Stock Opname</h3>
@@ -84,22 +79,41 @@
                                                     <tr>
                                                         <th>#</th>
                                                         <th>Tanggal</th>
-                                                        <th>Penanggung Jawab</th>
+                                                        <th>Tahun</th>
                                                         <th>Keterangan</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td>1</td>
-                                                        <td>20 Agustus 2020</td>
-                                                        <td>Kharis</td>
-                                                        <td>Stock Opname 1</td>
-                                                        <td>
-                                                            <button class="btn btn-secondary" data-toggle="modal" data-target="#modal-default-1">Detail</button>
-                                                            <button class="btn btn-danger">Hapus</button>
-                                                        </td>
-                                                    </tr>
+                                                    <?php $i = 1; ?>
+                                                    <?php foreach ($data_opname as $lp) : ?>
+                                                        <tr>
+                                                            <form action="<?= base_url('data/stock_opname/ubah/' . $lp['id_opname']) ?>" method="post">
+                                                                <td><?= $i++; ?></td>
+                                                                <td>
+                                                                    <input type="date" class="form-control" name="tanggal" value="<?= substr($lp['tanggal'], 0, 10) ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="tahun" value="<?= $lp['tahun'] ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" name="keterangan" value="<?= $lp['keterangan'] ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit" style="font-size:12px;" class="btn btn-primary">
+                                                                        <i class="fa fa-edit"></i> Koreksi
+                                                                    </button>
+                                                                    <a href="<?= base_url('data/stock_opname/hapus/' . $lp['id_opname']) ?>" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?')">
+                                                                        <i class="fa fa-trash"></i> Hapus
+                                                                    </a>
+                                                                    |
+                                                                    <a href="<?= base_url('data/stock_opname/detail/' . $lp['id_opname']) ?>" style="font-size:12px;" class="ml-2 btn btn-info">
+                                                                        <i class="fa fa-list"></i> Detail
+                                                                    </a>
+                                                                </td>
+                                                            </form>
+                                                        </tr>
+                                                    <?php endforeach; ?>
                                                 </tbody>
                                             </table>
                                         </div>

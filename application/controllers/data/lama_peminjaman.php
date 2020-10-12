@@ -24,38 +24,38 @@ class lama_peminjaman extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addData()
+    public function tambah()
     {
         $res = $this->m_lama_peminjaman->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/lama_peminjaman');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+            $this->session->set_flashdata('danger', 'Gagal menambahkan data');
             redirect('data/lama_peminjaman');
         }
     }
 
-    public function updateData()
+    public function ubah($id_lama_peminjaman)
     {
-        $res = $this->m_lama_peminjaman->updateData();
+        $res = $this->m_lama_peminjaman->updateData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/lama_peminjaman');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal mengubah data');
             redirect('data/lama_peminjaman');
         }
     }
 
-    function deleteData($id_lama_peminjaman)
+    function hapus($id_lama_peminjaman)
     {
         $res = $this->m_lama_peminjaman->deleteData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/lama_peminjaman');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menghapus data');
+            $this->session->set_flashdata('danger', 'Gagal menghapus data');
             redirect('data/lama_peminjaman');
         }
     }

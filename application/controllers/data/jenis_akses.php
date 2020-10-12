@@ -24,38 +24,38 @@ class jenis_akses extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addData()
+    public function tambah()
     {
         $res = $this->m_jenis_akses->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/jenis_akses');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+            $this->session->set_flashdata('danger', 'Gagal menambahkan data');
             redirect('data/jenis_akses');
         }
     }
 
-    public function updateData()
+    public function ubah($id_jenis_akses)
     {
-        $res = $this->m_jenis_akses->updateData();
+        $res = $this->m_jenis_akses->updateData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/jenis_akses');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal mengubah data');
             redirect('data/jenis_akses');
         }
     }
 
-    function deleteData($id_jenis_akses)
+    function hapus($id_jenis_akses)
     {
         $res = $this->m_jenis_akses->deleteData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/jenis_akses');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menghapus data');
+            $this->session->set_flashdata('danger', 'Gagal menghapus data');
             redirect('data/jenis_akses');
         }
     }

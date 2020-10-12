@@ -4,12 +4,12 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class m_jenis_akses extends CI_Model
 {
-    public function getData($nama_jenis = null)
+    public function getData($id_jenis = null)
     {
         $this->db->select('*');
         $this->db->from('jenis_akses');
-        if ($nama_jenis != null) {
-            $this->db->where('nama_jenis', $nama_jenis);
+        if ($id_jenis != null) {
+            $this->db->where('id_jenis', $id_jenis);
         }
         return $this->db->get()->result_array();
     }
@@ -22,9 +22,8 @@ class m_jenis_akses extends CI_Model
         $this->db->insert('jenis_akses', $data);
         return true;
     }
-    public function updateData()
+    public function updateData($id_jenis)
     {
-        $id_jenis = $this->input->post('id_jenis');
         $data =  [
             'nama_jenis' => $this->input->post('nama_jenis'),
         ];

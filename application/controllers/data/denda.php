@@ -24,38 +24,38 @@ class denda extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addData()
+    public function tambah()
     {
         $res = $this->m_jenis_denda->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/denda');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+            $this->session->set_flashdata('danger', 'Gagal menambahkan data');
             redirect('data/denda');
         }
     }
 
-    public function updateData()
+    public function ubah($id_denda)
     {
-        $res = $this->m_jenis_denda->updateData();
+        $res = $this->m_jenis_denda->updateData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/denda');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal mengubah data');
             redirect('data/denda');
         }
     }
 
-    function deleteData($id_denda)
+    function hapus($id_denda)
     {
         $res = $this->m_jenis_denda->deleteData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/denda');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menghapus data');
+            $this->session->set_flashdata('danger', 'Gagal menghapus data');
             redirect('data/denda');
         }
     }
