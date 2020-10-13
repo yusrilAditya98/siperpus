@@ -39,15 +39,15 @@
                             <div class="card-body">
                                 <div class="row">
                                     <div class="col-lg-12">
-                                        <?php if ($this->session->flashdata('warning') != null) : ?>
-                                            <div class="alert alert-danger" role="alert">
-                                                <?= $this->session->flashdata('warning') ?>
-                                            </div>
-                                        <?php endif; ?>
-                                        <?php if ($this->session->flashdata('success') != null) : ?>
-                                            <div class="alert alert-success" role="alert">
-                                                <?= $this->session->flashdata('success') ?>
-                                            </div>
+                                        <a href="<?= site_url() ?>data/stock_opname" style="font-size:12px; color:white" class="btn btn-warning">
+                                            <i class="fa fa-chevron-left mr-2"></i> Kembali
+                                        </a>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <?php if ($this->session->flashdata('success')) : ?>
+                                            <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+                                        <?php else : ?>
+                                            <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
                                         <?php endif; ?>
                                     </div>
                                 </div>
@@ -55,17 +55,15 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <div class="form-group row">
-                                                <label class="col-sm-2 col-form-label">Nama Project</label>
+                                                <label class="col-sm-2 col-form-label">Tahun</label>
                                                 <div class="col-sm-10">
-                                                    <input type="hidden" name="username" value="<?= $this->session->userdata('username') ?>" required class="form-control" placeholder="Masukkan ID...">
-                                                    <input type="hidden" name="role_id" value="<?= substr($this->session->userdata('role_id'), -1) ?>" required class="form-control" placeholder="Masukkan ID...">
-                                                    <input type="text" name="nama_project" required class="form-control" placeholder="Masukkan Nama Project...">
+                                                    <input type="text" name="tahun" required class="form-control" placeholder="Masukkan Tahun...">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Tanggal Mulai</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" name="tanggal_mulai" required class="form-control" placeholder="Masukkan Judul Buku...">
+                                                    <input type="date" name="tanggal" required class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">

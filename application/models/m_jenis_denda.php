@@ -22,9 +22,8 @@ class m_jenis_denda extends CI_Model
         $this->db->insert('denda', $data);
         return true;
     }
-    public function updateData()
+    public function updateData($id_denda)
     {
-        $id_denda = $this->input->post('id_denda');
         $data =  [
             'nama_denda' => $this->input->post('nama_denda'),
         ];

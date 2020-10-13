@@ -22,9 +22,8 @@ class m_kategori_buku extends CI_Model
         $this->db->insert('kategori', $data);
         return true;
     }
-    public function updateData()
+    public function updateData($id_kategori)
     {
-        $id_kategori = $this->input->post('id_kategori');
         $data =  [
             'nama_kategori' => $this->input->post('nama_kategori'),
         ];

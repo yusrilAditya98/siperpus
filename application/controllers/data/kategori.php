@@ -24,38 +24,38 @@ class kategori extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function addData()
+    public function tambah()
     {
         $res = $this->m_kategori_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/kategori');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+            $this->session->set_flashdata('danger', 'Gagal menambahkan data');
             redirect('data/kategori');
         }
     }
 
-    public function updateData()
+    public function ubah($id_kategori)
     {
-        $res = $this->m_kategori_buku->updateData();
+        $res = $this->m_kategori_buku->updateData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/kategori');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal mengubah data');
             redirect('data/kategori');
         }
     }
 
-    function deleteData($id_kategori)
+    function hapus($id_kategori)
     {
         $res = $this->m_kategori_buku->deleteData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/kategori');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menghapus data');
+            $this->session->set_flashdata('danger', 'Gagal menghapus data');
             redirect('data/kategori');
         }
     }

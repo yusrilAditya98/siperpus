@@ -23,9 +23,8 @@ class m_sumber_koleksi extends CI_Model
         $this->db->insert('sumber_koleksi', $data);
         return true;
     }
-    public function updateData()
+    public function updateData($id_sumber)
     {
-        $id_sumber = $this->input->post('id_sumber');
         $data =  [
             'nama_sumber' => $this->input->post('nama_sumber'),
         ];

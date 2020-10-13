@@ -150,6 +150,12 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
+                                   <a href="<?= site_url() ?>data/status_buku" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Status Buku</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
                                    <a href="<?= site_url() ?>data/kategori" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Kategori</p>

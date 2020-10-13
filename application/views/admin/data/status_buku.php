@@ -5,14 +5,14 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1 class="m-0 text-dark">Data | Jenis Akses</h1>
+                     <h1 class="m-0 text-dark">Data | Status Buku</h1>
                  </div>
                  <!-- /.col -->
                  <div class="col-sm-6">
                      <ol class="breadcrumb float-sm-right">
                          <li class="breadcrumb-item"><a href="#">Home</a></li>
                          <li class="breadcrumb-item"><a href="#">Data</a></li>
-                         <li class="breadcrumb-item active">Jenis Akses</li>
+                         <li class="breadcrumb-item active">Status Buku</li>
                      </ol>
                  </div>
                  <!-- /.col -->
@@ -36,7 +36,7 @@
                  <div class="col-12">
                      <div class="card">
                          <div class="card-header">
-                             <h3 class="card-title">Data Jenis Akses</h3>
+                             <h3 class="card-title">Data Status Buku</h3>
 
                              <div class="card-tools">
                                  <div class="input-group input-group-sm" style="width: 150px;">
@@ -59,29 +59,29 @@
                                  <thead>
                                      <tr>
                                          <th>No</th>
-                                         <th>Jenis Akses</th>
+                                         <th>Status Buku</th>
                                          <th>Aksi</th>
                                      </tr>
                                  </thead>
                                  <tbody>
                                      <tr>
-                                         <form action="<?= base_url('data/jenis_akses/tambah') ?>" method="post">
+                                         <form action="<?= base_url('data/status_buku/tambah') ?>" method="post">
                                              <td>#</td>
-                                             <td><input type="text" class="form-control" name="nama_jenis" placeholder="masukan jenis.."></td>
-                                             <td> <button type="submit" class=" btn btn-success ">Tambah Jenis Akses</button></td>
+                                             <td><input type="text" class="form-control" name="nama_status" placeholder="masukan Status Buku.."></td>
+                                             <td> <button type="submit" class=" btn btn-success ">Tambah status buku</button></td>
                                          </form>
                                      </tr>
                                      <?php $i = 1; ?>
-                                     <?php foreach ($data_jenis_akses as $lp) : ?>
+                                     <?php foreach ($data_status_buku as $lp) : ?>
                                          <tr>
-                                             <form action="<?= base_url('data/jenis_akses/ubah/' . $lp['id_jenis']) ?>" method="post">
+                                             <form action="<?= base_url('data/status_buku/ubah/' . $lp['id_status']) ?>" method="post">
                                                  <td><?= $i++; ?></td>
                                                  <td>
-                                                     <input type="text" class="form-control" name="nama_jenis" value=" <?= $lp['nama_jenis'] ?>">
+                                                     <input type="text" class="form-control" name="nama_status" value=" <?= $lp['nama_status'] ?>">
                                                  </td>
                                                  <td>
                                                      <button type="submit" class="btn btn-info">Edit</button>
-                                                     <a href="<?= base_url('data/jenis_akses/hapus/' . $lp['id_jenis']) ?>" class="btn btn-danger">Hapus</a>
+                                                     <a href="<?= base_url('data/status_buku/hapus/' . $lp['id_status']) ?>" class="btn btn-danger">Hapus</a>
                                                  </td>
                                              </form>
                                          </tr>
