@@ -33,6 +33,7 @@
 								</div>
 								<br>
 								<button class="btn btn-primary btn-block btn-round"><i class="fa fa-sign-in-alt"></i> Login</button>
+								<a href="<?= base_url('welcome') ?>">back to home</a>
 
 							</form>
 						</div>

@@ -70,7 +70,7 @@
                                 <a type="button" href="<?= base_url('data/koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-primary text-white"><i class="fas fa-edit mr-2"></i>Edit</a>
                                 <a onclick="return confirm('Apakah yakin akan dihapus?')" type="button" href="<?= base_url('data/koleksi_digital/hapus/' . $lk['id_koleksi']) ?>" class="btn btn-danger text-white"><i class="fas fa-trash mr-2"></i> Hapus</a>
                               <?php endif; ?>
-                              <a type="button" href="<?= base_url('data/koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-info text-white"><i class="fas fa-eye mr-2"></i>View</a>
+                              <a type="button" target="_blank" href="<?= base_url('data/koleksi_digital/lihat/' . $lk['id_koleksi']) ?>" class="btn btn-info text-white"><i class="fas fa-eye mr-2"></i>View</a>
                             </div>
 
                           </td>

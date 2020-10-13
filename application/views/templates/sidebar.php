@@ -325,7 +325,7 @@
                            </ul>
                        </li>
                        <li class="nav-item">
-                           <a href="./index.html" class="nav-link">
+                           <a href="<?= base_url('sirkulasi/baca_ditmpt') ?>" class="nav-link">
                                <i class="nav-icon fas fa-book-reader"></i>
                                <p>
                                    Baca Ditempat
