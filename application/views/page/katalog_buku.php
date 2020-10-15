@@ -68,7 +68,7 @@
                 "url": "<?= site_url('data/buku/get_ajax') ?>",
                 "type": "POST",
                 "data": {
-                    "role_id": "<?= $this->session->userdata('role_id') ?>"
+
                 }
             },
             "coloumnDefs": [{

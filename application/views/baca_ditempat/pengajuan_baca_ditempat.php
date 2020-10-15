@@ -1,230 +1,100 @@
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-      <div class="content-header">
-          <div class="container-fluid">
-              <div class="row mb-2">
-                  <div class="col-sm-6">
-                      <h1 class="m-0 text-dark"><?= $title ?></h1>
-                  </div>
-                  <div class="col-sm-6">
-                      <ol class="breadcrumb float-sm-right">
-                          <li class="breadcrumb-item"><a href="#">Home</a></li>
-                          <li class="breadcrumb-item active"><?= $title ?></li>
-                      </ol>
-                  </div>
-              </div>
-          </div>
-      </div>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Coming Soon - Start Bootstrap Theme</title>
+
+    <!-- Bootstrap core CSS -->
+    <link rel="stylesheet" href="<?= base_url("assets/css/adminlte.min.css") ?> ">
+
+    <!-- Custom fonts for this template -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,200i,300,300i,400,400i,600,600i,700,700i,900,900i" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Merriweather:300,300i,400,400i,700,700i,900,900i" rel="stylesheet">
+    <link rel="stylesheet" href="<?= base_url("plugins/fontawesome-free/css/all.min.css") ?> ">
+
+    <!-- Custom styles for this template -->
+    <link href="<?= base_url('assets/css/coming-soon.css') ?>" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <div class="overlay"></div>
+
+    <img class="cover" src="<?= base_url('assets/img/read-book.jpg') ?>" alt="" srcset="">
+
+    <div class="masthead">
+        <div class="masthead-bg"></div>
+        <div class="container h-100">
+            <div class="row h-100">
+                <div class="col-12 my-auto">
+                    <div class="masthead-content text-white py-5 py-md-0">
+                        <h1 class="mb-3">Siperpus</h1>
+                        <p>Sistem Informasi Perpustakan Fakultas Hukum Universitas Brawijaya.</p>
+                        <p><strong>Baca Ditempat</strong></p>
+                        <form>
+                            <div class="form-group">
+                                <input type="text" name="username" id="username" class="form-control" placeholder="Username..." aria-label="Username..." autofocus required>
+                            </div>
+                            <div class="form-group">
+                                <input type="text" name="register" id="register" class="form-control" placeholder="Register buku..." aria-label="Register buku..." required>
+                            </div>
+                            <button class="btn btn-secondary" class="btn btn-default" data-toggle="modal" data-target="#modal-lg" type="button" id="submit_baca_ditempat">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
-      <?php if ($this->session->flashdata('success')) : ?>
-          <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
-      <?php else : ?>
-          <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
-      <?php endif; ?>
-      <!-- Main content -->
-      <section class="content">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-lg-12">
-                      <div class="card">
-                          <div class="card-header border-transparent">
-                              <h3 class="card-title">Daftar Buku</h3>
-                              <div class="card-tools">
-                                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                      <i class="fas fa-minus"></i>
-                                  </button>
-                              </div>
-                          </div>
-                          <div class="card-body">
-                              <div class="table-responsive">
-                                  <table id="data" class="table table-striped table-white" style="width:100%">
-                                      <thead>
-                                          <tr>
-                                              <th>No</th>
-                                              <th>Sampul</th>
-                                              <th>Judul</th>
-                                              <th>Pengarang</th>
-                                              <th>Penerbit</th>
-                                              <th>Jenis Koleksi</th>
-                                              <th>Status Buku</th>
-                                              <th>Aksi</th>
-                                          </tr>
-                                      </thead>
-                                      <tbody id="show_data">
+    <div class="social-icons">
+        <ul class="list-unstyled text-center mb-0">
+            <li class="list-unstyled-item">
+                <a href="<?= base_url() ?>">
+                    <i class="fas fa-home"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
 
-                                      </tbody>
-                                  </table>
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
+    <div class="modal fade" id="modal-lg" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Detail Buku</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
 
-      <!-- Main content -->
-      <section class="content">
-          <div class="container-fluid">
-              <div class="row">
-                  <div class="col-lg-12">
-                      <div class="card">
-                          <div class="card-header border-transparent">
-                              <h3 class="card-title">Daftar Buku Baca Ditempat</h3>
-                              <div class="card-tools">
-                                  <button type="button" class="btn btn-tool" data-card-widget="collapse">
-                                      <i class="fas fa-minus"></i>
-                                  </button>
-                              </div>
-                          </div>
-                          <div class="card-body">
-                              <div class="card card-primary card-tabs">
-                                  <div class="card-header p-0 pt-1">
-                                      <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                                          <li class="nav-item">
-                                              <a class="nav-link active" id="custom-tabs-one-home-tab" data-toggle="pill" href="#custom-tabs-one-home" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">Terkini</a>
-                                          </li>
-                                          <li class="nav-item">
-                                              <a class="nav-link" id="custom-tabs-one-profile-tab" data-toggle="pill" href="#custom-tabs-one-profile" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">Riwayat</a>
-                                          </li>
-                                      </ul>
-                                  </div>
-                                  <div class="card-body">
-                                      <div class="tab-content" id="custom-tabs-one-tabContent">
-                                          <div class="tab-pane fade active show" id="custom-tabs-one-home" role="tabpanel" aria-labelledby="custom-tabs-one-home-tab">
-                                              <div class="card-body">
-                                                  <div class="table-responsive">
-                                                      <table class="table table-striped table-white" style="width:100%">
-                                                          <thead>
-                                                              <tr>
-                                                                  <th>No</th>
-                                                                  <th>Tanggal Sirkulasi</th>
-                                                                  <th>Id Register</th>
-                                                                  <th>Judul</th>
-                                                                  <th>Pengarang</th>
-                                                                  <th>Status Sirkulasi</th>
-                                                                  <th>Aksi</th>
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody>
-                                                              <?php $i = 1; ?>
-                                                              <?php foreach ($baca_ditempat as $bd) : ?>
-                                                                  <tr>
-                                                                      <td><?= $i++; ?></td>
-                                                                      <td><?= $bd['tanggal_sirkulasi'] ?></td>
-                                                                      <td><?= $bd['register'] ?></td>
-                                                                      <td><?= $bd['judul_buku'] ?></td>
-                                                                      <td><?= $bd['pengarang'] ?></td>
-                                                                      <?php if ($bd['status_sirkulasi'] == 0) : ?>
-                                                                          <td><span class="badge badge-secondary">belum proses</span></td>
-                                                                      <?php elseif ($bd['status_sirkulasi'] == 1) : ?>
-                                                                          <td><span class="badge badge-primary">proses</span></td>
-                                                                      <?php endif; ?>
+                    <div class="row detail-buku">
 
-                                                                      <td><a href="<?= base_url('sirkulasi/baca_ditmpt/hapus/' . $bd['id_sirkulasi']) ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a></td>
-                                                                  </tr>
-                                                              <?php endforeach; ?>
-                                                          </tbody>
-                                                      </table>
+                    </div>
 
-                                                  </div>
-                                              </div>
-                                              <?php if ($baca_ditempat) : ?>
-                                                  <div class="card-footer">
-                                                      <form action="<?= base_url('sirkulasi/baca_ditmpt/pengajuan') ?>" method="post">
-                                                          <div class="row">
-                                                              <div class="col-sm-6">
-                                                                  <!-- text input -->
-                                                                  <div class="form-group">
-                                                                      <label>Tanggal Mulai</label>
-                                                                      <input type="date" name="tanggal_mulai" class="form-control" required>
-                                                                  </div>
-                                                              </div>
-                                                              <div class="col-sm-6">
-                                                                  <div class="form-group">
-                                                                      <label class="text-success">*Ajukan Baca Ditempat</label>
-                                                                      <button type="submit" class="btn btn-success d-block">Submit</button>
-                                                                  </div>
-                                                              </div>
-                                                          </div>
-                                                      </form>
-                                                  </div>
-                                              <?php endif; ?>
-                                          </div>
-                                          <div class="tab-pane fade" id="custom-tabs-one-profile" role="tabpanel" aria-labelledby="custom-tabs-one-profile-tab">
-                                              <div class="card-body">
-                                                  <div class="table-responsive">
-                                                      <table id="example" class="table table-striped table-white" style="width:100%">
-                                                          <thead>
-                                                              <tr>
-                                                                  <th>No</th>
-                                                                  <th>Tanggal Baca</th>
-                                                                  <th>Tanggal Selesai</th>
-                                                                  <th>Id Register</th>
-                                                                  <th>Judul</th>
-                                                                  <th>Pengarang</th>
-                                                                  <th>Status Sirkulasi</th>
-                                                              </tr>
-                                                          </thead>
-                                                          <tbody>
-                                                              <?php $i = 1; ?>
-                                                              <?php foreach ($riwayat_baca as $rb) : ?>
-                                                                  <tr>
-                                                                      <td><?= $i++; ?></td>
-                                                                      <td><?= $rb['tanggal_mulai'] ?></td>
-                                                                      <td><?= $rb['tanggal_akhir'] ?></td>
-                                                                      <td><?= $rb['register'] ?></td>
-                                                                      <td><?= $rb['judul_buku'] ?></td>
-                                                                      <td><?= $rb['pengarang'] ?></td>
-                                                                      <?php if ($rb['status_sirkulasi'] == 1) : ?>
-                                                                          <td><span class="badge badge-primary">proses</span></td>
-                                                                      <?php elseif ($rb['status_sirkulasi'] == 2) : ?>
-                                                                          <td><span class="badge badge-success">pinjam</span></td>
-                                                                      <?php elseif ($rb['status_sirkulasi'] == 3) : ?>
-                                                                          <td><span class="badge badge-danger">tolak</span></td>
-                                                                      <?php elseif ($rb['status_sirkulasi'] == 8) : ?>
-                                                                          <td><span class="badge badge-warning">selesai</span></td>
-                                                                      <?php endif; ?>
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
 
+    <!-- jQuery -->
+    <script src="<?= base_url("plugins/jquery/jquery.min.js") ?>"></script>
+    <script src="<?= base_url("plugins/bootstrap/js/bootstrap.bundle.min.js") ?>"></script>
+    <!-- my script -->
+    <script src="<?= base_url("assets/js/alluser.js") ?>"></script>
 
-                                                                  </tr>
-                                                              <?php endforeach; ?>
-                                                          </tbody>
-                                                      </table>
+</body>
 
-                                                  </div>
-                                              </div>
-                                          </div>
-                                      </div>
-                                  </div>
-                                  <!-- /.card -->
-                              </div>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <!-- /.container-fluid -->
-      </section>
-      <!-- /.content -->
-  </div>
-
-  <script src="<?= base_url("plugins/jquery/jquery.min.js") ?>"></script>
-  <script>
-      $(document).ready(function() {
-          $('#data').DataTable({
-              "processing": true,
-              "serverSide": true,
-              "ajax": {
-                  "url": "<?= site_url('sirkulasi/baca_ditmpt/get_ajax') ?>",
-                  "type": "POST"
-              },
-              "coloumnDefs": [{
-
-              }],
-              "order": []
-          });
-      });
-  </script>
+</html>

@@ -24,15 +24,6 @@
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Data Katalog Buku</h3>
-                            <!-- <div class="card-tools">
-                                <div class="input-group input-group-sm" style="width: 150px;">
-                                    <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
-
-                                    <div class="input-group-append">
-                                        <button type="submit" class="btn btn-default"><i class="fas fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </div> -->
                         </div>
                         <div class="card-body">
                             <div class="row">
@@ -56,22 +47,26 @@
                                     </a>
                                 </div>
                             </div>
-                            <table id="data" class="table table-bordered display">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Register</th>
-                                        <th>Judul</th>
-                                        <th>Pengarang</th>
-                                        <th>Penerbit</th>
-                                        <th>Tahun Terbit</th>
-                                        <th width="15%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="show_data">
+                            <div class="table-responsive">
+                                <table id="data" class="table table-bordered display">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Register</th>
+                                            <th>Judul</th>
+                                            <th>Pengarang</th>
+                                            <th>Penerbit</th>
+                                            <th>Tahun Terbit</th>
+                                            <th>Digital</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show_data">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
+
                         </div>
                     </div>
                 </div>

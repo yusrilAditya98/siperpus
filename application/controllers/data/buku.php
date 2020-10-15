@@ -27,10 +27,58 @@ class Buku extends CI_Controller
             $row[] = $item->pengarang;
             $row[] = $item->penerbit;
             $row[] = $item->tahun_terbit;
+            if ($item->digital_pdf) {
+                $row[] = '<a target="_blank" href="' . base_url('assets/pdfjs/web/viewer.html?file=../../koleksi_digital/' . $item->digital_pdf) . '">' . $item->digital_pdf . '</a>';
+            } else {
+                $row[] = '<span class="badge badge-secondary">Belum ada</span>';
+            }
             // add html for action
-            $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
+            $row[] = '<div class="btn-group"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
             <a href="' . site_url('data/buku/ubah/' . $item->register) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-            <a href="' . site_url('data/buku/deleteDataBuku/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a>
+            <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#koleksiDigital' . $item->register . '"><i class="fas fa-plus"></i></button>
+            <a href="' . site_url('data/buku/deleteDataBuku/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a></div>
+            
+            <div class="modal fade koleksi-digital" id="koleksiDigital' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="btnDetailBukuLabel">Koleksi Digital ' . $item->judul_buku . '</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form class="form-horizontal" action="' . base_url('data/koleksi_digital/ubah/' . $item->register) . '" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="old_name" value="' . $item->digital_pdf . '">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <label for="digital_pdf" class="col-sm-2 col-form-label">Nama File</label>
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control" name="nama_digital" placeholder="nama file...">
+                                        <small>*nama file ' . (($item->digital_pdf) ? $item->digital_pdf : 'BELUM ADA') . '</small>
+                                       
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="digital_pdf" class="col-sm-2 col-form-label">File Digital</label>
+                                    <div class="col-sm-12">
+                                        <div class="custom-file">
+                                            <input name="digital_pdf" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
+                                            <label class="custom-file-label" for="digital_pdf">Choose file</label>
+                                        </div>
+                                        <small>*format sampul berupa .pdf dengan ukuran maksimal 5MB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+
             <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">

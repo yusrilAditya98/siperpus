@@ -79,13 +79,28 @@
                                </li>
                            </ul>
                        </li>
-                       <li class="nav-item">
-                           <a href="./index.html" class="nav-link">
+                       <li class="nav-item has-treeview">
+                           <a href="#" class="nav-link">
                                <i class="nav-icon fas fa-book-reader"></i>
                                <p>
                                    Baca Ditempat
+                                   <i class="fas fa-angle-left right"></i>
                                </p>
                            </a>
+                           <ul class="nav nav-treeview">
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>sirkulasi/baca_ditmpt/" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Pengajuan</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>sirkulasi/baca_ditmpt/list" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>List</p>
+                                   </a>
+                               </li>
+                           </ul>
                        </li>
                        <li class="nav-item has-treeview">
                            <a href="#" class="nav-link">
@@ -189,6 +204,12 @@
                                    <a href="<?= site_url() ?>data/denda" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Jenis Denda</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>data/jenis_koleksi" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Jenis Koleksi</p>
                                    </a>
                                </li>
                            </ul>

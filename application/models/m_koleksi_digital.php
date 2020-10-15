@@ -77,44 +77,27 @@ class m_koleksi_digital extends CI_Model
 
     public function updateKoleksi($id_koleksi)
     {
-        $old_image = $this->input->post('old_sampul_koleksi');
+        $name = $this->input->post('old_name');
+        $new_name = $this->input->post('nama_digital');
+        if ($new_name) {
+            $name = str_replace(" ", "-", $new_name);
+        }
 
-        $data = [
-            'judul_koleksi' => $this->input->post('judul_koleksi'),
-            'pengarang' => $this->input->post('pengarang'),
-            'penerbit' => $this->input->post('penerbit'),
-            'jk_id_jenis' => $this->input->post('jk_id_jenis')
-        ];
-
-        // cek jika ada gambar yang di upload
-        $upload_image = $_FILES['sampul_koleksi'];
+        // cek jika ada file yang di upload
+        $upload_image = $_FILES['digital_pdf'];
         if ($upload_image['error'] != 4) {
-            $config['allowed_types'] = 'jpg';
-            $config['max_size']     = '1024'; //kb
+            $config['allowed_types'] = 'pdf';
+            $config['max_size']     = '6000'; //kb
             $config['upload_path'] = './assets/koleksi_digital/';
-            $config['file_name'] = 'sampul_koleksi_' . $id_koleksi;
+            $config['file_name'] = 'koleksi_digital_' . $id_koleksi . '_' . $name;
             $this->load->library('upload', $config);
-            if ($this->upload->do_upload('sampul_koleksi')) {
-                $old_image = $this->input->post('old_sampul_koleksi');
-                if ($old_image != 'default.png') {
-                    unlink(FCPATH . 'assets/koleksi_digital/' . $old_image);
-                }
-                $data['sampul_koleksi'] = $this->upload->data('file_name');
+            if ($this->upload->do_upload('digital_pdf')) {
+                $data['digital_pdf'] = $this->upload->data('file_name');
+                $this->db->update('buku', $data, ['register' => $id_koleksi]);
             } else {
                 return false;
             }
         }
-        $this->db->update('koleksi_digital', $data, ['id_koleksi' => $id_koleksi]);
-        return true;
-    }
-
-    public function deleteKoleksi($id_koleksi)
-    {
-        $data = $this->getKoleksi($id_koleksi);
-        if ($data['sampul_koleksi'] != 'default.png') {
-            unlink(FCPATH . 'assets/koleksi_digital/' . $data['sampul_koleksi']);
-        }
-        $this->db->delete('koleksi_digital', ['id_koleksi' => $id_koleksi]);
         return true;
     }
 }
