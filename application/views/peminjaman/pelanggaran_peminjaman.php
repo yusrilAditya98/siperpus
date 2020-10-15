@@ -58,7 +58,7 @@
                     <thead>
                       <tr>
                         <th>#</th>
-                        <th>Kode Peminjaman</th>
+                        <th>Register</th>
                         <th>Judul</th>
                         <th>Jenis Pelanggaran</th>
                         <th>Keterangan</th>
@@ -66,22 +66,21 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>A21010</td>
-                        <td>Menjadi Manusia</td>
-                        <td>Rusak</td>
-                        <td>Mengganti buku yang sama</td>
-                        <td><span class="badge bg-success">Tuntas</span></td>
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>A21011</td>
-                        <td>Madilog</td>
-                        <td>Telat</td>
-                        <td>Membayar denda Rp.5000</td>
-                        <td><span class="badge bg-danger">Belum Tuntas</span></td>
-                      </tr>
+                      <?php $i = 1;
+                      foreach ($buku as $b) : ?>
+                        <tr>
+                          <td><?= $i++ ?></td>
+                          <td><?= $b['register'] ?></td>
+                          <td><?= $b['judul_buku'] ?></td>
+                          <td>Telat</td>
+                          <td><?= $b['denda'] ?></td>
+                          <?php if ($b['status_sirkulasi'] == 4) { ?>
+                            <td><span class="badge bg-danger">Belum Tuntas</span></td>
+                          <?php } else if ($b['status_sirkulasi'] == 9) { ?>
+                            <td><span class="badge bg-primary">Tuntas</span></td>
+                          <?php } ?>
+                        </tr>
+                      <?php endforeach; ?>
                     </tbody>
                   </table>
                 </div>
@@ -106,28 +105,28 @@
           <div class="modal-header">
             <h4 class="modal-title">Perpanjangan Peminjaman</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <div class="modal-body">
             <div class="form-group">
-                <label for="kode_pinjam">Kode Peminjaman</label>
-                <select name="" id="kode_pinjam" class="form-control">
-                    <option value="">A21010</option>
-                    <option value="">A21011</option>
-                </select>
+              <label for="kode_pinjam">Kode Peminjaman</label>
+              <select name="" id="kode_pinjam" class="form-control">
+                <option value="">A21010</option>
+                <option value="">A21011</option>
+              </select>
             </div>
             <div class="form-group">
-                <label for="buku">Nama Buku</label>
-                <input type="text" name="" id="buku" class="form-control" readonly>
+              <label for="buku">Nama Buku</label>
+              <input type="text" name="" id="buku" class="form-control" readonly>
             </div>
             <div class="form-group">
-                <label for="waktu">Waktu Akhir Peminjaman</label>
-                <input type="date" name="" id="waktu" class="form-control" readonly>
+              <label for="waktu">Waktu Akhir Peminjaman</label>
+              <input type="date" name="" id="waktu" class="form-control" readonly>
             </div>
             <div class="form-group">
-                <label for="panjang">Jangka Waktu Perpanjangan</label>
-                <input type="date" name="" id="panjang" class="form-control">
+              <label for="panjang">Jangka Waktu Perpanjangan</label>
+              <input type="date" name="" id="panjang" class="form-control">
             </div>
 
           </div>

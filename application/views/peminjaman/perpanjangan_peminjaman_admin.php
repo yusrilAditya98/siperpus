@@ -22,10 +22,20 @@
         <!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-
+      <?php if ($this->session->flashdata('success')) : ?>
+        <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+      <?php else : ?>
+        <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+      <?php endif; ?>
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
+
+        <div class="row">
+            <div class="col-12">
+              <button class="btn btn-success float-right mb-3" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Ajukan Perpanjangan Peminjaman</button>
+            </div>
+          </div>
 
           <div class="row">
             <div class="col-12">
@@ -66,16 +76,16 @@
                           <td><?= $b['register'] ?></td>
                           <td><?= $b['judul_buku'] ?></td>
                           <td><?= $b['nama'] ?></td>
-                          <td><?= $b['tanggal_pengembalian'] ?></td>
-                          <td><?= $b['tanggal_perpanjangan'] ?></td>
-                          <?php if ($b['status_sirkulasi'] == 0) { ?>
+                          <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
+                          <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
+                          <?php if ($b['status_sirkulasi'] == 5) { ?>
                             <td><span class="badge bg-info">Diproses</span></td>
                             <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi']?>" class="btn btn-success"><i class="fas fa-check"></i></a>
                               <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi']?>" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
-                          <?php } else if ($b['status_sirkulasi'] == 1) { ?>
+                          <?php } else if ($b['status_sirkulasi'] == 7) { ?>
                             <td><span class="badge bg-success">Diterima</span></td>
                             <td></td>
-                          <?php } else if ($b['status_sirkulasi'] == 2) { ?>
+                          <?php } else if ($b['status_sirkulasi'] == 6) { ?>
                             <td><span class="badge bg-danger">Ditolak</span></td>
                             <td></td>
                           <?php } else { ?>
@@ -100,5 +110,38 @@
       <!-- /.content -->
     </div>
 
+<!-- Modal -->
+    <div class="modal fade" id="modal-default">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title">Perpanjangan Peminjaman</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+          </div>
+          <form action="../peminjaman/perpanjangan/" method="post">
+          <div class="modal-body">
+            <div class="form-group">
+              <label for="kode_pinjam">Register</label>
+              <select name="sirkulasi" id="kode_pinjam" class="form-control">
+                      <option value="" selected hidden>Pilih Register...</option>
+                    <?php foreach($pinjaman as $p) : ?>
+                      <option value="<?= $p['id_sirkulasi']?>"><?= '('.$p['nama'].') '.$p['register']. ' - '.$p['judul_buku']?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
+          </div>
+          <div class="modal-footer justify-content-between">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+            <button type="submit" class="btn btn-success">Ajukan Perpanjangan</button>
+          </div>
+          </form>
+        </div>
+        <!-- /.modal-content -->
+      </div>
+      <!-- /.modal-dialog -->
+    </div>
+    <!-- /.modal -->
     <!-- /.content-wrapper -->

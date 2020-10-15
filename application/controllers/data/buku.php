@@ -223,6 +223,11 @@ class Buku extends CI_Controller
             $row[] = $item->pengarang;
             $row[] = $item->penerbit;
             $row[] = $item->tahun_terbit;
+            if ($item->status_buku == 1) {
+                $row[] = '<span class="badge badge-success">tersedia</span>';
+            } else {
+                $row[] = '<span class="badge badge-secondary">dipinjam</span>';
+            }
             // add html for action
             $temp = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>';
             $temp_btn_pinjam = "";
