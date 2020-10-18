@@ -118,6 +118,12 @@
                                    </a>
                                </li>
                                <li class="nav-item">
+                                   <a href="<?= site_url() ?>sirkulasi/peminjaman/validasi_peminjaman" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Validasi Peminjaman</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/perpanjangan_peminjaman_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Perpanjangan Peminjaman</p>

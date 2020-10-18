@@ -22,7 +22,11 @@
         <!-- /.container-fluid -->
       </div>
       <!-- /.content-header -->
-
+      <?php if ($this->session->flashdata('success')) : ?>
+        <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+      <?php else : ?>
+        <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+      <?php endif; ?>
       <!-- Main content -->
       <section class="content">
         <div class="container-fluid">
@@ -79,13 +83,13 @@
                         <td><?= $i++ ?></td>
                         <td><?= $b['register']?></td>
                         <td><?= $b['judul_buku']?></td>
-                        <td><?= $b['tanggal_pengembalian']?></td>
-                        <td><?= $b['tanggal_perpanjangan']?></td>
-                        <?php if ($b['status_sirkulasi'] == 1) { ?>
+                        <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
+                        <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
+                        <?php if ($b['status_sirkulasi'] == 7) { ?>
                             <td><span class="badge bg-success">Diterima</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 2) { ?>
+                            <?php } else if ($b['status_sirkulasi'] == 6) { ?>
                               <td><span class="badge bg-danger">Ditolak</span></td>
-                              <?php } else { ?>
+                              <?php } else if ($b['status_sirkulasi'] == 5) { ?>
                                 <td><span class="badge bg-info">Diproses</span></td>
                           <?php } ?>
                         </td>
@@ -126,7 +130,7 @@
               <select name="sirkulasi" id="kode_pinjam" class="form-control">
                       <option value="" selected hidden>Pilih Register...</option>
                     <?php foreach($pinjaman as $p) : ?>
-                      <option value="<?= $p['id_sirkulasi']?>"><?= $p['register']?></option>
+                      <option value="<?= $p['id_sirkulasi']?>"><?= $p['register']. ' - '.$p['judul_buku']?></option>
                     <?php endforeach; ?>
                 </select>
             </div>
@@ -138,10 +142,10 @@
               <label for="waktu">Waktu Akhir Peminjaman</label>
               <input type="date" name="" id="waktu" class="form-control" readonly>
             </div> -->
-            <div class="form-group">
+            <!-- <div class="form-group">
               <label for="panjang">Jangka Waktu Perpanjangan</label>
               <input type="date" name="jangka_waktu" id="panjang" class="form-control">
-            </div>
+            </div> -->
 
           </div>
           <div class="modal-footer justify-content-between">

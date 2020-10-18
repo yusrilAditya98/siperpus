@@ -16,6 +16,11 @@
         </div>
     </div>
 
+    <?php if ($this->session->flashdata('success')) : ?>
+          <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+      <?php else : ?>
+          <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+      <?php endif; ?>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -26,7 +31,7 @@
                             <h3 class="card-title">Daftar Buku</h3>
                         </div>
                         <div class="card-body">
-                            <div class="row">
+                            <!-- <div class="row">
                                 <div class="col-lg-12">
                                     <?php if ($this->session->flashdata('warning') != null) : ?>
                                         <div class="alert alert-danger" role="alert">
@@ -39,7 +44,7 @@
                                         </div>
                                     <?php endif; ?>
                                 </div>
-                            </div>
+                            </div> -->
                             <?php if ($this->session->userdata('role_id') == "role_id_1") : ?>
                                 <div class="row">
                                     <div class="col-lg-12 col-12">
@@ -58,6 +63,7 @@
                                         <th>Pengarang</th>
                                         <th>Penerbit</th>
                                         <th>Tahun Terbit</th>
+                                        <th>Status Buku</th>
                                         <th width="15%">Aksi</th>
                                     </tr>
                                 </thead>
