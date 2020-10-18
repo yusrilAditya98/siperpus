@@ -27,73 +27,75 @@
       <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="card">
-              <div class="card-body">
-                <div class="row">
-                  <div class="col-lg-12">
-                    <div class="card">
-                      <div class="card-footer">
-                        Profile Peminjam
-                      </div>
-                      <div class="card-body">
-                        <p>Nama Anggota : <?= $this->session->userdata('nama') ?></p>
-                        <p>Nomor Anggota : <?= $this->session->userdata('username') ?></p>
-                        <!-- <p>Tanggal : 12 Agustus 2020</p> -->
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="card">
+                        <div class="card-footer">
+                          Profile Peminjam
+                        </div>
+                        <div class="card-body">
+                          <p>Nama Anggota : <?= $this->session->userdata('nama') ?></p>
+                          <p>Nomor Anggota : <?= $this->session->userdata('username') ?></p>
+                          <!-- <p>Tanggal : 12 Agustus 2020</p> -->
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <h5 class="text-center mt-3 mb-3">Daftar Keranjang Buku Dipinjam</h5>
-                <div class="table-responsive">
-                  <table class="table table-striped table-white" style="width:100%">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Register</th>
-                        <th>Judul</th>
-                        <th>Pengarang</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php $i = 1;
-                      foreach ($buku_dipinjam as $b) : ?>
+                  <h5 class="text-center mt-3 mb-3">Daftar Keranjang Buku Dipinjam</h5>
+                  <div class="table-responsive">
+                    <table class="table table-striped table-white" style="width:100%">
+                      <thead>
                         <tr>
-                          <td><?= $i++ ?></td>
-                          <td><?= $b['register'] ?></td>
-                          <td><?= $b['judul_buku'] ?></td>
-                          <td><?= $b['pengarang'] ?></td>
-                          <td>
-                            <a href="../peminjaman/hapusPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
-                            <!-- <a href="../peminjaman/pinjamBuku/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i></a> -->
-                          </td>
+                          <th>#</th>
+                          <th>Register</th>
+                          <th>Judul</th>
+                          <th>Pengarang</th>
+                          <th>Aksi</th>
                         </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
-                </div>
-                <?php if (count($buku_dipinjam) != 0) : ?>
-                  <div class="card-footer">
-                    <form action="../peminjaman/pinjamSemua" method="post">
-                      <div class="row">
-                        <div class="col-sm-6">
-                          <!-- text input -->
-                          <div class="form-group">
-                            <label>Tanggal Pinjam</label>
-                            <input type="date" name="tanggal_pinjam" class="form-control" required>
-                          </div>
-                        </div>
-                        <div class="col-sm-6">
-                          <div class="form-group">
-                            <label class="text-success">*Ajukan Peminjaman</label>
-                            <button type="submit" class="btn btn-success d-block">Pinjam</button>
-                          </div>
-                        </div>
-                      </div>
-                    </form>
+                      </thead>
+                      <tbody>
+                        <?php $i = 1;
+                        foreach ($buku_dipinjam as $b) : ?>
+                          <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= $b['register'] ?></td>
+                            <td><?= $b['judul_buku'] ?></td>
+                            <td><?= $b['pengarang'] ?></td>
+                            <td>
+                              <a href="../peminjaman/hapusPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                              <!-- <a href="../peminjaman/pinjamBuku/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i></a> -->
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
                   </div>
-                <?php endif; ?>
-                <!-- <a href="../peminjaman/pinjamSemua" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Lanjutkan</a> -->
+                  <?php if (count($buku_dipinjam) != 0) : ?>
+                    <div class="card-footer">
+                      <form action="../peminjaman/pinjamSemua" method="post">
+                        <div class="row">
+                          <div class="col-sm-6">
+                            <!-- text input -->
+                            <div class="form-group">
+                              <label>Tanggal Pinjam</label>
+                              <input type="date" name="tanggal_pinjam" class="form-control" required>
+                            </div>
+                          </div>
+                          <div class="col-sm-6">
+                            <div class="form-group">
+                              <label class="text-success">*Ajukan Peminjaman</label>
+                              <button type="submit" class="btn btn-success d-block">Pinjam</button>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  <?php endif; ?>
+                  <!-- <a href="../peminjaman/pinjamSemua" class="btn btn-primary"><i class="fas fa-arrow-right"></i> Lanjutkan</a> -->
+                </div>
               </div>
             </div>
           </div>

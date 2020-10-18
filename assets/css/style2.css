@@ -1,0 +1,19 @@
+.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active,
+.sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
+	background-color: #f96332;
+	color: #fff;
+}
+
+[class*=sidebar-dark-] {
+	background-color: #002E66;
+}
+
+body {
+	font-family: "Montserrat", "Helvetica Neue", Arial, sans-serif;
+}
+
+th {
+	background-color: #f96332;
+	color: #fff;
+	text-align: center;
+}

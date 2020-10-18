@@ -27,7 +27,7 @@ class Welcome extends CI_Controller
             $row[] = $item->penerbit;
             $row[] = $item->tahun_terbit;
             // add html for action
-            $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
+            $row[] = '<button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
             <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -218,16 +218,6 @@ class Welcome extends CI_Controller
 
     public function index()
     {
-        $this->load->view('welcome/header');
         $this->load->view('welcome/landing_page');
-        $this->load->view('welcome/footer');
-    }
-
-    public function books()
-    {
-        $data['title'] = 'Daftar Buku | Portal FH';
-        $this->load->view('welcome/header');
-        $this->load->view('welcome/katalog_buku');
-        $this->load->view('welcome/footer');
     }
 }

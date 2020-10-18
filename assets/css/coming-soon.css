@@ -64,8 +64,8 @@ h6 {
 	left: 0;
 	height: 100%;
 	width: 100%;
-	background-color: #cd9557;
-	opacity: 0.7;
+	background-color: #f96332;
+	opacity: 0.4;
 	z-index: 1;
 }
 
@@ -213,15 +213,15 @@ h6 {
 }
 
 .btn-secondary {
-	background-color: #cd9557;
-	border-color: #cd9557;
+	background-color: #f96332;
+	border-color: #f96332;
 }
 
 .btn-secondary:active,
 .btn-secondary:focus,
 .btn-secondary:hover {
-	background-color: #ba7c37 !important;
-	border-color: #ba7c37 !important;
+	background-color: #fa7a50 !important;
+	border-color: #fa7a50 !important;
 }
 
 .input {
