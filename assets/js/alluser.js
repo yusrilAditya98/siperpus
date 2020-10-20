@@ -58,7 +58,7 @@ $('#submit_baca_ditempat').on('click', function () {
 			$('.detail-buku').html(``)
 			if (result['status'] == true) {
 				data = result['message']
-				urlSampul = segments[0] + '/' + segments[3] + '/assets/img/sampul/' + data['sampul']
+				urlSampul = segments[0] + '/' + segments[3] + '/assets/sampul_buku/' + data['sampul']
 				$('.detail-buku').html(`
 				<div class="col-lg-5">
 					<img src="` + urlSampul + `" class="img-thumbnail" alt="" srcset="">

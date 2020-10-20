@@ -66,7 +66,7 @@
                             <td><?= $b['pengarang'] ?></td>
                             <td><?= date('d-m-Y', strtotime($b['tanggal_mulai'])) ?></td>
                             <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
-                            <td><?= ($b['tanggal_pengembalian'] == '0000-00-00') ? '<span class="badge badge-warning p-2">Belum Dikembalikan</span>' : date('d-m-Y', strtotime($b['tanggal_pengembalian'])); ?></td>
+                            <td><?= ($b['tanggal_pengembalian'] == '0000-00-00') ? '' : date('d-m-Y', strtotime($b['tanggal_pengembalian'])); ?></td>
                             <?php if ($b['status_sirkulasi'] == 2) { ?>
                               <td><span class="badge badge-success">Peminjaman</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 1) { ?>
