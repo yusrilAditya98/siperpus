@@ -110,18 +110,18 @@
 								<li class="item">
 									<div style="margin-left: 12px;">
 										<a href="javascript:void(0)" class="product-title">Buku yang sering dibaca ditempat
-											<span class="badge badge-warning float-right">1800</span></a>
+											<span class="badge badge-warning float-right">800</span></a>
 										<span class="product-description">
-											Samsung 32" 1080p 60Hz LED Smart HDTV.
+											Hukum Rumah Susun Suatu Bekal Pengantar Pemahaman
 										</span>
 									</div>
 								</li>
 								<li class="item">
 									<div style="margin-left: 12px;">
 										<a href="javascript:void(0)" class="product-title">Buku yang sering dipinjam
-											<span class="badge badge-warning float-right">1800</span></a>
+											<span class="badge badge-warning float-right">500</span></a>
 										<span class="product-description">
-											Samsung 32" 1080p 60Hz LED Smart HDTV.
+											Implementasi Sistem Bikameral Dalam Parlemen Indonesia
 										</span>
 									</div>
 								</li>
@@ -138,7 +138,7 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-header border-transparent">
-							<h3 class="card-title">Pengajuan Peminjaman</h3>
+							<h3 class="card-title">Buku Akan Dipinjam Hari Ini - 20 Agustus 2020</h3>
 
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -152,69 +152,46 @@
 								<table class="table m-0">
 									<thead>
 										<tr>
-											<th>Order ID</th>
-											<th>Item</th>
-											<th>Status</th>
-											<th>Popularity</th>
+											<th>No</th>
+											<th>Peminjam</th>
+											<th>Register</th>
+											<th>Nama Buku</th>
+											<th>Pengarang</th>
+											<th>Penerbit</th>
 										</tr>
 									</thead>
 									<tbody>
 										<tr>
-											<td><a href="pages/examples/invoice.html">OR9842</a></td>
-											<td>Call of Duty IV</td>
-											<td><span class="badge badge-success">Shipped</span></td>
+											<td>1</td>
+											<td>Aditya Yusril</td>
+											<td><a href="pages/examples/invoice.html">10101046</a></td>
+											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
+											<td>Purnomowati, Reni Dwi</td>
 											<td>
-												<div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
+												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
 											</td>
 										</tr>
 										<tr>
-											<td><a href="pages/examples/invoice.html">OR1848</a></td>
-											<td>Samsung Smart TV</td>
-											<td><span class="badge badge-warning">Pending</span></td>
+											<td>2</td>
+											<td>Haris</td>
+											<td><a href="pages/examples/invoice.html">21101046</a></td>
+											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
+											<td>Purnomowati, Reni Dwi</td>
 											<td>
-												<div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
+												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
 											</td>
 										</tr>
 										<tr>
-											<td><a href="pages/examples/invoice.html">OR7429</a></td>
-											<td>iPhone 6 Plus</td>
-											<td><span class="badge badge-danger">Delivered</span></td>
+											<td>3</td>
+											<td>Fadli</td>
+											<td><a href="pages/examples/invoice.html">31101046</a></td>
+											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
+											<td>Purnomowati, Reni Dwi</td>
 											<td>
-												<div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
+												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
 											</td>
 										</tr>
-										<tr>
-											<td><a href="pages/examples/invoice.html">OR7429</a></td>
-											<td>Samsung Smart TV</td>
-											<td><span class="badge badge-info">Processing</span></td>
-											<td>
-												<div class="sparkbar" data-color="#00c0ef" data-height="20">90,80,-90,70,-61,83,63</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="pages/examples/invoice.html">OR1848</a></td>
-											<td>Samsung Smart TV</td>
-											<td><span class="badge badge-warning">Pending</span></td>
-											<td>
-												<div class="sparkbar" data-color="#f39c12" data-height="20">90,80,-90,70,61,-83,68</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="pages/examples/invoice.html">OR7429</a></td>
-											<td>iPhone 6 Plus</td>
-											<td><span class="badge badge-danger">Delivered</span></td>
-											<td>
-												<div class="sparkbar" data-color="#f56954" data-height="20">90,-80,90,70,-61,83,63</div>
-											</td>
-										</tr>
-										<tr>
-											<td><a href="pages/examples/invoice.html">OR9842</a></td>
-											<td>Call of Duty IV</td>
-											<td><span class="badge badge-success">Shipped</span></td>
-											<td>
-												<div class="sparkbar" data-color="#00a65a" data-height="20">90,80,90,-70,61,-83,63</div>
-											</td>
-										</tr>
+
 									</tbody>
 								</table>
 							</div>
