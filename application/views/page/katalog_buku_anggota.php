@@ -17,10 +17,10 @@
     </div>
 
     <?php if ($this->session->flashdata('success')) : ?>
-          <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
-      <?php else : ?>
-          <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
-      <?php endif; ?>
+        <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+    <?php else : ?>
+        <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+    <?php endif; ?>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -54,23 +54,25 @@
                                     </div>
                                 </div>
                             <?php endif; ?>
-                            <table id="data" class="table table-bordered display">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Register</th>
-                                        <th>Judul</th>
-                                        <th>Pengarang</th>
-                                        <th>Penerbit</th>
-                                        <th>Tahun Terbit</th>
-                                        <th>Status Buku</th>
-                                        <th width="15%">Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="show_data">
+                            <div class="table-responsive">
+                                <table id="data" class="table table-bordered display">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Register</th>
+                                            <th>Judul</th>
+                                            <th>Pengarang</th>
+                                            <th>Penerbit</th>
+                                            <th>Tahun Terbit</th>
+                                            <th>Status Buku</th>
+                                            <th width="15%">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show_data">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

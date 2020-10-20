@@ -35,22 +35,24 @@
                             </div> -->
                         </div>
                         <div class="card-body">
-                            <table id="data" class="table table-bordered display">
-                                <thead>
-                                    <tr>
-                                        <th>#</th>
-                                        <th>Register</th>
-                                        <th>Judul</th>
-                                        <th>Pengarang</th>
-                                        <th>Penerbit</th>
-                                        <th>Tahun Terbit</th>
-                                        <th>Aksi</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="show_data">
+                            <div class="table-responsive">
+                                <table id="data" class="table table-bordered display">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Register</th>
+                                            <th>Judul</th>
+                                            <th>Pengarang</th>
+                                            <th>Penerbit</th>
+                                            <th>Tahun Terbit</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="show_data">
 
-                                </tbody>
-                            </table>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </div>
                 </div>

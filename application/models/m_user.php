@@ -35,7 +35,7 @@ class M_user extends CI_Model
 
         // cek jika ada gambar yang di upload
         $upload_image = $_FILES['foto'];
-        if ($upload_image) {
+        if ($upload_image['error'] != 4) {
             $config['allowed_types'] = 'jpg';
             $config['max_size']     = '1024'; //kb
             $config['upload_path'] = './assets/foto_profil/';

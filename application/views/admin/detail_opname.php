@@ -42,7 +42,7 @@ test
                 <div class="col-lg-12">
                     <form class="form-inline" action="<?= site_url() ?>data/stock_opname/add_buku_opname" method="POST">
                         <div class="form-group mb-2">
-                            <input type="text" name="b_register" placeholder="Masukkan No.Register" class="form-control">
+                            <input type="text" name="b_register" autofocus placeholder="Masukkan No.Register" class="form-control">
                             <input type="hidden" name="o_id_opname" value="<?= $this->uri->segment(4) ?>" class="form-control">
                         </div>
                         <button type="submit" class="btn btn-warning mb-2" style="color:white;"><i class="fa fa-check"></i> Ok</button>
