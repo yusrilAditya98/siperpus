@@ -34,10 +34,14 @@
               <div class="card">
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table id="example" class="table table-striped table-white" style="width:100%">
+                    <table id="example" class="table table-striped table-white table-bordered" style="width:100%">
                       <thead>
                         <tr>
-                          <th>#</th>
+                          <th>No</th>
+                          <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
+                            <th>Username</th>
+                            <th>Nama</th>
+                          <?php endif; ?>
                           <th>Register</th>
                           <th>Judul</th>
                           <th>Pengarang</th>
@@ -53,6 +57,10 @@
                         foreach ($buku_dipinjam as $b) : ?>
                           <tr>
                             <td><?= $i++ ?></td>
+                            <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
+                              <td><?= $b['username'] ?></td>
+                              <td><?= $b['nama'] ?></td>
+                            <?php endif; ?>
                             <td><?= $b['register'] ?></td>
                             <td><?= $b['judul_buku'] ?></td>
                             <td><?= $b['pengarang'] ?></td>
@@ -60,17 +68,17 @@
                             <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
                             <td><?= ($b['tanggal_pengembalian'] == '0000-00-00') ? '<span class="badge badge-warning p-2">Belum Dikembalikan</span>' : date('d-m-Y', strtotime($b['tanggal_pengembalian'])); ?></td>
                             <?php if ($b['status_sirkulasi'] == 2) { ?>
-                              <td><span class="bg-success p-2">Peminjaman</span></td>
+                              <td><span class="badge badge-success">Peminjaman</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 1) { ?>
-                              <td><span class="bg-warning p-2">Proses</span></td>
+                              <td><span class="badge badge-warning">Proses</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 7) { ?>
-                              <td><span class="bg-info p-2">Perpanjangan</span></td>
+                              <td><span class="badge badge-info">Perpanjangan</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 8) { ?>
-                              <td><span class="bg-secondary p-2">Dikembalikan</span></td>
+                              <td><span class="badge badge-secondary">Dikembalikan</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 4 || $b['status_sirkulasi'] == 9) { ?>
-                              <td><span class="bg-danger p-2">Telat</span></td>
+                              <td><span class="badge badge-danger">Telat</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 3) { ?>
-                              <td><span class="bg-danger p-2">Ditolak</span></td>
+                              <td><span class="badge badge-danger">Ditolak</span></td>
                             <?php } else { ?>
                             <?php } ?>
 

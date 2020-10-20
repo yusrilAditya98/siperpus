@@ -336,7 +336,7 @@ class Peminjaman extends CI_Controller
         $title = 'Daftar Buku Dipinjam | Portal FH';
 
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('user', 'user.username = sirkulasi.u_username', 'left')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
         } else {
             $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
         }

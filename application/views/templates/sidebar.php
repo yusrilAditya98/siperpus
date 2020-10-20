@@ -113,6 +113,12 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
+                                   <a href="<?= site_url() ?>sirkulasi/peminjaman/daftar_buku_dipinjam" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Riwayat</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/peminjaman_buku_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Buku</p>
