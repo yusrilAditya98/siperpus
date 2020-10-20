@@ -17,3 +17,21 @@ th {
 	color: #fff;
 	text-align: center;
 }
+
+.page-link {
+	position: relative;
+	display: block;
+	padding: .5rem .75rem;
+	margin-left: -1px;
+	line-height: 1.25;
+	color: #f96332;
+	background-color: #fff;
+	border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+	z-index: 3;
+	color: #fff;
+	background-color: #f96332;
+	border-color: #f96332;
+}

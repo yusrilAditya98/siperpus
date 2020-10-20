@@ -57,7 +57,7 @@
     <div class="social-icons">
         <ul class="list-unstyled text-center mb-0">
             <li class="list-unstyled-item">
-                <a href="<?= base_url() ?>">
+                <a href="<?= base_url("auth") ?>">
                     <i class="fas fa-home"></i>
                 </a>
             </li>

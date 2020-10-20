@@ -4,16 +4,7 @@
   <div class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
-        <div class="col-sm-6">
-          <h1 class="m-0 text-dark">Dashboard</h1>
-        </div>
-        <!-- /.col -->
-        <div class="col-sm-6">
-          <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Dashboard</li>
-          </ol>
-        </div>
+
         <!-- /.col -->
       </div>
       <!-- /.row -->
@@ -101,7 +92,7 @@
             </div>
             <div class="card-body">
               <div class="table-responsive">
-                <table id="example" class="table table-striped table-white" style="width:100%">
+                <table id="example" class="table table-striped table-white table-bordered" style="width:100%">
                   <thead>
                     <tr>
                       <th>#</th>
@@ -125,9 +116,9 @@
                       <td>16-06-2020</td>
                       <td>03-07-2020</td>
                       <td>+-6</td>
-                      <th>
-                        <span class="bg-danger p-2">Terlambat</span>
-                      </th>
+                      <td>
+                        <span class="badge badge-danger p-2">Terlambat</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>2</td>
@@ -138,9 +129,9 @@
                       <td>16-06-2020</td>
                       <td>03-07-2020</td>
                       <td>+-6</td>
-                      <th>
-                        <span class="bg-success p-2">Dikembalikan</span>
-                      </th>
+                      <td>
+                        <span class="badge badge-success p-2">Dikembalikan</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>3</td>
@@ -151,9 +142,9 @@
                       <td>16-06-2020</td>
                       <td>03-07-2020</td>
                       <td></td>
-                      <th>
-                        <span class="bg-primary p-2">Proses</span>
-                      </th>
+                      <td>
+                        <span class="badge badge-primary p-2">Proses</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>4</td>
@@ -164,9 +155,9 @@
                       <td>16-06-2020</td>
                       <td>03-07-2020</td>
                       <td></td>
-                      <th>
-                        <span class="bg-primary p-2">Proses</span>
-                      </th>
+                      <td>
+                        <span class="badge badge-primary p-2">Proses</span>
+                      </td>
                     </tr>
                     <tr>
                       <td>5</td>
@@ -177,9 +168,9 @@
                       <td>16-06-2020</td>
                       <td>03-07-2020</td>
                       <td></td>
-                      <th>
-                        <span class="bg-primary p-2">Proses</span>
-                      </th>
+                      <td>
+                        <span class="badge badge-primary p-2">Proses</span>
+                      </td>
                     </tr>
                   </tbody>
                 </table>

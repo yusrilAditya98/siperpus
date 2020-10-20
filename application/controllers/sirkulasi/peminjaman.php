@@ -294,7 +294,7 @@ class Peminjaman extends CI_Controller
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
             $data = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0, 'u_username' => $username])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
-        }else{
+        } else {
             $data = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         }
         $lama_peminjaman = $this->db->where(['status_peminjaman' => 1])->from('lama_peminjaman')->get()->row_array();
@@ -311,7 +311,7 @@ class Peminjaman extends CI_Controller
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
             redirect(site_url('/sirkulasi/peminjaman/peminjaman_buku_admin?username=' . $username));
-        }else{
+        } else {
             redirect(site_url('/sirkulasi/peminjaman/keranjang_peminjaman'));
         }
     }
@@ -327,14 +327,19 @@ class Peminjaman extends CI_Controller
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
             redirect(site_url('/sirkulasi/peminjaman/peminjaman_buku_admin?username=' . $username));
-        }else{
+        } else {
             redirect(site_url('/sirkulasi/peminjaman/keranjang_peminjaman'));
         }
     }
     public function daftar_buku_dipinjam()
     {
         $title = 'Daftar Buku Dipinjam | Portal FH';
-        $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+
+        if ($this->session->userdata('role_id') == 'role_id_1') {
+            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+        } else {
+            $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3, 4, 7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+        }
         $this->template($title);
         $this->load->view('peminjaman/daftar_buku_dipinjam', $data);
         $this->load->view('templates/footer');
@@ -342,7 +347,7 @@ class Peminjaman extends CI_Controller
     public function keranjang_peminjaman()
     {
         $title = 'Keranjang Peminjaman | Portal FH';
-        $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/keranjang_peminjaman', $data);
         $this->load->view('templates/footer');
@@ -350,7 +355,7 @@ class Peminjaman extends CI_Controller
     public function perpanjangan_peminjaman()
     {
         $title = 'Perpanjangan Peminjaman | Portal FH';
-        $data['buku_perpanjangan'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [5, 6, 7])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $data['buku_perpanjangan'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [5, 6, 7])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 2])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman', $data);
@@ -370,7 +375,7 @@ class Peminjaman extends CI_Controller
         $this->session->set_flashdata('success', 'Pengajuan perpanjangan berhasil');
         if ($this->session->userdata('role_id') == 'role_id_1') {
             redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
-        }else{
+        } else {
             redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman'));
         }
     }
@@ -389,7 +394,7 @@ class Peminjaman extends CI_Controller
     public function pelanggaran_peminjaman()
     {
         $title = 'Pelanggaran Peminjaman | Portal FH';
-        $buku = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [4, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $buku = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [4, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         for ($i = 0; $i < count($buku); $i++) {
             $awal  = date_create($buku[$i]['tanggal_akhir']);
             $akhir = date_create($buku[$i]['tanggal_pengembalian']); // waktu sekarang
@@ -427,7 +432,7 @@ class Peminjaman extends CI_Controller
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
             redirect(site_url('/sirkulasi/peminjaman/pengembalian_peminjaman_admin?username=' . $username));
-        }else{
+        } else {
             redirect(site_url('/sirkulasi/peminjaman/pengembalian_peminjaman'));
         }
     }
@@ -492,7 +497,7 @@ class Peminjaman extends CI_Controller
     public function validasi_peminjaman()
     {
         $title = 'Validasi Peminjaman | Portal FH';
-        $data['pinjam_proses'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1,2,3])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->join('user', 'user.username = sirkulasi.u_username')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+        $data['pinjam_proses'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [1, 2, 3])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->join('user', 'user.username = sirkulasi.u_username')->order_by('status_sirkulasi', 'asc')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/validasi_peminjaman', $data);
         $this->load->view('templates/footer');
@@ -549,7 +554,7 @@ class Peminjaman extends CI_Controller
             $data['user'] = null;
         }
         $this->template($title);
-        $this->load->view('peminjaman/pengembalian_peminjaman_admin',$data);
+        $this->load->view('peminjaman/pengembalian_peminjaman_admin', $data);
         $this->load->view('templates/footer');
     }
 }

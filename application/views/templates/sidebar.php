@@ -72,12 +72,12 @@
                                        <p>Daftar Buku</p>
                                    </a>
                                </li>
-                               <li class="nav-item">
+                               <!-- <li class="nav-item">
                                    <a href="<?= base_url('data/koleksi_digital') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Daftar Koleksi Digital</p>
                                    </a>
-                               </li>
+                               </li> -->
                            </ul>
                        </li>
                        <li class="nav-item has-treeview">
@@ -115,31 +115,31 @@
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/peminjaman_buku_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Peminjaman Buku</p>
+                                       <p>Buku</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/validasi_peminjaman" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Validasi Peminjaman</p>
+                                       <p>Validasi</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/perpanjangan_peminjaman_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Perpanjangan Peminjaman</p>
+                                       <p>Perpanjangan</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/pelanggaran_peminjaman_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Pelanggaran Peminjaman</p>
+                                       <p>Pelanggaran</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/pengembalian_peminjaman_admin" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Pengembalian Peminjaman</p>
+                                       <p>Pengembalian</p>
                                    </a>
                                </li>
                            </ul>
@@ -339,14 +339,6 @@
                                    </a>
                                </li>
                            </ul>
-                       </li>
-                       <li class="nav-item">
-                           <a href="<?= base_url('sirkulasi/baca_ditmpt') ?>" class="nav-link">
-                               <i class="nav-icon fas fa-book-reader"></i>
-                               <p>
-                                   Baca Ditempat
-                               </p>
-                           </a>
                        </li>
                        <li class="nav-item has-treeview">
                            <a href="#" class="nav-link">
