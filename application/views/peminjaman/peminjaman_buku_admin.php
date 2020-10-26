@@ -88,6 +88,19 @@
                             </div>
                             <div class="card-body">
                               <div class="table-responsive">
+                                <form action="<?= base_url('sirkulasi/peminjaman/pinjam_admin') ?>" method="post">
+                                  <div class="row mb-2">
+                                    <div class="col-lg-4">
+                                      <div class="input-group">
+                                        <input type="hidden" name="username" id="username" value="<?= $user['username'] ?>">
+                                        <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
+                                        <span class="input-group-append">
+                                          <button type="submit" id="validasi_pengembalian" class="btn btn-success"><i class="fas fa-cart-plus mr-2"></i>pinjam</button>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
                                 <table id="data2" class="table table-striped table-white" style="width:100%">
                                   <thead>
                                     <tr>

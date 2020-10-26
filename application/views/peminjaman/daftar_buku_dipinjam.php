@@ -42,6 +42,7 @@
                             <th>Username</th>
                             <th>Nama</th>
                           <?php endif; ?>
+                          <th>No Transaksis</th>
                           <th>Register</th>
                           <th>Judul</th>
                           <th>Pengarang</th>
@@ -61,25 +62,33 @@
                               <td><?= $b['username'] ?></td>
                               <td><?= $b['nama'] ?></td>
                             <?php endif; ?>
+                            <td><?= $b['no_transaksi'] ?></td>
                             <td><?= $b['register'] ?></td>
                             <td><?= $b['judul_buku'] ?></td>
                             <td><?= $b['pengarang'] ?></td>
                             <td><?= date('d-m-Y', strtotime($b['tanggal_mulai'])) ?></td>
                             <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
                             <td><?= ($b['tanggal_pengembalian'] == '0000-00-00') ? '' : date('d-m-Y', strtotime($b['tanggal_pengembalian'])); ?></td>
-                            <?php if ($b['status_sirkulasi'] == 2) { ?>
-                              <td><span class="badge badge-success">Peminjaman</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 1) { ?>
-                              <td><span class="badge badge-warning">Proses</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 7) { ?>
-                              <td><span class="badge badge-info">Perpanjangan</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 8) { ?>
-                              <td><span class="badge badge-secondary">Dikembalikan</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 4 || $b['status_sirkulasi'] == 9) { ?>
-                              <td><span class="badge badge-danger">Telat</span></td>
+                            <?php if ($b['status_sirkulasi'] == 1) { ?>
+                              <td><span class="badge badge-primary">proses peminjaman</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 2) { ?>
+                              <td><span class="badge badge-warning">sedang dipersiapkan</span></td>
                             <?php } else if ($b['status_sirkulasi'] == 3) { ?>
-                              <td><span class="badge badge-danger">Ditolak</span></td>
-                            <?php } else { ?>
+                              <td><span class="badge badge-info">dapat diambil</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 4) { ?>
+                              <td><span class="badge badge-success">dipinjam</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 5) { ?>
+                              <td><span class="badge badge-danger">tolak peminjaman</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 6) { ?>
+                              <td><span class="badge badge-warning">pelanggaran</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 7) { ?>
+                              <td><span class="badge badge-primary">pengajuan perpajangan</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 8) { ?>
+                              <td><span class="badge badge-danger">tolak perpanjangan</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 9) { ?>
+                              <td><span class="badge badge-success">valid perpanjangan</span></td>
+                            <?php } else if ($b['status_sirkulasi'] == 10) { ?>
+                              <td><span class="badge badge-success">selesai pengembalian</span></td>
                             <?php } ?>
 
                           </tr>

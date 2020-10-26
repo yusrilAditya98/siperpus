@@ -65,39 +65,46 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered">
-                  <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Register</th>
-                        <th>Judul</th>
-                        <th>Waktu Akhir Peminjaman</th>
-                        <th>Jangka Waktu Perpanjangan</th>
-                        <th>Status Perpanjangan</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                    
-                    <?php $i = 1; foreach($buku_perpanjangan as $b) : ?>
-                      <tr>
-                        <td><?= $i++ ?></td>
-                        <td><?= $b['register']?></td>
-                        <td><?= $b['judul_buku']?></td>
-                        <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
-                        <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
-                        <?php if ($b['status_sirkulasi'] == 7) { ?>
-                            <td><span class="badge bg-success">Diterima</span></td>
-                            <?php } else if ($b['status_sirkulasi'] == 6) { ?>
-                              <td><span class="badge bg-danger">Ditolak</span></td>
-                              <?php } else if ($b['status_sirkulasi'] == 5) { ?>
-                                <td><span class="badge bg-info">Diproses</span></td>
-                          <?php } ?>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                    </tbody>
-                    
-                  </table>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
+                        <tr>
+                          <th>#</th>
+                          <th>Register</th>
+                          <th>Judul</th>
+                          <th>Batas Akhir</th>
+                          <th>Waktu Perpanjangan</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <?php $i = 1;
+                        foreach ($buku_perpanjangan as $b) : ?>
+                          <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= $b['register'] ?></td>
+                            <td><?= $b['judul_buku'] ?></td>
+                            <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
+                            <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
+                            <?php if ($b['status_sirkulasi'] == 7) { ?>
+                              <td><span class="badge bg-primary">pengajuan perpanjangan</span></td>
+                              <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
+                            <?php } else if ($b['status_sirkulasi'] == 8) { ?>
+                              <td><span class="badge bg-danger">tolak perpanjangan</span></td>
+                              <td></td>
+                            <?php } else if ($b['status_sirkulasi'] == 9) { ?>
+                              <td><span class="badge bg-success">valid perpanjangan</span></td>
+                              <td></td>
+                            <?php } else { ?>
+                            <?php } ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -120,38 +127,25 @@
           <div class="modal-header">
             <h4 class="modal-title">Perpanjangan Peminjaman</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <form action="../peminjaman/perpanjangan/" method="post">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="kode_pinjam">Register</label>
-              <select name="sirkulasi" id="kode_pinjam" class="form-control">
-                      <option value="" selected hidden>Pilih Register...</option>
-                    <?php foreach($pinjaman as $p) : ?>
-                      <option value="<?= $p['id_sirkulasi']?>"><?= $p['register']. ' - '.$p['judul_buku']?></option>
-                    <?php endforeach; ?>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="kode_pinjam">Register</label>
+                <select name="sirkulasi" id="kode_pinjam" class="form-control">
+                  <option value="" selected hidden>Pilih Register...</option>
+                  <?php foreach ($pinjaman as $p) : ?>
+                    <option value="<?= $p['id_sirkulasi'] ?>"><?= $p['register'] . ' - ' . $p['judul_buku'] ?></option>
+                  <?php endforeach; ?>
                 </select>
+              </div>
             </div>
-            <!-- <div class="form-group">
-              <label for="buku">Nama Buku</label>
-              <input type="text" name="" id="buku" class="form-control" readonly>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-success">Ajukan Perpanjangan</button>
             </div>
-            <div class="form-group">
-              <label for="waktu">Waktu Akhir Peminjaman</label>
-              <input type="date" name="" id="waktu" class="form-control" readonly>
-            </div> -->
-            <!-- <div class="form-group">
-              <label for="panjang">Jangka Waktu Perpanjangan</label>
-              <input type="date" name="jangka_waktu" id="panjang" class="form-control">
-            </div> -->
-
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-            <button type="submit" class="btn btn-success">Ajukan Perpanjangan</button>
-          </div>
           </form>
         </div>
         <!-- /.modal-content -->

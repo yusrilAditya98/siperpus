@@ -80,21 +80,50 @@
                           <div class="card">
                             <div class="card-footer">Daftar Buku Dipinjam</div>
                             <div class="card-body">
+                              <?php if ($buku_dipinjam) : ?>
+                                <form action="<?= base_url('sirkulasi/peminjaman/kembalikan') ?>" method="post">
+                                  <div class="row mb-2">
+                                    <div class="col-lg-4">
+                                      <select class="form-control" name="pelanggaran" id="pelanggaran">
+                                        <option value="">--tidak ada pelanggarang--</option>
+                                        <?php foreach ($pelanggaran as $p) : ?>
+                                          <option value="<?= $p['id_pelanggaran'] ?>"><?= $p['nama_pelanggaran'] ?></option>
+                                        <?php endforeach; ?>
+                                      </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                      <select class="form-control" name="denda" id="denda">
+                                        <option value="">--tidak ada denda--</option>
+                                      </select>
+                                    </div>
+                                    <div class="col-lg-4">
+                                      <div class="input-group">
+                                        <input type="hidden" name="no_transaksi" id="no_transaksi" value="<?= $buku_dipinjam[0]['no_transaksi'] ?>">
+                                        <input type="hidden" name="username" id="username" value="<?= $user['username'] ?>">
+                                        <input type="hidden" name="status" value="10">
+                                        <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
+                                        <span class="input-group-append">
+                                          <button type="submit" id="validasi_pengembalian" class="btn btn-success btn-flat">validasi</button>
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </form>
+                              <?php endif; ?>
                               <div class="table-responsive">
-                                <table  class="table table-striped table-white" style="width:100%">
+                                <table class="table table-striped table-white" style="width:100%">
                                   <thead>
                                     <tr>
-                                      <th>#</th>
+                                      <th>No</th>
                                       <th>Register</th>
                                       <th>Judul</th>
                                       <th>Pengarang</th>
                                       <th>Tanggal Peminjaman</th>
                                       <th>Batas Peminjaman</th>
-                                      <th>Aksi</th>
+                                      <th>Perpanjangan</th>
                                     </tr>
                                   </thead>
                                   <tbody>
-
                                     <?php $i = 1;
                                     foreach ($buku_dipinjam as $b) : ?>
                                       <tr>
@@ -103,8 +132,20 @@
                                         <td><?= $b['judul_buku'] ?></td>
                                         <td><?= $b['pengarang'] ?></td>
                                         <td><?= date('d-m-Y', strtotime($b['tanggal_mulai'])) ?></td>
-                                        <td><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?></td>
-                                        <td><a href="../peminjaman/kembalikan/<?= $b['id_sirkulasi'] ?>?username=<?= $user['username']?>" class="btn btn-sm btn-success"><i class="fas fa-undo"></i></a></td>
+                                        <?php if (date('Y-m-d') > $b['tanggal_akhir']) : ?>
+                                          <td class="text-danger"><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?></td>
+                                        <?php else : ?>
+                                          <td class="text-success"><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?></td>
+                                        <?php endif; ?>
+                                        <?php if ($b['status_sirkulasi'] == 9) : ?>
+                                          <?php if (date('Y-m-d') > $b['tanggal_perpanjangan']) : ?>
+                                            <td class="text-danger"><?= ($b['tanggal_perpanjangan'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_perpanjangan'])); ?></td>
+                                          <?php else : ?>
+                                            <td class="text-success"><?= ($b['tanggal_perpanjangan'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_perpanjangan'])); ?></td>
+                                          <?php endif; ?>
+                                        <?php else : ?>
+                                          <td>-</td>
+                                        <?php endif; ?>
                                       </tr>
                                     <?php endforeach; ?>
                                   </tbody>

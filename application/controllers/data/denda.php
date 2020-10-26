@@ -59,4 +59,10 @@ class denda extends CI_Controller
             redirect('data/denda');
         }
     }
+
+    public function get_ajax()
+    {
+        $data = $this->db->get('denda')->result_array();
+        echo json_encode($data);
+    }
 }

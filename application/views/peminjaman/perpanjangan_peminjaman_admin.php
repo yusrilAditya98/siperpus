@@ -31,7 +31,7 @@
       <section class="content">
         <div class="container-fluid">
 
-        <div class="row">
+          <div class="row">
             <div class="col-12">
               <button class="btn btn-success float-right mb-3" data-toggle="modal" data-target="#modal-default"><i class="fas fa-plus"></i> Ajukan Perpanjangan Peminjaman</button>
             </div>
@@ -55,46 +55,48 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                  <table class="table table-bordered">
-                    <thead>
-                      <tr>
-                        <th>#</th>
-                        <th>Register</th>
-                        <th>Judul</th>
-                        <th>Peminjam</th>
-                        <th>Batas Akhir</th>
-                        <th>Waktu Perpanjangan</th>
-                        <th>Status</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <?php $i = 1;
-                      foreach ($buku_perpanjangan as $b) : ?>
+                  <div class="table-responsive">
+                    <table class="table table-bordered">
+                      <thead>
                         <tr>
-                          <td><?= $i++ ?></td>
-                          <td><?= $b['register'] ?></td>
-                          <td><?= $b['judul_buku'] ?></td>
-                          <td><?= $b['nama'] ?></td>
-                          <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
-                          <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
-                          <?php if ($b['status_sirkulasi'] == 5) { ?>
-                            <td><span class="badge bg-info">Diproses</span></td>
-                            <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi']?>" class="btn btn-success"><i class="fas fa-check"></i></a>
-                              <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi']?>" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
-                          <?php } else if ($b['status_sirkulasi'] == 7) { ?>
-                            <td><span class="badge bg-success">Diterima</span></td>
-                            <td></td>
-                          <?php } else if ($b['status_sirkulasi'] == 6) { ?>
-                            <td><span class="badge bg-danger">Ditolak</span></td>
-                            <td></td>
-                          <?php } else { ?>
-                          <?php } ?>
-                          </td>
+                          <th>#</th>
+                          <th>Register</th>
+                          <th>Judul</th>
+                          <th>Peminjam</th>
+                          <th>Batas Akhir</th>
+                          <th>Waktu Perpanjangan</th>
+                          <th>Status</th>
+                          <th>Aksi</th>
                         </tr>
-                      <?php endforeach; ?>
-                    </tbody>
-                  </table>
+                      </thead>
+                      <tbody>
+                        <?php $i = 1;
+                        foreach ($buku_perpanjangan as $b) : ?>
+                          <tr>
+                            <td><?= $i++ ?></td>
+                            <td><?= $b['register'] ?></td>
+                            <td><?= $b['judul_buku'] ?></td>
+                            <td><?= $b['nama'] ?></td>
+                            <td><?= date('d-m-Y', strtotime($b['tanggal_akhir'])) ?></td>
+                            <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
+                            <?php if ($b['status_sirkulasi'] == 7) { ?>
+                              <td><span class="badge bg-primary">pengajuan perpanjangan</span></td>
+                              <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
+                            <?php } else if ($b['status_sirkulasi'] == 8) { ?>
+                              <td><span class="badge bg-danger">tolak perpanjangan</span></td>
+                              <td></td>
+                            <?php } else if ($b['status_sirkulasi'] == 9) { ?>
+                              <td><span class="badge bg-success">valid perpanjangan</span></td>
+                              <td></td>
+                            <?php } else { ?>
+                            <?php } ?>
+                            </td>
+                          </tr>
+                        <?php endforeach; ?>
+                      </tbody>
+                    </table>
+                  </div>
                 </div>
                 <!-- /.card-body -->
               </div>
@@ -110,33 +112,35 @@
       <!-- /.content -->
     </div>
 
-<!-- Modal -->
+    <!-- Modal -->
     <div class="modal fade" id="modal-default">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
             <h4 class="modal-title">Perpanjangan Peminjaman</h4>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                  </button>
+              <span aria-hidden="true">&times;</span>
+            </button>
           </div>
           <form action="../peminjaman/perpanjangan/" method="post">
-          <div class="modal-body">
-            <div class="form-group">
-              <label for="kode_pinjam">Register</label>
-              <select name="sirkulasi" id="kode_pinjam" class="form-control">
-                      <option value="" selected hidden>Pilih Register...</option>
-                    <?php foreach($pinjaman as $p) : ?>
-                      <option value="<?= $p['id_sirkulasi']?>"><?= '('.$p['nama'].') '.$p['register']. ' - '.$p['judul_buku']?></option>
-                    <?php endforeach; ?>
-                </select>
-            </div>
+            <div class="modal-body">
+              <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" class="form-control" name="username" id="p_username" placeholder="username.." required>
+              </div>
+              <div class="form-group">
+                <label for="kode_pinjam">Register</label>
+                <select name="sirkulasi" id="kode_pinjam" class="form-control" required>
+                  <option value="">-- Pilih Register --</option>
 
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-            <button type="submit" class="btn btn-success">Ajukan Perpanjangan</button>
-          </div>
+                </select>
+              </div>
+
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+              <button type="submit" class="btn btn-success">Ajukan Perpanjangan</button>
+            </div>
           </form>
         </div>
         <!-- /.modal-content -->

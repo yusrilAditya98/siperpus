@@ -355,41 +355,35 @@
                                </p>
                            </a>
                            <ul class="nav nav-treeview">
-                               <!-- <li class="nav-item">
-                                   <a href="<?= site_url() ?>sirkulasi/peminjaman/peminjaman_buku" class="nav-link">
-                                       <i class="far fa-circle nav-icon"></i>
-                                       <p>Peminjaman Buku</p>
-                                   </a>
-                               </li> -->
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/daftar_buku_dipinjam" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Daftar Buku Dipinjam</p>
+                                       <p>Buku Dipinjam</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/keranjang_peminjaman" class="nav-link">
 
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Keranjang Peminjaman</p>
+                                       <p>Keranjang</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/perpanjangan_peminjaman" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Perpanjangan Peminjaman</p>
+                                       <p>Perpanjangan</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/pelanggaran_peminjaman" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Pelanggaran Peminjaman</p>
+                                       <p>Pelanggaran</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="<?= site_url() ?>sirkulasi/peminjaman/pengembalian_peminjaman" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Pengembalian Peminjaman</p>
+                                       <p>Pengembalian</p>
                                    </a>
                                </li>
                            </ul>

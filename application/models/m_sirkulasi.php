@@ -115,7 +115,6 @@ class M_sirkulasi extends CI_Model
 
     public function listBukuBaca($username = null, $kategori = null)
     {
-
         $this->db->select('*');
         $this->db->from('sirkulasi as s');
         $this->db->join('buku as b', 'b.register=s.b_register', 'left');
@@ -132,5 +131,111 @@ class M_sirkulasi extends CI_Model
             $this->db->or_where_in('s.status_sirkulasi', 8);
         }
         return $this->db->get()->result_array();
+    }
+
+
+    // daftar validasi
+    var $column_order_v = array(null, 'u.nama', 'u.username', 's.no_transaksi', 's.tanggal_mulai', 's.tanggal_akhir', 's.tanggal_sirkulasi', 's.status_sirkulasi', null);
+    //set column field database for datatable orderable
+    var $column_search_v = array('u.nama', 'u.username', 's.no_transaksi', 's.tanggal_mulai', 's.tanggal_akhir', 's.tanggal_sirkulasi', 's.status_sirkulasi');
+    //set column field database for datatable searchable
+    var $order_v = array('s.status_sirkulasi' => 'asc'); // default order 
+    private function _getBukuValidasi($keywords = null, $filter = null)
+    {
+        $this->db->select('u.nama,u.username,s.no_transaksi,s.tanggal_mulai,s.tanggal_akhir,s.tanggal_sirkulasi,s.status_sirkulasi');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('user as u', 'u.username=s.u_username', 'left');
+        $this->db->where_in('s.status_sirkulasi', [1, 2, 3, 4]);
+        $this->db->where('s.jenis_sirkulasi', 1);
+        $this->db->group_by('s.no_transaksi');
+
+
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+        $i = 0;
+        foreach ($this->column_search_v as $item) { // loop column 
+            if (@$_POST['search']['value']) { // if datatable send POST for search
+                if ($i === 0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if (count($this->column_search_v) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+        if (isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order_v[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order_v)) {
+            $order = $this->order_v;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    function get_daftarvalidasi($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_getBukuValidasi($keywords, $filter);
+        } else {
+            $this->_getBukuValidasi();
+        }
+        if (@$_POST['length'] != -1)
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function count_filtered_v($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_getBukuValidasi($keywords, $filter);
+        } else {
+            $this->_getBukuValidasi();
+        }
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function count_all_v($keywords = null, $filter = null)
+    {
+        $this->db->from('sirkulasi');
+        $this->db->where('jenis_sirkulasi', 1);
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+        return $this->db->count_all_results();
+    }
+    // selesai daftar valiasdi
+
+
+    // daftar buku yang dipinjam 
+    public function bukuDipinjam($no_transaksi)
+    {
+        $dataBuku = $this->db->select('register,judul_buku,status_sirkulasi,pengarang,penerbit,tahun_terbit,status_sirkulasi')->from('sirkulasi')->join('buku', 'buku.register=sirkulasi.b_register', 'left')->where('no_transaksi', $no_transaksi)->get()->result_array();
+        return $dataBuku;
+    }
+
+    // update status pengembalian
+
+    public function updatePengembalianBuku($data)
+    {
+        $this->db->set('tanggal_pengembalian', date('Y-m-d'));
+        $this->db->set('status_sirkulasi', $data['status']);
+        $this->db->where('no_transaksi', $data['no_transaksi']);
+        $this->db->where('b_register', $data['register']);
+        $this->db->update('sirkulasi');
+    }
+
+    public function insertSirkulasiPelanggaran($data)
+    {
+        // status 1 = belum diselesaikan
+        // status 2 = sudah diselesaikan
+        $this->db->insert('sirkulasi_pelanggaran', $data);
+    }
+
+    public function updateSirkulasiPelanggarang($data)
+    {
+        $this->db->update('sirkulasi_pelanggaran', $data, ['s_id_sirkulasi' => $data['s_id_sirkulasi'], 'p_id_pelanggaran' => $data['p_id_pelanggaran']]);
     }
 }

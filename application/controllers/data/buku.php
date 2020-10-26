@@ -9,8 +9,14 @@ class Buku extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->library('Ciqrcode');
+        $this->load->library('Zend');
         $this->load->model('m_katalog_buku');
         is_logged_in();
+    }
+    public function Barcode($id = 12332)
+    {
+        $this->zend->load('Zend/Barcode');
+        Zend_Barcode::render('code128', 'image', array('text' => $id));
     }
 
     function get_ajax_admin()

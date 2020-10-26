@@ -106,3 +106,65 @@ $(document).ready(function () {
 			$('#submit_baca_ditempat').click();
 	});
 });
+
+
+// cek denda pelanggaran
+$('#pelanggaran').on('change', function () {
+	let pelanggaran = $('#pelanggaran').val();
+	console.log(pelanggaran)
+
+	if (pelanggaran != '') {
+		$.ajax({
+			url: segments[0] + '/' + segments[3] + '/data/denda/get_ajax',
+			method: "get",
+			dataType: 'json',
+			success: function (result) {
+				console.log(result)
+				let option = '';
+				for (var i in result) {
+					option += '<option value="' + result[i]['id_denda'] + '">' + result[i]['nama_denda'] + '</option>'
+				}
+				console.log(option)
+				$('#denda').html('' + option)
+			}
+		})
+	} else {
+		console.log('cek')
+		$('#denda').html('<option value="null">--tidak ada denda--</option>')
+	}
+})
+
+$('#validasi_peminjaman').on('click', function () {
+	let pelanggaran = $('#pelanggaran').val();
+	let denda = $('#denda').val();
+	if (pelanggaran != '') {
+		if (denda != '') {} else {
+			return alert('denda harap diisikan')
+		}
+	}
+})
+
+$('#p_username').keyup(function () {
+	let username = $('#p_username').val()
+
+	$('#kode_pinjam').html('')
+	$.ajax({
+		url: segments[0] + '/' + segments[3] + '/sirkulasi/peminjaman/ajax_perpanjangan/' + username,
+		method: "get",
+		dataType: 'json',
+		success: function (result) {
+			let data = result['data']
+			let option = ''
+			if (result['message'] == true) {
+				for (var i in data) {
+					option = '<option value="' + data[i]['id_sirkulasi'] + '">(' + data[i]['nama'] + ') ' + data[i]['register'] + ' - ' + data[i]['judul_buku'] + '</option>'
+				}
+				$('#kode_pinjam').html('' + option)
+			} else {
+				console.log(data)
+				$('#kode_pinjam').html('<option value="">-- Pilih Register --</option>')
+			}
+		}
+	})
+
+})
