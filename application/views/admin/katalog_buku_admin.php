@@ -58,6 +58,7 @@
                                             <th>Penerbit</th>
                                             <th>Tahun Terbit</th>
                                             <th>Digital</th>
+                                            <th>Status</th>
                                             <th width="15%">Aksi</th>
                                         </tr>
                                     </thead>

@@ -289,7 +289,7 @@ class Peminjaman extends CI_Controller
             foreach ($dataBuku as $b) {
                 $status = "";
                 if ($b['status_sirkulasi'] == 1) {
-                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a>';
+                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a><a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=5') . '" class="btn btn-danger btn-flat mb-2 mr-2"><i class="fas fa-times mr-2"></i>Tolak Peminjaman</a>';
                     $status = '<span class="badge badge-primary">proses peminjaman</span>';
                 } elseif ($b['status_sirkulasi'] == 2) {
                     $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=3') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Dapat Diambil</a>';
@@ -446,7 +446,8 @@ class Peminjaman extends CI_Controller
 
         $data = [
             'buku_dipinjam' => $this->m_sirkulasi->bukuDipinjam($no_transaksi),
-            'title' => 'Detail Validasi Peminjaman'
+            'title' => 'Detail Validasi Peminjaman',
+            'user' => $this->db->select('nama,username,no_transaksi,tanggal_mulai,tanggal_akhir')->from('sirkulasi')->join('user', 'user.username=sirkulasi.u_username', 'left')->where('sirkulasi.no_transaksi', $no_transaksi)->get()->row_array()
         ];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar', $data);
@@ -585,9 +586,9 @@ class Peminjaman extends CI_Controller
         $title = 'Daftar Buku Dipinjam | Portal FH';
 
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->from('sirkulasi')->join('user', 'user.username = sirkulasi.u_username', 'left')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_not_in('status_sirkulasi', 0)->from('sirkulasi')->join('user', 'user.username = sirkulasi.u_username', 'left')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
         } else {
-            $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+            $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_not_in('status_sirkulasi', 0)->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
         }
         $this->template($title);
         $this->load->view('peminjaman/daftar_buku_dipinjam', $data);
@@ -605,7 +606,7 @@ class Peminjaman extends CI_Controller
     {
         $title = 'Perpanjangan Peminjaman | Portal FH';
         $data['buku_perpanjangan'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
-        $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 2])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $this->session->userdata('username')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman', $data);
         $this->load->view('templates/footer');
@@ -635,14 +636,9 @@ class Peminjaman extends CI_Controller
     }
     public function validPinjam($id_sirkulasi)
     {
-        $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => 7]);
+        $status = $this->db->get('valid');
+        $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => $status]);
         $this->session->set_flashdata('success', 'Validasi perpanjangan berhasil');
-        redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
-    }
-    public function tolakPinjam($id_sirkulasi)
-    {
-        $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => 6]);
-        $this->session->set_flashdata('success', 'Validasi perpanjangan ditolak');
         redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
     }
     public function pelanggaran_peminjaman()
@@ -848,7 +844,7 @@ class Peminjaman extends CI_Controller
         $username = $this->input->get('username');
         if ($username) {
             $data['user'] = $this->db->get_where('user', ['username' => $username])->row_array();
-            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1, 'u_username' => $username])->where_in('status_sirkulasi', [4, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1, 'u_username' => $username])->where_in('status_sirkulasi', [4, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
             $data['pelanggaran'] = $this->db->get('pelanggaran')->result_array();
             if ($data['user'] == null) {
                 $data['user'] = 'Kosong';
@@ -865,6 +861,12 @@ class Peminjaman extends CI_Controller
     public function ubahStatusPeminjaman($no_transaksi)
     {
         $status = $this->input->get('status');
+        if ($status == 5) {
+            $buku = $this->db->get_where('sirkulasi', ['no_transaksi' => $no_transaksi])->row_array();
+            $this->db->set('status_buku', 1);
+            $this->db->where('register', $buku['b_register']);
+            $this->db->update('buku');
+        }
         $this->db->set('status_sirkulasi', $status);
         $this->db->where('no_transaksi', $no_transaksi);
         $this->db->update('sirkulasi');

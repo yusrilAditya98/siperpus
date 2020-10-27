@@ -64,6 +64,7 @@
                                             <th>Pengarang</th>
                                             <th>Penerbit</th>
                                             <th>Tahun Terbit</th>
+                                            <th>Digital</th>
                                             <th>Status Buku</th>
                                             <th width="15%">Aksi</th>
                                         </tr>

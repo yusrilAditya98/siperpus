@@ -75,7 +75,7 @@
                           <th>Batas Akhir</th>
                           <th>Waktu Perpanjangan</th>
                           <th>Status</th>
-                          <th>Aksi</th>
+
                         </tr>
                       </thead>
                       <tbody>
@@ -89,14 +89,12 @@
                             <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
                             <?php if ($b['status_sirkulasi'] == 7) { ?>
                               <td><span class="badge bg-primary">pengajuan perpanjangan</span></td>
-                              <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-success"><i class="fas fa-check"></i></a>
-                                <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi'] ?>" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
                             <?php } else if ($b['status_sirkulasi'] == 8) { ?>
-                              <td><span class="badge bg-danger">tolak perpanjangan</span></td>
-                              <td></td>
+                              <td><span class="badge bg-danger">tolak perpanjangan</span><br>
+                                <p>Harap buku segera dikembalikan sebelum batas akhir</p>
+                              </td>
                             <?php } else if ($b['status_sirkulasi'] == 9) { ?>
                               <td><span class="badge bg-success">valid perpanjangan</span></td>
-                              <td></td>
                             <?php } else { ?>
                             <?php } ?>
                             </td>
