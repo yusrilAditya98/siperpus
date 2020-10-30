@@ -238,4 +238,55 @@ class M_sirkulasi extends CI_Model
     {
         $this->db->update('sirkulasi_pelanggaran', $data, ['s_id_sirkulasi' => $data['s_id_sirkulasi'], 'p_id_pelanggaran' => $data['p_id_pelanggaran']]);
     }
+
+    public function dataAdmin()
+    {
+        $this->db->select('COUNT(id_sirkulasi) as jumlah,status_sirkulasi');
+        $this->db->from('sirkulasi');
+        $this->db->group_by('status_sirkulasi');
+        $dataStatus =  $this->db->get()->result_array();
+        $result = [
+            'kranjang' => 0, // 0
+            'pengajuan' => 0, // 1
+            'persiapan' => 0, // 2
+            'dapat_diambil' => 0, // 3
+            'pinjam' => 0, // 4
+            'tolak_peminjaman' => 0, // 5
+            'pelanggaran' => 0, // 6
+            'pengajuan_perpanjangan' => 0, // 7
+            'tolak_perpanjangan' => 0, //8
+            'valid_perpanjangan' => 0, //9
+            'selesai_peminjaman' => 0, //10
+            'telat' => 0
+        ];
+        foreach ($dataStatus as $d) {
+            if ($d['status_sirkulasi'] == 1) {
+                $result['pengajuan'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 2) {
+                $result['persiapan'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 3) {
+                $result['dapat_diambil'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 4) {
+                $result['pinjam'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 5) {
+                $result['tolak_peminjaman'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 6) {
+                $result['pelanggaran'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 7) {
+                $result['pengajuan_perpanjangan'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 8) {
+                $result['tolak_perpanjangan'] = $d['jumlah'];
+            } elseif ($d['status_sirkulasi'] == 9) {
+                $result['valid_perpanjangan'] = $d['jumlah'];
+            } else {
+                $result['selesai_peminjaman'] = $d['jumlah'];
+            }
+        }
+
+        $telat = $this->db->select('COUNT(id_sirkulasi) as telat')->from('sirkulasi')->where('tanggal_akhir <', date('Y-m-d'))->where('status_sirkulasi !=', 9)->get()->row_array();
+        $telatPerpanjangan = $this->db->select('COUNT(id_sirkulasi) as telat')->from('sirkulasi')->where('tanggal_perpanjangan <', date('Y-m-d'))->where('status_sirkulasi', 9)->get()->row_array();
+
+        $result['telat'] = $telat['telat'] + $telatPerpanjangan['telat'];
+        return $result;
+    }
 }

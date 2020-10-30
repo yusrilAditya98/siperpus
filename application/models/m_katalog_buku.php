@@ -274,4 +274,54 @@ class m_katalog_buku extends CI_Model
         // $this->db->limit(1000);
         return $this->db->get()->result();
     }
+
+    public function dataJenisBuku()
+    {
+        $this->db->select('COUNT(register) as jumlah, nama_jenis, id_jenis');
+        $this->db->from('buku');
+        $this->db->join('jenis_koleksi', 'jenis_koleksi.id_jenis=buku.jk_id_jenis', 'left');
+        $this->db->group_by('id_jenis');
+        $data = $this->db->get()->result_array();
+        $result = [];
+        $jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
+
+        foreach ($jenis_koleksi as $jk) {
+            $result[$jk['id_jenis']]  = [
+                'id_jenis' => $jk['id_jenis'],
+                'nama_jenis' => $jk['nama_jenis'],
+                'jumlah' => 0,
+            ];
+        }
+        foreach ($data as $d) {
+            $result[$d['id_jenis']] = [
+                'id_jenis' => $d['id_jenis'],
+                'nama_jenis' => $d['nama_jenis'],
+                'jumlah' => $d['jumlah']
+            ];
+        }
+
+        return $result;
+    }
+
+    public function dataHotBuku($jenis_sirkulasi)
+    {
+        $this->db->select('COUNT(b_register) as jumlah,judul_buku,register');
+        $this->db->from('sirkulasi');
+        $this->db->join('buku', 'buku.register=sirkulasi.b_register', 'left');
+        $this->db->where('jenis_sirkulasi', $jenis_sirkulasi);
+        $this->db->group_by('b_register');
+        $this->db->order_by('jumlah', 'desc');
+        return $this->db->get()->result_array();
+    }
+
+    public function bukuToday()
+    {
+        $this->db->select('u.nama,u.username,s.id_sirkulasi,b.register,b.judul_buku,s.status_sirkulasi,b.penerbit,b.pengarang');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b', 's.b_register=b.register', 'left');
+        $this->db->join('user as u', 'u.username=s.u_username', 'left');
+        $this->db->where_in('s.status_sirkulasi', [2, 3]); //  status sedang dipersiapkan dan dapat diambil
+        $this->db->where('s.tanggal_mulai', date('Y-m-d'));
+        return $this->db->get()->result_array();
+    }
 }

@@ -681,7 +681,7 @@ class Peminjaman extends CI_Controller
         $username = $this->input->post('username');
         // cek no transaksi 
         $sirkulasi = $this->db->get_where('sirkulasi', ['b_register' => $register, 'no_transaksi' => $no_transaksi])->row_array();
-        if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 9) {
+        if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 8 || $sirkulasi['status_sirkulasi'] == 9) {
             if ($pelanggaran == '' && $denda == '') {
                 $data = [
                     'status' => 10,

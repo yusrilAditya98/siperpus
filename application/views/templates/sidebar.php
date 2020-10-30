@@ -227,7 +227,30 @@
                                </li>
                            </ul>
                        </li>
-
+                       <li class="nav-item">
+                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                               <i class="nav-icon fas fa-layer-group"></i>
+                               <p>
+                                   Cetak Barqode / Qrcode
+                               </p>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                               <i class="nav-icon fas fa-layer-group"></i>
+                               <p>
+                                   Bebas Pustaka
+                               </p>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                               <i class="nav-icon fas fa-layer-group"></i>
+                               <p>
+                                   Recall
+                               </p>
+                           </a>
+                       </li>
                        <li class="nav-item has-treeview">
                            <a href="#" class="nav-link">
                                <i class="nav-icon fas fa-folder"></i>
@@ -394,6 +417,14 @@
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
+                               </p>
+                           </a>
+                       </li>
+                       <li class="nav-item">
+                           <a href="<?= site_url() ?>user/anggota/bebas_pustaka" class="nav-link">
+                               <i class="nav-icon fas fa-flag-checkered"></i>
+                               <p>
+                                   Bebas Pustaka
                                </p>
                            </a>
                        </li>

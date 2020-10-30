@@ -14,7 +14,7 @@
 				<div class="col-lg-4 col-6">
 					<div class="small-box bg-info">
 						<div class="inner">
-							<h3>150</h3>
+							<h3><?= $status['pengajuan'] ?></h3>
 							<p>Pengajuan Validasi</p>
 						</div>
 						<div class="icon">
@@ -26,7 +26,7 @@
 				<div class="col-lg-4 col-6">
 					<div class="small-box bg-success">
 						<div class="inner">
-							<h3>50</h3>
+							<h3><?= $status['pinjam'] ?></h3>
 							<p>Buku dipinjam</p>
 						</div>
 						<div class="icon">
@@ -38,7 +38,7 @@
 				<div class="col-lg-4 col-6">
 					<div class="small-box bg-warning text-white">
 						<div class="inner text-white">
-							<h3>50</h3>
+							<h3><?= $status['telat'] ?></h3>
 							<p>Buku Telat Pengembalian</p>
 						</div>
 						<div class="icon ">
@@ -63,30 +63,14 @@
 							<div class="row">
 								<div class="col-lg-12">
 									<ul class="nav nav-pills flex-column">
-										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Buku Cetak
-												<span class="float-right text-primary">1400</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Digital Koleksi
-												<span class="float-right text-primary">1178</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Skripsi
-												<span class="float-right text-primary">222</span>
-											</a>
-										</li>
-										<li class="nav-item">
-											<a href="#" class="nav-link">
-												Artikel
-												<span class="float-right text-primary">100</span>
-											</a>
-										</li>
+										<?php foreach ($jenis_koleksi as $jk) : ?>
+											<li class="nav-item">
+												<a href="#" class="nav-link">
+													<?= $jk['nama_jenis'] ?>
+													<span class="float-right text-primary"><?= $jk['jumlah'] ?></span>
+												</a>
+											</li>
+										<?php endforeach; ?>
 									</ul>
 								</div>
 							</div>
@@ -110,18 +94,18 @@
 								<li class="item">
 									<div style="margin-left: 12px;">
 										<a href="javascript:void(0)" class="product-title">Buku yang sering dibaca ditempat
-											<span class="badge badge-warning float-right">800</span></a>
+											<span class="badge badge-warning float-right"><?= ($baca_ditempat) ? $baca_ditempat[0]['jumlah'] : "0"; ?></span></a>
 										<span class="product-description">
-											Hukum Rumah Susun Suatu Bekal Pengantar Pemahaman
+											<?= ($baca_ditempat) ? $baca_ditempat[0]['judul_buku'] : "-"; ?>
 										</span>
 									</div>
 								</li>
 								<li class="item">
 									<div style="margin-left: 12px;">
 										<a href="javascript:void(0)" class="product-title">Buku yang sering dipinjam
-											<span class="badge badge-warning float-right">500</span></a>
+											<span class="badge badge-warning float-right"><?= ($dipinjam) ? $dipinjam[0]['jumlah'] : "0"; ?></span></a>
 										<span class="product-description">
-											Implementasi Sistem Bikameral Dalam Parlemen Indonesia
+											<?= ($dipinjam) ? $dipinjam[0]['judul_buku'] : "-"; ?>
 										</span>
 									</div>
 								</li>
@@ -138,7 +122,7 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-header border-transparent">
-							<h3 class="card-title">Buku Akan Dipinjam Hari Ini - 20 Agustus 2020</h3>
+							<h3 class="card-title">Buku Akan Dipinjam Hari Ini - <?= tgl_indo(date('Y-m-d')) ?></h3>
 
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="collapse">
@@ -158,39 +142,37 @@
 											<th>Nama Buku</th>
 											<th>Pengarang</th>
 											<th>Penerbit</th>
+											<th>Status</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>1</td>
-											<td>Aditya Yusril</td>
-											<td><a href="pages/examples/invoice.html">10101046</a></td>
-											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
-											<td>Purnomowati, Reni Dwi</td>
-											<td>
-												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
-											</td>
-										</tr>
-										<tr>
-											<td>2</td>
-											<td>Haris</td>
-											<td><a href="pages/examples/invoice.html">21101046</a></td>
-											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
-											<td>Purnomowati, Reni Dwi</td>
-											<td>
-												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>Fadli</td>
-											<td><a href="pages/examples/invoice.html">31101046</a></td>
-											<td>Implementasi Sistem Bikameral Dalam Parlemen Indonesia</td>
-											<td>Purnomowati, Reni Dwi</td>
-											<td>
-												<div class="sparkbar" data-color="#00a65a" data-height="20">PT Raja Grafindo Persada</div>
-											</td>
-										</tr>
+										<?php if ($buku_today) : ?>
+											<?php $i = 1; ?>
+											<?php foreach ($buku_today as $bt) : ?>
+												<tr>
+													<td><?= $i++ ?></td>
+													<td><i class="fas fa-user mr-2"></i><?= $bt['nama'] ?><br><?= $bt['username'] ?></td>
+													<td><a href="pages/examples/invoice.html"><?= $bt['register'] ?></a></td>
+													<td><?= $bt['judul_buku'] ?></td>
+													<td><?= $bt['pengarang'] ?></td>
+													<td>
+														<div class="sparkbar" data-color="#00a65a" data-height="20"><?= $bt['penerbit'] ?></div>
+													</td>
+													<?php if ($bt['status_sirkulasi'] == 2) : ?>
+														<td><span class="badge badge-warning">sedang dipersiapkan</span></td>
+													<?php else : ?>
+														<td><span class="badge badge-info">dapat segera diambil</span></td>
+													<?php endif; ?>
+												</tr>
+											<?php endforeach; ?>
+										<?php else : ?>
+											<tr>
+												<td colspan="7">
+													<h4 class="text-center">Data Buku Hari Ini Tidak Ada</h4>
+												</td>
+											</tr>
+										<?php endif; ?>
+
 
 									</tbody>
 								</table>

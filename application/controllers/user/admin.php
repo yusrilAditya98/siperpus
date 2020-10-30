@@ -9,13 +9,21 @@ class Admin extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('m_user', 'u');
         $this->load->model('m_prodi', 'p');
+        $this->load->model('m_sirkulasi');
+        $this->load->model('m_katalog_buku');
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Dashboard';
-        $this->load->view('templates/header');
+        $data['status'] = $this->m_sirkulasi->dataAdmin();
+        $data['jenis_koleksi'] = $this->m_katalog_buku->dataJenisBuku();
+        $data['baca_ditempat'] = $this->m_katalog_buku->dataHotBuku(2);
+        $data['dipinjam'] = $this->m_katalog_buku->dataHotBuku(1);
+        $data['buku_today'] = $this->m_katalog_buku->bukuToday();
+
+        $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
         $this->load->view('admin/dashboard_admin');
