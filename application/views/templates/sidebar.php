@@ -228,7 +228,7 @@
                            </ul>
                        </li>
                        <li class="nav-item">
-                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                           <a href="<?= site_url() ?>cetak/code/" class="nav-link">
                                <i class="nav-icon fas fa-layer-group"></i>
                                <p>
                                    Cetak Barqode / Qrcode
@@ -236,7 +236,7 @@
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                           <a href="<?= site_url() ?>cetak/bebas_pustaka" class="nav-link">
                                <i class="nav-icon fas fa-layer-group"></i>
                                <p>
                                    Bebas Pustaka
@@ -244,7 +244,7 @@
                            </a>
                        </li>
                        <li class="nav-item">
-                           <a href="<?= site_url() ?>cetak/" class="nav-link">
+                           <a href="<?= site_url() ?>recall/" class="nav-link">
                                <i class="nav-icon fas fa-layer-group"></i>
                                <p>
                                    Recall
