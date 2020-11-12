@@ -865,4 +865,83 @@ class Buku extends CI_Controller
         $filter = $_POST['filter'];
         $this->get_ajax_opac($keywords, $filter);
     }
+    public function import(){
+        // upload file xls
+        $target = basename($_FILES['import-data']['name']);
+        if ($_FILES['import-data']['name']) {
+            $config['allowed_types'] = 'xls';
+            $config['max_size']     = '4096'; //kb
+            $config['upload_path'] = FCPATH . 'assets/berkas/';
+            $config['overwrite'] = true;
+            $config['file_name'] = $_FILES['import-data']['name'];
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            $this->upload->do_upload('import-data');
+        };
+
+        // beri permisi agar file xls dapat di baca
+        chmod(FCPATH . 'assets/berkas/' .  $target, 0777);
+        // mengambil isi file xls
+        $path = FCPATH . 'assets/berkas/' .  $target;
+        $data = new Spreadsheet_Excel_Reader($path, false);
+        // menghitung jumlah baris data yang ada
+        $jumlah_baris = $data->rowcount($sheet_index = 0);
+        $input_data = [];
+        for ($i = 3; $i < $jumlah_baris; $i++) {
+            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+                break;
+            }
+            // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
+            $result = [
+                "register" => str_replace("\0", "", $data->val($i, 2)),
+                "judul_buku" => str_replace("\0", "", $data->val($i, 3)),
+                "pengarang" => intval(str_replace("\0", "", $data->val($i, 4))),
+                "penerbit" => str_replace("\0", "", $data->val($i, 5)),
+                "tahun_terbit" => 'p'.str_replace("\0", "", $data->val($i, 6)),
+                "kondisi_fisik" => str_replace("\0", "", $data->val($i, 8)),
+                "status_buku" => str_replace("\0", "", $data->val($i, 22)),
+                "jenis_akses" => str_replace("\0", "", $data->val($i, 21)),
+                "kota_terbit" => str_replace("\0", "", $data->val($i, 7)),
+                "isbn" => str_replace("\0", "", $data->val($i, 11)),
+                "no_dewey" => str_replace("\0", "", $data->val($i, 12)),
+                "author_abrev" => str_replace("\0", "", $data->val($i, 13)),
+                "title_abrev" => str_replace("\0", "", $data->val($i, 14)),
+                "sampul" => "",
+                "volume" => str_replace("\0", "", $data->val($i, 9)),
+                "bibliography" => str_replace("\0", "", $data->val($i, 10)),
+                "subject" => str_replace("\0", "", $data->val($i, 15)),
+                "digital_pdf" => "",
+                "b_id_bahasa" => str_replace("\0", "", $data->val($i, 16)),
+                "ct_id_circ_type" => str_replace("\0", "", $data->val($i, 17)),
+                "f_id_funding" => str_replace("\0", "", $data->val($i, 18)),
+                "sk_id_sumber" => str_replace("\0", "", $data->val($i, 19)),
+                "k_id_kategori" => str_replace("\0", "", $data->val($i, 20)),
+                "jk_id_jenis" => 2,
+            ];
+
+            // upload sampul
+        // $upload_image = $_FILES['sampul'];
+        // $upload_image = $data->val($i, 23);
+        // if ($upload_image) {
+        //     $config['allowed_types'] = 'jpg|JPG|jpeg|JPEG|png|PNG';
+        //     $config['max_size']     = '1024'; //kb
+        //     $config['upload_path'] = FCPATH . 'assets/sampul_buku/';
+        //     $config['file_name'] = 'sampul_buku_' . $data['judul_buku'];
+        //     $this->load->library('upload', $config);
+        //     if ($this->upload->do_upload('sampul')) {
+        //         $data['sampul'] = $this->upload->data('file_name');
+        //     } else {
+        //         return false;
+        //     }
+        // }
+            array_push($input_data, $result);
+        };
+        // var_dump($input_data);die;
+        $this->db->insert_batch('buku', $input_data);
+        // hapus kembali file .xls yang di upload tadi
+        unlink($path);
+        // alihkan halaman ke index.php
+        $this->session->set_flashdata('success', 'Impor data buku berhasil');
+        redirect('data/buku/katalog_buku_admin');
+    }
 }

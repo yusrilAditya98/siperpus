@@ -175,4 +175,12 @@ class Non_Anggota extends CI_Controller
         $this->session->set_flashdata('success', 'Impor data Anggota berhasil');
         redirect('user/non_anggota/list');
     }
+    public function export()
+    {
+        $data['list_user'] =  $this->u->getUser(null, 3);
+        $data['tag'] = 3;
+        $data['title'] = "Data Non Anggota";
+        $data['filename'] = "Non_Anggota";
+        $this->load->view('export', $data);
+    }
 }

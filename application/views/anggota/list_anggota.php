@@ -55,6 +55,7 @@
                                     <button data-toggle="modal" data-target="#importAnggota" class="float-right btn btn-info mb-2 mr-2">
                                         Import Anggota
                                     </button>
+                                    <a href="<?= base_url('user/anggota/export') ?>" class="float-right btn btn-secondary mb-2 mr-2">Export Anggota</a>
                                 </div>
                             </div>
                             <table class="table table-bordered">

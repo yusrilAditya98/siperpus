@@ -203,4 +203,12 @@ class Anggota extends CI_Controller
         $this->session->set_flashdata('success', 'Impor data Anggota berhasil');
         redirect('user/anggota/list');
     }
+    public function export()
+    {
+        $data['list_user'] =  $this->u->getUser(null, 2);
+        $data['tag'] = 2;
+        $data['title'] = "Data Anggota";
+        $data['filename'] = "Anggota";
+        $this->load->view('export', $data);
+    }
 }

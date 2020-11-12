@@ -51,9 +51,10 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a href="<?= base_url('user/admin/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Admin</a>
-                                    <!-- <button data-toggle="modal" data-target="#importAdmin" class="float-right btn btn-info mb-2 mr-2">
+                                    <button data-toggle="modal" data-target="#importAdmin" class="float-right btn btn-info mb-2 mr-2">
                                         Import Admin
-                                    </button> -->
+                                    </button>
+                                    <a href="<?= base_url('user/admin/export') ?>" class="float-right btn btn-secondary mb-2 mr-2">Export Admin</a>
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -156,7 +157,7 @@
                                             <input name="import_admin" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
                                             <label class="custom-file-label" for="import_admin">Choose file</label>
                                         </div>
-                                        <small>*file upload harus berekstensi *xls maksimal ukuran 5MB</small>
+                                        <small>*file upload harus berekstensi *xls maksimal ukuran 4MB</small>
                                     </div>
                                 </div>
                             </div>

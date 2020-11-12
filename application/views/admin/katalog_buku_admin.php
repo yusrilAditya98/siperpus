@@ -15,7 +15,11 @@
             </div>
         </div>
     </div>
-
+    <?php if ($this->session->flashdata('success')) : ?>
+        <input type="hidden" class="toasterSuccess" value="<?= $this->session->flashdata('success')  ?>">
+    <?php else : ?>
+        <input type="hidden" class="toasterDanger" value="<?= $this->session->flashdata('danger')  ?>">
+    <?php endif; ?>
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
@@ -26,20 +30,6 @@
                             <h3 class="card-title">Data Katalog Buku</h3>
                         </div>
                         <div class="card-body">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <?php if ($this->session->flashdata('warning') != null) : ?>
-                                        <div class="alert alert-danger" role="alert">
-                                            <?= $this->session->flashdata('warning') ?>
-                                        </div>
-                                    <?php endif; ?>
-                                    <?php if ($this->session->flashdata('success') != null) : ?>
-                                        <div class="alert alert-success" role="alert">
-                                            <?= $this->session->flashdata('success') ?>
-                                        </div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-lg-12 col-12">
                                     <a href="<?= site_url() ?>data/buku/tambah" class="float-right btn btn-success mb-2">
@@ -109,17 +99,17 @@
                             <div class="modal-body">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a href="" target="_blank" class="btn btn-info">Download Template Data Buku</a>
+                                        <a href="<?= base_url('/assets/import/Buku.xls') ?>" target="_blank" class="btn btn-info">Download Template Data Buku</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="import_buku" class="col-sm-2 col-form-label">File Import</label>
+                                    <label for="import-data" class="col-sm-2 col-form-label">File Import</label>
                                     <div class="col-sm-12">
                                         <div class="custom-file">
-                                            <input name="import_buku" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
-                                            <label class="custom-file-label" for="import_buku">Choose file</label>
+                                            <input name="import-data" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
+                                            <label class="custom-file-label" for="import-data">Choose file</label>
                                         </div>
-                                        <small>*file upload harus berekstensi *xls maksimal ukuran 5MB</small>
+                                        <small>*file upload harus berekstensi *xls maksimal ukuran 4MB</small>
                                     </div>
                                 </div>
                             </div>

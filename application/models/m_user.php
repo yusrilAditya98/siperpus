@@ -15,6 +15,8 @@ class M_user extends CI_Model
         if ($role_id != null) {
             $this->db->where('user.ru_role_id', $role_id);
         }
+        $this->db->join('prodi as p', 'p.id_prodi = user.p_id_prodi');
+        $this->db->join('role_user as ru', 'ru.role_id = user.ru_role_id');
         return $this->db->get()->result_array();
     }
 
