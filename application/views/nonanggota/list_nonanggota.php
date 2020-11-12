@@ -147,7 +147,7 @@
                             <div class="modal-body">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a href="" target="_blank" class="btn btn-info">Download Template Data Non Anggota</a>
+                                        <a href="<?= base_url('/assets/import/User.xls') ?>" target="_blank" class="btn btn-info">Download Template Data Non Anggota</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -157,7 +157,7 @@
                                             <input name="import_non_anggota" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
                                             <label class="custom-file-label" for="import_non_anggota">Choose file</label>
                                         </div>
-                                        <small>*file upload harus berekstensi *xls maksimal ukuran 5MB</small>
+                                        <small>*file upload harus berekstensi *xls maksimal ukuran 4MB</small>
                                     </div>
                                 </div>
                             </div>

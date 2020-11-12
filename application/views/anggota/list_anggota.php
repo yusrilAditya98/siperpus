@@ -53,7 +53,7 @@
                                 <div class="col-sm-12">
                                     <a href="<?= base_url('user/anggota/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Anggota</a>
                                     <button data-toggle="modal" data-target="#importAnggota" class="float-right btn btn-info mb-2 mr-2">
-                                        Import Buku
+                                        Import Anggota
                                     </button>
                                 </div>
                             </div>
@@ -144,17 +144,17 @@
                             <div class="modal-body">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a href="" target="_blank" class="btn btn-info">Download Template Data Anggota</a>
+                                        <a href="<?= base_url('/assets/import/User.xls') ?>" target="_blank" class="btn btn-info">Download Template Data Anggota</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">
-                                    <label for="import_anggota" class="col-sm-2 col-form-label">File Import</label>
+                                    <label for="import-data" class="col-sm-2 col-form-label">File Import</label>
                                     <div class="col-sm-12">
                                         <div class="custom-file">
-                                            <input name="import_anggota" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
-                                            <label class="custom-file-label" for="import_anggota">Choose file</label>
+                                            <input name="import-data" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
+                                            <label class="custom-file-label" for="import-data">Choose file</label>
                                         </div>
-                                        <small>*file upload harus berekstensi *xls maksimal ukuran 5MB</small>
+                                        <small>*file upload harus berekstensi *xls maksimal ukuran 4MB</small>
                                     </div>
                                 </div>
                             </div>

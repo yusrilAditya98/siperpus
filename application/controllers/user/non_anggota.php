@@ -125,4 +125,54 @@ class Non_Anggota extends CI_Controller
         }
         redirect('user/non_anggota/list');
     }
+
+    public function import(){
+        // upload file xls
+        $target = basename($_FILES['import-data']['name']);
+        if ($_FILES['import-data']['name']) {
+            $config['allowed_types'] = 'xls';
+            $config['max_size']     = '4096'; //kb
+            $config['upload_path'] = FCPATH . 'assets/berkas/';
+            $config['overwrite'] = true;
+            $config['file_name'] = $_FILES['import-data']['name'];
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            $this->upload->do_upload('import-data');
+        };
+
+        // beri permisi agar file xls dapat di baca
+        chmod(FCPATH . 'assets/berkas/' .  $target, 0777);
+        // mengambil isi file xls
+        $path = FCPATH . 'assets/berkas/' .  $target;
+        $data = new Spreadsheet_Excel_Reader($path, false);
+        // menghitung jumlah baris data yang ada
+        $jumlah_baris = $data->rowcount($sheet_index = 0);
+        $input_data = [];
+        for ($i = 3; $i < $jumlah_baris; $i++) {
+            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+                break;
+            }
+            // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
+            $result = [
+                "username" => str_replace("\0", "", $data->val($i, 2)),
+                "nama" => str_replace("\0", "", $data->val($i, 3)),
+                "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
+                "no_hp" => str_replace("\0", "", $data->val($i, 5)),
+                "password" => 'p'.str_replace("\0", "", $data->val($i, 2)),
+                "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
+                "foto" => '',
+                "date_created" => date('Y-m-d'),
+                "p_id_prodi" => str_replace("\0", "", $data->val($i, 7)),
+                "ru_role_id" => str_replace("\0", "", $data->val($i, 8)),
+            ];
+            array_push($input_data, $result);
+        };
+        // var_dump($input_data);die;
+        $this->db->insert_batch('user', $input_data);
+        // hapus kembali file .xls yang di upload tadi
+        unlink($path);
+        // alihkan halaman ke index.php
+        $this->session->set_flashdata('success', 'Impor data Anggota berhasil');
+        redirect('user/non_anggota/list');
+    }
 }

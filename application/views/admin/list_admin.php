@@ -51,9 +51,9 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a href="<?= base_url('user/admin/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Admin</a>
-                                    <button data-toggle="modal" data-target="#importAdmin" class="float-right btn btn-info mb-2 mr-2">
+                                    <!-- <button data-toggle="modal" data-target="#importAdmin" class="float-right btn btn-info mb-2 mr-2">
                                         Import Admin
-                                    </button>
+                                    </button> -->
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -146,7 +146,7 @@
                             <div class="modal-body">
                                 <div class="form-group row">
                                     <div class="col-sm-12">
-                                        <a href="" target="_blank" class="btn btn-info">Download Template Data Admin</a>
+                                        <a href="<?= base_url('/assets/import/User.xls') ?>" target="_blank" class="btn btn-info">Download Template Data Admin</a>
                                     </div>
                                 </div>
                                 <div class="form-group row">

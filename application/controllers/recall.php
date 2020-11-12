@@ -144,12 +144,17 @@ class recall extends CI_Controller
     }
     public function tambahRecall($id_sirkulasi)
     {
-        $res = $this->m_recall->insertData($id_sirkulasi);
+        $recall = $this->db->get_where('recall', ['id_sirkulasi' => $id_sirkulasi])->row_array();
+        if($recall != null){
+            $res = 0;
+        }else{
+            $res = $this->m_recall->insertData($id_sirkulasi);
+        }
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data Recall berhasil ditambahkan');
             redirect('recall');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal menambahkan, Data Recall sudah ada');
             redirect('recall');
         }
     }
@@ -160,7 +165,7 @@ class recall extends CI_Controller
             $this->session->set_flashdata('success', 'Data Recall berhasil diubah');
             redirect('recall');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal mengubah data');
+            $this->session->set_flashdata('danger', 'Gagal mengubah data');
             redirect('recall');
         }
     }
@@ -175,7 +180,7 @@ class recall extends CI_Controller
             $this->session->set_flashdata('success', 'Data Recall berhasil dihapus');
             redirect('recall');
         } else {
-            $this->session->set_flashdata('warning', 'Gagal menghapus data');
+            $this->session->set_flashdata('danger', 'Gagal menghapus data');
             redirect('recall');
         }
     }
