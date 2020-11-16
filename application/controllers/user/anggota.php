@@ -17,6 +17,15 @@ class Anggota extends CI_Controller
     public function index()
     {
         $data['title'] = 'Dashboard';
+        $this->db->select('r.*, s.no_transaksi, b.register, b.judul_buku, u.nama');
+        $this->db->from('recall as r');
+        $this->db->join('sirkulasi as s', 's.id_sirkulasi = r.id_sirkulasi', 'left');
+        $this->db->join('buku as b', 'b.register = s.b_register', 'left');
+        $this->db->join('user as u', 'u.username = s.u_username', 'left');
+        $this->db->where('s.u_username', $this->session->userdata('username'));
+        $this->db->where('r.status_recall', 1);
+        $this->db->where_in('s.status_sirkulasi', [4, 9]);
+        $data['recall'] = $this->db->get()->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -146,6 +155,64 @@ class Anggota extends CI_Controller
         }
     }
 
+
+    public function import(){
+        // upload file xls
+        $target = basename($_FILES['import-data']['name']);
+        if ($_FILES['import-data']['name']) {
+            $config['allowed_types'] = 'xls';
+            $config['max_size']     = '4096'; //kb
+            $config['upload_path'] = FCPATH . 'assets/berkas/';
+            $config['overwrite'] = true;
+            $config['file_name'] = $_FILES['import-data']['name'];
+            $this->load->library('upload', $config);
+            $this->upload->initialize($config);
+            $this->upload->do_upload('import-data');
+        };
+
+        // beri permisi agar file xls dapat di baca
+        chmod(FCPATH . 'assets/berkas/' .  $target, 0777);
+        // mengambil isi file xls
+        $path = FCPATH . 'assets/berkas/' .  $target;
+        $data = new Spreadsheet_Excel_Reader($path, false);
+        // menghitung jumlah baris data yang ada
+        $jumlah_baris = $data->rowcount($sheet_index = 0);
+        $input_data = [];
+        for ($i = 3; $i < $jumlah_baris; $i++) {
+            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+                break;
+            }
+            // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
+            $result = [
+                "username" => str_replace("\0", "", $data->val($i, 2)),
+                "nama" => str_replace("\0", "", $data->val($i, 3)),
+                "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
+                "no_hp" => str_replace("\0", "", $data->val($i, 5)),
+                "password" => 'p'.str_replace("\0", "", $data->val($i, 2)),
+                "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
+                "foto" => '',
+                "date_created" => date('Y-m-d'),
+                "p_id_prodi" => str_replace("\0", "", $data->val($i, 7)),
+                "ru_role_id" => str_replace("\0", "", $data->val($i, 8)),
+            ];
+            array_push($input_data, $result);
+        };
+        // var_dump($input_data);die;
+        $this->db->insert_batch('user', $input_data);
+        // hapus kembali file .xls yang di upload tadi
+        unlink($path);
+        // alihkan halaman ke index.php
+        $this->session->set_flashdata('success', 'Impor data Anggota berhasil');
+        redirect('user/anggota/list');
+    }
+    public function export()
+    {
+        $data['list_user'] =  $this->u->getUser(null, 2);
+        $data['tag'] = 2;
+        $data['title'] = "Data Anggota";
+        $data['filename'] = "Anggota";
+        $this->load->view('export', $data);
+
     function get_status_mahasiswa()
     {
         $username_siswa = $this->session->userdata('username');
@@ -225,5 +292,6 @@ class Anggota extends CI_Controller
         $this->load->view('templates/sidebar');
         $this->load->view('anggota/bebas_pustaka', $data);
         $this->load->view('templates/footer');
+
     }
 }

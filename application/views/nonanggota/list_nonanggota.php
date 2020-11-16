@@ -52,6 +52,10 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a href="<?= base_url('user/non_anggota/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Non Anggota</a>
+                                    <button data-toggle="modal" data-target="#importNonAnggota" class="float-right btn btn-info mb-2 mr-2">
+                                        Import Non Anggota
+                                    </button>
+                                    <a href="<?= base_url('user/non_anggota/export') ?>" class="float-right btn btn-secondary mb-2 mr-2">Export Non Anggota</a>
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -130,3 +134,39 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade koleksi-digital" id="importNonAnggota" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="btnDetailBukuLabel">Import Anggota</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <form class="form-horizontal" action="<?= site_url() ?>user/non_anggota/import" method="POST" enctype="multipart/form-data">
+                            <div class="modal-body">
+                                <div class="form-group row">
+                                    <div class="col-sm-12">
+                                        <a href="<?= base_url('/assets/import/User.xls') ?>" target="_blank" class="btn btn-info">Download Template Data Non Anggota</a>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="import_non_anggota" class="col-sm-2 col-form-label">File Import</label>
+                                    <div class="col-sm-12">
+                                        <div class="custom-file">
+                                            <input name="import_non_anggota" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
+                                            <label class="custom-file-label" for="import_non_anggota">Choose file</label>
+                                        </div>
+                                        <small>*file upload harus berekstensi *xls maksimal ukuran 4MB</small>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Submit Import</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
