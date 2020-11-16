@@ -38,6 +38,49 @@
           </div>
 
           <div class="row">
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <form action="<?= base_url('sirkulasi/peminjaman/perpanjangan_peminjaman_admin') ?>" method="get">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Mulai</span>
+                          </div>
+                          <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Username">
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Selesai</span>
+                          </div>
+                          <input type="date" class="form-control" name="end_date" id="end_date" placeholder="Username">
+                        </div>
+                      </div>
+                      <!-- // status sirkulasi terdiri dari
+                        // 7 pengajuan perpajangan
+                        // 8 tolak perpanjangan
+                        // 9 valid perpanjangan -->
+                      <div class="col-lg-4">
+                        <div class="input-group">
+                          <select name="status_sirkulasi" id="status_sirkulasi" class="form-control">
+                            <option value="99">-- status --</option>
+                            <option value="7">pengajuan perpanjangan</option>
+                            <option value="8">tolak perpanjangan</option>
+                            <option value="9">valid perpanjang</option>
+                          </select>
+                          <div class="input-group-prepend">
+                            <button class="btn btn-primary" type="submit">Go!</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
@@ -56,7 +99,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="data">
                       <thead>
                         <tr>
                           <th>#</th>

@@ -73,7 +73,7 @@ class Buku extends CI_Controller
                                     <label for="digital_pdf" class="col-sm-2 col-form-label">File Digital</label>
                                     <div class="col-sm-12">
                                         <div class="custom-file">
-                                            <input name="digital_pdf" onchange="previewImg()" type="file" class="custom-file-input" id="foto">
+                                            <input name="digital_pdf" onchange="previewImg()" type="file" class="custom-file-input" id="foto' . $item->register . '">
                                             <label class="custom-file-label" for="digital_pdf">Choose file</label>
                                         </div>
                                         <small>*format sampul berupa .pdf dengan ukuran maksimal 5MB</small>
@@ -102,7 +102,7 @@ class Buku extends CI_Controller
                         <div class="modal-body">
                         <div class="row">
                             <div class="col-sm-4 col-12">
-                                <img class="img-thumbnail" src="' . base_url('assets/sampul_buku/' . $item->sampul) . '">
+                              
                                 <div class="row pt-4">
                                 <div class="col-lg-12 text-center">
                                     <img src="' . site_url('data/buku/QRcode/' . $item->register) . '">
@@ -271,7 +271,7 @@ class Buku extends CI_Controller
 
     function get_ajax()
     {
-        $temp_role_id = $_POST['role_id'];
+        $temp_role_id = $this->input->post('role_id');
         $list = $this->m_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
@@ -510,7 +510,12 @@ class Buku extends CI_Controller
         $data_circ = $this->m_katalog_buku->getCirc();
         $data_funding = $this->m_katalog_buku->getFunding();
         $data['buku_dipinjam'] = count($this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array());
-
+        $data['jenis_koleksi'] = $this->db->get('jenis_koleksi')->result_array();
+        $data['status_buku'] = $this->db->get('status_buku')->result_array();
+        $data['koleksi_digital'] = [
+            0 => ['status' => 1, 'nama' => 'Ada'],
+            1 => ['status' => 2, 'nama' => 'Tidak Ada']
+        ];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar', $data);
         $this->load->view('templates/sidebar');
@@ -536,11 +541,17 @@ class Buku extends CI_Controller
     public function katalog_buku_admin()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-
+        $data['jenis_koleksi'] = $this->db->get('jenis_koleksi')->result_array();
+        $data['status_buku'] = $this->db->get('status_buku')->result_array();
+        $data['koleksi_digital'] = [
+            0 => ['status' => 1, 'nama' => 'Ada'],
+            1 => ['status' => 2, 'nama' => 'Tidak Ada']
+        ];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
         $this->load->view('admin/katalog_buku_admin');
+
         $this->load->view('templates/footer');
     }
 

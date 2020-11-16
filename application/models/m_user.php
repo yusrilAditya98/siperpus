@@ -4,6 +4,73 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class M_user extends CI_Model
 {
+
+    var $column_order2 = array(null, 'u.username', 'u.nama', null, null, null);
+    //set column field database for datatable orderable
+    var $column_search2 = array('u.username', 'u.nama');
+    //set column field database for datatable searchable
+    var $order_mhs = array('u.username' => 'asc'); // default order 
+
+    private function _get_datatables_query2($username = null)
+    {
+        $this->db->select('u.*');
+        $this->db->from('user as u');
+
+        if ($username != null) {
+            $this->db->where('username', $username);
+        }
+        $this->db->where('status_aktif', 1);
+        $this->db->where('ru_role_id', 2);
+
+        $i = 0;
+        foreach ($this->column_search2 as $item) { // loop column 
+            if (@$_POST['search']['value']) { // if datatable send POST for search
+                if ($i === 0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if (count($this->column_search2) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order2[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order)) {
+            $order_mhs = $this->order;
+            $this->db->order_by(key($order_mhs), $order_mhs[key($order_mhs)]);
+        }
+    }
+
+    function get_datatables2($username = null)
+    {
+        $this->_get_datatables_query2($username);
+        if (@$_POST['length'] != -1)
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+    function count_filtered2($username = null)
+    {
+        $this->_get_datatables_query2($username);
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+    function count_all2($username = null)
+    {
+        $this->db->from('user');
+        $this->db->where('status_aktif', 1);
+        $this->db->where('ru_role_id', 2);
+
+        if ($username != null) {
+            $this->db->where('username', $username);
+        }
+        return $this->db->count_all_results();
+    }
+
     public function getUser($username = null, $role_id = null)
     {
         $this->db->select('*');

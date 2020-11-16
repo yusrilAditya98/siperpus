@@ -27,10 +27,46 @@
             <div class="row">
                 <div class="col-12">
                     <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <select name="koleksi_digital" id="koleksi_digital" class="form-control">
+                                        <option value="">-- koleksi digital --</option>
+                                        <?php foreach ($koleksi_digital as $kd) : ?>
+                                            <option value="<?= $kd['status'] ?>"><?= $kd['nama'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="">-- status --</option>
+                                        <?php foreach ($status_buku as $sb) : ?>
+                                            <option value="<?= $sb['id_status'] ?>"><?= $sb['nama_status'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <select name="jenis_koleksi" id="jenis_koleksi" class="form-control">
+                                            <option value="">-- Jenis Koleksi --</option>
+                                            <?php foreach ($jenis_koleksi as $jk) : ?>
+                                                <option value="<?= $jk['id_jenis'] ?>"><?= $jk['nama_jenis'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-info btn-flat">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">Daftar Buku</h3>
                         </div>
                         <div class="card-body">
+
                             <!-- <div class="row">
                                 <div class="col-lg-12">
                                     <?php if ($this->session->flashdata('warning') != null) : ?>
@@ -90,14 +126,32 @@
             "ajax": {
                 "url": "<?= site_url('data/buku/get_ajax') ?>",
                 "type": "POST",
-                "data": {
-                    "role_id": "<?= $this->session->userdata('role_id') ?>"
+                "data": function(data) {
+                    data.role_id = "<?= $this->session->userdata('role_id') ?>"
+                    data.status = $('#status').val()
+                    data.jenis_koleksi = $('#jenis_koleksi').val()
+                    data.koleksi_digital = $('#koleksi_digital').val()
                 }
             },
             "coloumnDefs": [{
 
             }],
             "order": []
+        });
+        $('#status').on('change', function() { //button filter event click
+            console.log($('#status').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
+        });
+        $('#jenis_koleksi').on('change', function() { //button filter event click
+            console.log($('#jenis_koleksi').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
+        });
+        $('#koleksi_digital').on('change', function() { //button filter event click
+            console.log($('#koleksi_digital').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
         });
     });
 </script>

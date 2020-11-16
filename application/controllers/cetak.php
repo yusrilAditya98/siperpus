@@ -26,6 +26,17 @@ class cetak extends CI_Controller
             $margin = 2
         );
     }
+    public function QRtransak($register)
+    {
+        $transaksi = base_url('cetak/cetak_transaksi/' . $register);
+        QRcode::png(
+            $transaksi,
+            $outfile = false,
+            $level = QR_ECLEVEL_H,
+            $size = 12,
+            $margin = 2
+        );
+    }
     public function Barcode($register)
     {
         $this->zend->load('Zend/Barcode');
@@ -446,5 +457,11 @@ class cetak extends CI_Controller
         $data['mhs'] = $this->m_cetak->getUser($username);
         $data['status'] = "$status";
         $this->load->view('admin/bebas_pustaka_view', $data);
+    }
+
+    public function cetak_transaksi($no_transaksi)
+    {
+        $data['buku'] = $this->db->select('register,judul_buku,user.*,sirkulasi.*')->from('sirkulasi')->join('buku', 'buku.register=sirkulasi.b_register', 'left')->join('user', 'user.username=sirkulasi.u_username', 'left')->where('no_transaksi', $no_transaksi)->get()->result_array();
+        $this->load->view('page/invoice_transaksi', $data);
     }
 }

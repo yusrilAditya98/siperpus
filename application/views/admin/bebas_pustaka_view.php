@@ -113,9 +113,9 @@
                 <table class="table border-0 borderless" style="border:0">
                     <tbody>
                         <tr>
-                            <td style="width:70%">
+                            <td style="width:60%">
                             </td>
-                            <td style="width:30%">
+                            <td style="width:40%">
                                 <h5>Malang, <?= date("d F Y") ?></h5>
                                 <h5>Petugas Ruang Baca FHUB</h5>
                                 <img src="<?= site_url() ?>assets/img/ttd_bebas_pustaka.jpg">

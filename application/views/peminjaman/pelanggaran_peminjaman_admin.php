@@ -50,7 +50,7 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered" id="data">
                       <thead>
                         <tr>
                           <th>No</th>

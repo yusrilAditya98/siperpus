@@ -20,7 +20,7 @@
 						<div class="icon">
 							<i class="fas fa-book"></i>
 						</div>
-						<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+						<a href="<?= base_url('sirkulasi/peminjaman/validasi_peminjaman') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<div class="col-lg-4 col-6">
@@ -32,19 +32,19 @@
 						<div class="icon">
 							<i class="fas fa-book"></i>
 						</div>
-						<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+						<a href="<?= base_url('sirkulasi/peminjaman/validasi_peminjaman') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
 					</div>
 				</div>
 				<div class="col-lg-4 col-6">
-					<div class="small-box bg-warning text-white">
+					<div class="small-box bg-danger text-white">
 						<div class="inner text-white">
-							<h3><?= $status['telat'] ?></h3>
-							<p>Buku Telat Pengembalian</p>
+							<h3><?= $status['pelanggaran'] ?></h3>
+							<p>Pelanggaran Buku</p>
 						</div>
 						<div class="icon ">
 							<i class="fas fa-book"></i>
 						</div>
-						<a href="#" class="small-box-footer "><span class="text-white">More info </span><i class="fas fa-arrow-circle-right text-white"></i></a>
+						<a href="<?= base_url('sirkulasi/peminjaman/pelanggaran_peminjaman_admin') ?>" class="small-box-footer "><span class="text-white">More info </span><i class="fas fa-arrow-circle-right text-white"></i></a>
 					</div>
 				</div>
 			</div>

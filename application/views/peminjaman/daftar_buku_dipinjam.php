@@ -30,6 +30,64 @@
                 Halaman ini berisikan list dari semua buku yang telah dipinjam oleh anggota
               </div>
             </div>
+            <div class="col-lg-12">
+              <div class="card">
+                <div class="card-body">
+                  <form action="<?= base_url('sirkulasi/peminjaman/daftar_buku_dipinjam') ?>" method="get">
+                    <div class="row">
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Mulai</span>
+                          </div>
+                          <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Username">
+                        </div>
+                      </div>
+                      <div class="col-lg-4">
+                        <div class="input-group mb-3">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Selesai</span>
+                          </div>
+                          <input type="date" class="form-control" name="end_date" id="end_date" placeholder="Username">
+                        </div>
+                      </div>
+                      <!-- // status sirkulasi terdiri dari
+                        // 0 Keranjang peminjaman
+                        // 1 proses peminjaman
+                        // 2 sedang dipersiapkan
+                        // 3 dapat diambil
+                        // 4 pinjam
+                        // 5 tolak peminjaman
+                        // 6 pelanggaran
+                        // 7 pengajuan perpajangan
+                        // 8 tolak perpanjangan
+                        // 9 valid perpanjangan
+                        // 10 selesai pengembalian -->
+                      <div class="col-lg-4">
+                        <div class="input-group">
+                          <select name="status_sirkulasi" id="status_sirkulasi" class="form-control">
+                            <option value="99">-- status --</option>
+                            <option value="2">sedang dipersiapkan</option>
+                            <option value="3">dapat diambil</option>
+                            <option value="4">pinjam</option>
+                            <option value="5">tolak peminjaman</option>
+                            <option value="6">pelanggaran</option>
+                            <option value="7">pengajuan perpanjangan</option>
+                            <option value="8">tolak perpanjangan</option>
+                            <option value="9">valid perpanjang</option>
+                            <option value="10">selesai pengembalian</option>
+
+                          </select>
+                          <div class="input-group-prepend">
+                            <button class="btn btn-primary" type="submit">Go!</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
             <div class="col-sm-12">
               <div class="card">
                 <div class="card-body">
@@ -62,7 +120,7 @@
                               <td><?= $b['username'] ?></td>
                               <td><?= $b['nama'] ?></td>
                             <?php endif; ?>
-                            <td><?= $b['no_transaksi'] ?></td>
+                            <td><a target="_blank" href="<?= base_url('cetak/cetak_transaksi/' . $b['no_transaksi']) ?>"><?= $b['no_transaksi'] ?></a></td>
                             <td><?= $b['register'] ?></td>
                             <td><?= $b['judul_buku'] ?></td>
                             <td><?= $b['pengarang'] ?></td>
