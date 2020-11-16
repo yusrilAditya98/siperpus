@@ -156,7 +156,8 @@ class Anggota extends CI_Controller
     }
 
 
-    public function import(){
+    public function import()
+    {
         // upload file xls
         $target = basename($_FILES['import-data']['name']);
         if ($_FILES['import-data']['name']) {
@@ -179,7 +180,7 @@ class Anggota extends CI_Controller
         $jumlah_baris = $data->rowcount($sheet_index = 0);
         $input_data = [];
         for ($i = 3; $i < $jumlah_baris; $i++) {
-            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+            if (str_replace("\0", "", $data->val($i, 2)) == "") {
                 break;
             }
             // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
@@ -188,7 +189,7 @@ class Anggota extends CI_Controller
                 "nama" => str_replace("\0", "", $data->val($i, 3)),
                 "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "no_hp" => str_replace("\0", "", $data->val($i, 5)),
-                "password" => 'p'.str_replace("\0", "", $data->val($i, 2)),
+                "password" => 'p' . str_replace("\0", "", $data->val($i, 2)),
                 "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
                 "foto" => '',
                 "date_created" => date('Y-m-d'),
@@ -212,8 +213,9 @@ class Anggota extends CI_Controller
         $data['title'] = "Data Anggota";
         $data['filename'] = "Anggota";
         $this->load->view('export', $data);
+    }
 
-    function get_status_mahasiswa()
+    public function get_status_mahasiswa()
     {
         $username_siswa = $this->session->userdata('username');
         $list = $this->m_user->get_datatables2($username_siswa);
@@ -292,6 +294,5 @@ class Anggota extends CI_Controller
         $this->load->view('templates/sidebar');
         $this->load->view('anggota/bebas_pustaka', $data);
         $this->load->view('templates/footer');
-
     }
 }
