@@ -20,6 +20,58 @@
     <section class="content">
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header border-transparent">
+                            <h3 class="card-title">Pencarian</h3>
+
+                            <div class="card-tools">
+                                <button type="button" class="btn btn-tool" data-card-widget="collapse">
+                                    <i class="fas fa-minus"></i>
+                                </button>
+                            </div>
+                        </div>
+                        <!-- /.card-header -->
+                        <!-- /.card-body -->
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <select name="koleksi_digital" id="koleksi_digital" class="form-control">
+                                        <option value="">-- koleksi digital --</option>
+                                        <?php foreach ($koleksi_digital as $kd) : ?>
+                                            <option value="<?= $kd['status'] ?>"><?= $kd['nama'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <select name="status" id="status" class="form-control">
+                                        <option value="">-- status --</option>
+                                        <?php foreach ($status_buku as $sb) : ?>
+                                            <option value="<?= $sb['id_status'] ?>"><?= $sb['nama_status'] ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="input-group">
+                                        <select name="jenis_koleksi" id="jenis_koleksi" class="form-control">
+                                            <option value="">-- Jenis Koleksi --</option>
+                                            <?php foreach ($jenis_koleksi as $jk) : ?>
+                                                <option value="<?= $jk['id_jenis'] ?>"><?= $jk['nama_jenis'] ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <span class="input-group-append">
+                                            <button type="button" class="btn btn-info btn-flat">Go!</button>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="row">
                 <div class="col-12">
                     <div class="card">
                         <div class="card-header">
@@ -40,6 +92,7 @@
                                     <?php endif; ?>
                                 </div>
                             </div>
+
                             <div class="row">
                                 <div class="col-lg-12 col-12">
                                     <a href="<?= site_url() ?>data/buku/tambah" class="float-right btn btn-success mb-2">
@@ -48,7 +101,7 @@
                                 </div>
                             </div>
                             <div class="table-responsive">
-                                <table id="data" class="table table-bordered display">
+                                <table id="data" class="data table table-bordered display">
                                     <thead>
                                         <tr>
                                             <th>#</th>
@@ -83,12 +136,32 @@
             "serverSide": true,
             "ajax": {
                 "url": "<?= site_url('data/buku/get_ajax_admin') ?>",
-                "type": "POST"
+                "type": "POST",
+                "data": function(data) {
+                    data.status = $('#status').val()
+                    data.jenis_koleksi = $('#jenis_koleksi').val()
+                    data.koleksi_digital = $('#koleksi_digital').val()
+                }
             },
             "coloumnDefs": [{
 
             }],
             "order": []
+        });
+        $('#status').on('change', function() { //button filter event click
+            console.log($('#status').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
+        });
+        $('#jenis_koleksi').on('change', function() { //button filter event click
+            console.log($('#jenis_koleksi').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
+        });
+        $('#koleksi_digital').on('change', function() { //button filter event click
+            console.log($('#koleksi_digital').val())
+            $('#data').DataTable().ajax.reload(); //just reload table
+            console.log('cek')
         });
     });
 </script>

@@ -359,7 +359,7 @@ class Peminjaman extends CI_Controller
                                 <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6">
-                                        <button class="btn btn-warning btn-flat mb-2"><i class="fas fa-print mr-2"></i>Cetak Transaksi</button>
+                                        <a target="_blank" href="' . base_url('cetak/cetak_transaksi/' . $item->no_transaksi) . '" class="btn btn-warning btn-flat mb-2"><i class="fas fa-print mr-2"></i>Cetak Transaksi</a>
                                     </div>
                                     <div class="col-lg-6">
                                     ' . $valSirkulasi . '
@@ -584,11 +584,10 @@ class Peminjaman extends CI_Controller
     public function daftar_buku_dipinjam()
     {
         $title = 'Daftar Buku Dipinjam | Portal FH';
-
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            $data['buku_dipinjam'] = $this->db->where(['jenis_sirkulasi' => 1])->where_not_in('status_sirkulasi', 0)->from('sirkulasi')->join('user', 'user.username = sirkulasi.u_username', 'left')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+            $data['buku_dipinjam'] =  $this->m_katalog_buku->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         } else {
-            $data['buku_dipinjam'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_not_in('status_sirkulasi', 0)->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->order_by('status_sirkulasi', 'asc')->get()->result_array();
+            $data['buku_dipinjam'] =  $this->m_katalog_buku->getBukuDipinjam($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         }
         $this->template($title);
         $this->load->view('peminjaman/daftar_buku_dipinjam', $data);
@@ -605,7 +604,8 @@ class Peminjaman extends CI_Controller
     public function perpanjangan_peminjaman()
     {
         $title = 'Perpanjangan Peminjaman | Portal FH';
-        $data['buku_perpanjangan'] = $this->db->where(['u_username' => $this->session->userdata('username')])->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $data['buku_perpanjangan'] = $data['buku_perpanjangan'] = $this->m_katalog_buku->getBukuPerpanjangan($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+
         $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $this->session->userdata('username')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman', $data);
@@ -770,7 +770,7 @@ class Peminjaman extends CI_Controller
     public function perpanjangan_peminjaman_admin()
     {
         $title = 'Daftar Buku Dipinjam | Portal FH';
-        $data['buku_perpanjangan'] = $this->db->where(['jenis_sirkulasi' => 1])->where_in('status_sirkulasi', [7, 8, 9])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->join('user', 'user.username = sirkulasi.u_username')->get()->result_array();
+        $data['buku_perpanjangan'] = $this->m_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         $data['anggota'] = $this->db->get_where('user', ['ru_role_id' => 2]);
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman_admin', $data);

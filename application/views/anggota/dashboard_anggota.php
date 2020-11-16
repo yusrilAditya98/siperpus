@@ -17,12 +17,12 @@
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
               <h3>150</h3>
-              <p>Buku Dipinjam</p>
+              <p>Total Buku Dipinjam</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -31,12 +31,12 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
               <h3>2</h3>
-              <p>Buku Telat Kembali</p>
+              <p>Buku Sedang Dipinjam</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -45,30 +45,14 @@
           </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
-          <!-- small box -->
-          <div class="small-box bg-warning">
-            <div class="inner">
-              <h3 class="text-white">44</h3>
-              <p class="text-white">Buku Telah Dikembalikan</p>
-            </div>
-            <div class="icon">
-              <i class="fas fa-book"></i>
-            </div>
-            <button class="small-box-footer text-white text-center btn-block">
-              More info
-              <i class="fas fa-arrow-circle-right text-white"></i>
-            </button>
-          </div>
-        </div>
+
         <!-- ./col -->
-        <div class="col-lg-3 col-6">
+        <div class="col-lg-4 col-6">
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
               <h3>2</h3>
-
-              <p>Proses Peminjaman</p>
+              <p>Pelanggaran Buku</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>

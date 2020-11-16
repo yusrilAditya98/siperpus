@@ -167,6 +167,19 @@ class M_sirkulasi extends CI_Model
             }
             $i++;
         }
+
+        if ($this->input->post('status_sirkulasi')) {
+            $this->db->where('s.status_sirkulasi', $this->input->post('status_sirkulasi'));
+        }
+
+        if ($this->input->post('start_date')) {
+            $this->db->where('s.tanggal_mulai >=', $this->input->post('start_date'));
+        }
+        if ($this->input->post('end_date')) {
+            $this->db->where('s.tanggal_mulai <=', $this->input->post('end_date'));
+        }
+
+
         if (isset($_POST['order'])) { // here order processing
             $this->db->order_by($this->column_order_v[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
         } else if (isset($this->order_v)) {
