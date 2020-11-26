@@ -29,6 +29,24 @@ class M_stock_opname extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getDataLaporanOpname($id_opname = null, $start_date = null, $end_date = null)
+    {
+        $this->db->select('*');
+        $this->db->from('opname');
+        $this->db->join('buku_opname', 'buku_opname.o_id_opname = opname.id_opname', 'left');
+        if ($id_opname != null) {
+            $this->db->where('opname.id_opname', $id_opname);
+            return $this->db->get()->row();
+        }
+        if ($start_date) {
+            $this->db->where('opname.tanggal >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('opname.tanggal <=', $end_date);
+        }
+        return $this->db->get()->result_array();
+    }
+
     public function getRegisterOpname($where = "")
     {
         $data = $this->db->query('select b_register from buku_opname ' . $where);
@@ -86,7 +104,9 @@ class M_stock_opname extends CI_Model
             'o_id_opname' => $this->input->post('o_id_opname'),
             'b_register' => $this->input->post('b_register'),
             'status' => $status,
+            'status_now' => $status,
             'akses' => $akses,
+            'akses_now' => $akses,
         ];
         $this->db->insert('buku_opname', $data);
         return true;
@@ -98,6 +118,11 @@ class M_stock_opname extends CI_Model
             'status_buku' => $this->input->post('status_buku'),
         ];
         $this->db->update('buku', $data, ['register' => $register]);
+
+        $data =  [
+            'status_now' => $this->input->post('status_buku'),
+        ];
+        $this->db->update('buku_opname', $data, ['id_buku_opname' => $this->input->post('id_buku_opname')]);
         return true;
     }
 
@@ -107,6 +132,12 @@ class M_stock_opname extends CI_Model
             'jenis_akses' => $this->input->post('jenis_akses'),
         ];
         $this->db->update('buku', $data, ['register' => $register]);
+
+        $data =  [
+            'akses_now' => $this->input->post('jenis_akses'),
+        ];
+        $this->db->update('buku_opname', $data, ['id_buku_opname' => $this->input->post('id_buku_opname')]);
+
         return true;
     }
 

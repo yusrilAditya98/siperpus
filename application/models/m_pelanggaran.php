@@ -31,7 +31,7 @@ class M_pelanggaran extends CI_Model
         $this->db->update('pelanggaran');
     }
 
-    public function getListPelanggaran($status_pelanggaran = null, $nama_pelanggaran = null, $denda = null)
+    public function getListPelanggaran($status_pelanggaran = null, $nama_pelanggaran = null, $denda = null, $start_date = null, $end_date = null)
     {
 
         $this->db->select('*');
@@ -54,6 +54,12 @@ class M_pelanggaran extends CI_Model
         }
         if ($denda != null) {
             $this->db->where('sirkulasi_pelanggaran.d_id_denda', $denda);
+        }
+        if ($start_date) {
+            $this->db->where('sirkulasi.tanggal_pengembalian >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('sirkulasi.tanggal_pengembalian <=', $end_date);
         }
         return $this->db->get()->result_array();
     }

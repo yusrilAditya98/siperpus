@@ -173,6 +173,7 @@ test
                             '<button type="button" id="close" class="close" onclick="$(&quot;#menu_status<?= $so['id_buku_opname'] ?>&quot;).popover(&quot;hide&quot;);">&times;</button>',
                         content: `<div id="PopoverContent<?= $so['id_buku_opname'] ?>">
                                     <form action="<?= base_url('data/stock_opname/ubah_status_buku_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
+                                        <input type="text" name="id_buku_opname" value="<?= $so['id_buku_opname'] ?>">
                                         <div class="form-group mt-2">
                                             <select class="form-control" name="status_buku">
                                                 <option value="">Pilih Status Buku Sekarang</option>
@@ -195,6 +196,7 @@ test
                             '<button type="button" id="close" class="close" onclick="$(&quot;#menu_akses<?= $so['id_buku_opname'] ?>&quot;).popover(&quot;hide&quot;);">&times;</button>',
                         content: `<div id="PopoverContent<?= $so['id_buku_opname'] ?>">
                                     <form action="<?= base_url('data/stock_opname/ubah_jenis_akses_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
+                                        <input type="hidden" name="id_buku_opname" value="<?= $so['id_buku_opname'] ?>">
                                         <div class="form-group mt-2">
                                             <select class="form-control" name="jenis_akses">
                                                 <option value="">Pilih Jenis Akses Sekarang</option>
