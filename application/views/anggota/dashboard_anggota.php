@@ -64,15 +64,18 @@
       </div>
 
       <!-- Recall -->
-      <?php $i = 1; if($recall != null) : ?>
+      <?php $i = 1;
+      if ($recall != null) : ?>
         <div class="row">
           <div class="col-sm-12">
-            <div class="alert alert-warning text-white"><strong><h3>Pemberitahuan</h3></strong> <br>
-            <ol>
-              <?php foreach($recall as $r) : ?>
-                <li><?= 'Nomor Transasksi '.$r['no_transaksi'].' - '.$r['judul_buku'].' ['.$r['keterangan'].']'?></li>
-              <?php endforeach?>
-            </ol>
+            <div class="alert alert-warning text-white"><strong>
+                <h3>Pemberitahuan</h3>
+              </strong> <br>
+              <ol>
+                <?php foreach ($recall as $r) : ?>
+                  <li><?= 'Nomor Transasksi ' . $r['no_transaksi'] . ' - ' . $r['judul_buku'] . ' [' . $r['keterangan'] . ']' ?></li>
+                <?php endforeach ?>
+              </ol>
             </div>
           </div>
         </div>

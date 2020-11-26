@@ -261,15 +261,15 @@
                            </a>
                            <ul class="nav nav-treeview">
                                <li class="nav-item">
-                                   <a href="laporan/peminjaman.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/peminjaman') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Peminjaman</p>
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/keranjang_belanja.html" class="nav-link">
+                                   <a href="laporan/<?= base_url('laporan/keranjang_buku') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Keranjang Belanja</p>
+                                       <p>Keranjang buku</p>
                                    </a>
                                </li>
                                <li class="nav-item">
@@ -281,13 +281,13 @@
                                <li class="nav-item">
                                    <a href="laporan/perpanjangan_peminjaman.html" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Perpanjangan Peminjaman</p>
+                                       <p>Perpanjangan</p>
                                    </a>
                                </li>
                                <li class="nav-item">
                                    <a href="laporan/sangsi_peminjaman.html" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Sangsi Peminjaman</p>
+                                       <p>Sangsi</p>
                                    </a>
                                </li>
                                <li class="nav-item">
@@ -299,7 +299,7 @@
                                <li class="nav-item">
                                    <a href="laporan/keterlambatan_peminjaman.html" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Keterlambatan Pengembalian</p>
+                                       <p>Keterlambatan</p>
                                    </a>
                                </li>
                                <li class="nav-item">
