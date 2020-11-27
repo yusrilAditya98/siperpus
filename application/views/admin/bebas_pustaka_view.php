@@ -42,6 +42,8 @@
 
 <body onload="window.print()" class="hold-transition sidebar-mini layout-fixed">
 
+    <!-- <body> -->
+
     <div class="container mt-5">
         <!-- <div class="toolbar hidden-print">
             <div class="text-right">
@@ -115,12 +117,16 @@
                         <tr>
                             <td style="width:60%">
                             </td>
-                            <td style="width:40%">
+                            <td style="width:40% text-center">
                                 <h5>Malang, <?= date("d F Y") ?></h5>
                                 <h5>Petugas Ruang Baca FHUB</h5>
-                                <img src="<?= site_url() ?>assets/img/ttd_bebas_pustaka.jpg">
-                                <h5>Mar’atun Sholikhah A.Md</h5>
-                                <h5>NIK.2012058704292001</h5>
+                                <img width="150" src="<?= site_url('cetak/QRPustaka/' . $mhs['username'] . '/' . $status) ?>">
+                                <h5><?= $petugas[0]['nama'] ?></h5>
+                                <?php if ($petugas[0]['jenis_no_induk'] == 1) : ?>
+                                    <h5>NIK.<?= $petugas[0]['no_induk'] ?></h5>
+                                <?php else : ?>
+                                    <h5>NIP.<?= $petugas[0]['no_induk'] ?></h5>
+                                <?php endif; ?>
                             </td>
                         </tr>
                     </tbody>

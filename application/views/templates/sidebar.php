@@ -225,6 +225,12 @@
                                        <p>Jenis Koleksi</p>
                                    </a>
                                </li>
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>data/petugas" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Data Petugas</p>
+                                   </a>
+                               </li>
                            </ul>
                        </li>
                        <li class="nav-item">
@@ -285,7 +291,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/sangsi_peminjaman.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/sangsi') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Sangsi</p>
                                    </a>
@@ -297,7 +303,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/keterlambatan_peminjaman.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/keterlambatan') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Keterlambatan</p>
                                    </a>
@@ -309,7 +315,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/stock_opname.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/stock_opname') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Stock Opname</p>
                                    </a>

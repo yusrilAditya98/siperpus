@@ -13,6 +13,7 @@ class cetak extends CI_Controller
         $this->load->library('Zend');
         $this->load->library('Ciqrcode');
         $this->load->model('m_katalog_buku');
+        $this->load->model('m_petugas');
         is_logged_in();
     }
 
@@ -278,6 +279,7 @@ class cetak extends CI_Controller
         $no = @$_POST['start'];
         $mhs = [];
         $mhs_sirkulasi = [];
+        $daftar_buku = [];
         $status = [];
 
         foreach ($list as $item) {
@@ -296,21 +298,48 @@ class cetak extends CI_Controller
                     $cek_pelanggaran = $this->m_cetak->getDataSirkulasiPelanggaran($item['id_sirkulasi']);
                     if ($cek_pelanggaran[0]['status_pelanggaran'] == 1) {
                         $mhs_sirkulasi[] = $item['u_username'];
+                        $daftar_buku[$item['u_username']][] = $item['b_register'] . "/" . $item['status_sirkulasi'];
                     }
                 }
                 if ($item['status_sirkulasi'] == 4 || $item['status_sirkulasi'] == 9) {
                     $mhs_sirkulasi[] = $item['u_username'];
+                    $daftar_buku[$item['u_username']][] = $item['b_register'] . "/" . $item['status_sirkulasi'];
                 }
             }
         }
         $mhs_sirkulasi = array_unique($mhs_sirkulasi);
         sort($mhs_sirkulasi);
+        // echo var_dump($daftar_buku);
+        // echo "<br>";
+        // echo "<br>";
         // echo var_dump($mhs_sirkulasi);
         // echo "<br>";
         // echo "<br>";
-        // echo var_dump($status);
+        $buku = [];
+        $temp_buku = [];
+        for ($i = 0; $i < count($mhs_sirkulasi); $i++) {
+            for ($z = 0; $z < count($daftar_buku[$mhs_sirkulasi[$i]]); $z++) {
+                $temp_daftar_buku[$mhs_sirkulasi[$i]][$z] = explode("/", $daftar_buku[$mhs_sirkulasi[$i]][$z]);
+                $status_buku = '';
+                if ($temp_daftar_buku[$mhs_sirkulasi[$i]][$z][1] == 4 || $temp_daftar_buku[$mhs_sirkulasi[$i]][$z][1] == 9) {
+                    $status_buku = '<span class="badge bg-warning">Masih di pinjam</span>';
+                } else {
+                    $status_buku = '<span class="badge bg-danger">Belum menyelesaikan pelanggaran buku</span>';
+                }
+                $nama_buku = $this->m_katalog_buku->getData($temp_daftar_buku[$mhs_sirkulasi[$i]][$z][0]);
+                $buku[$mhs_sirkulasi[$i]][] = "- " . $nama_buku[0]['judul_buku'] . " => " . $status_buku;
+            }
+        }
+        // echo var_dump($buku);
         // echo "<br>";
         // echo "<br>";
+        for ($i = 0; $i < count($mhs_sirkulasi); $i++) {
+            $temp_buku[$mhs_sirkulasi[$i]] = implode("<br>", $buku[$mhs_sirkulasi[$i]]);
+        }
+        // echo var_dump($temp_buku);
+        // echo "<br>";
+        // echo "<br>";
+
 
         foreach ($list as $item) {
             $no++;
@@ -320,11 +349,31 @@ class cetak extends CI_Controller
             $row[] = $item->nama;
             if (in_array($item->username, $mhs_sirkulasi)) {
                 $row[] = '<span class="badge bg-warning">Ada Tanggungan</span>';
-                $row[] = '<button type="button" class="btn btn-sm btn-default"><i class="fas fa-info"></i></button>';
+                $row[] = '
+                    <button type="button" class="btn btn-sm btn-default" data-toggle="modal" data-target="#staticBackdrop">
+                        <i class="fas fa-info"></i>
+                    </button>
+                    <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Daftar Buku</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                ' . $temp_buku[$item->username] . '
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+
+                ';
                 $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             } else {
                 $row[] = '<span class="badge bg-success">Bebas Tanggungan</span>';
-                $row[] = '<button type="button" class="btn btn-sm btn-default"><i class="fas fa-info"></i></button>';
+                $row[] = '<span class="badge bg-success"><i class="fas fa-check"></i></span>';
                 $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/bebas" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             }
             $data[] = $row;
@@ -451,10 +500,23 @@ class cetak extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+    public function QRPustaka($username, $status)
+    {
+        $transaksi = base_url('cetak/bebas_pustaka_view/' . $username . '/' . $status);
+        QRcode::png(
+            $transaksi,
+            $outfile = false,
+            $level = QR_ECLEVEL_H,
+            $size = 12,
+            $margin = 2
+        );
+    }
+
     public function bebas_pustaka_view($username, $status)
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
         $data['mhs'] = $this->m_cetak->getUser($username);
+        $data['petugas'] = $this->m_petugas->getData(1);
         $data['status'] = "$status";
         $this->load->view('admin/bebas_pustaka_view', $data);
     }
