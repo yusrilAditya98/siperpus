@@ -480,6 +480,83 @@ class m_katalog_buku extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getSeringDipinjam($username = null, $start_date = null, $end_date = null){
+        $this->db->select('COUNT(id_sirkulasi) as jumlah, s.*, b.*');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b', 's.b_register=b.register', 'left');
+        $this->db->join('user as u', 's.u_username=u.username', 'left');
+        $this->db->order_by('s.status_sirkulasi', 'asc');
+        $this->db->where('s.jenis_sirkulasi', 1);
+        // status sirkulasi terdiri dari
+                        // 0 Keranjang peminjaman
+                        // 1 proses peminjaman
+                        // 2 sedang dipersiapkan
+                        // 3 dapat diambil
+                        // 4 pinjam
+                        // 5 tolak peminjaman
+                        // 6 pelanggaran
+                        // 7 pengajuan perpajangan
+                        // 8 tolak perpanjangan
+                        // 9 valid perpanjangan
+                        // 10 selesai pengembalian
+
+        // Seleksi Status Sirkulasi
+        $this->db->where_in('s.status_sirkulasi', [4, 9, 10]);
+        $this->db->group_by('b.judul_buku');
+        $this->db->group_by('b.pengarang');
+        $this->db->group_by('b.penerbit');
+        if ($username) {
+            $this->db->where('u.username', $username);
+        }
+        // if ($status_sirkulasi != null) {
+        //     if ($status_sirkulasi == 0) {
+        //         $this->db->where('s.status_sirkulasi', $status_sirkulasi);
+        //     } elseif ($status_sirkulasi == 99) {
+        //     } else {
+        //         $this->db->where('s.status_sirkulasi', $status_sirkulasi);
+        //     }
+        // }
+
+        if ($start_date) {
+            $this->db->where('s.tanggal_mulai >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('s.tanggal_akhir <=', $end_date);
+        }
+
+        return $this->db->get()->result_array();
+    }
+
+    public function getBacaDitempat($username = null, $start_date = null, $end_date = null){
+        $this->db->select('*');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b', 's.b_register=b.register', 'left');
+        $this->db->join('user as u', 's.u_username=u.username', 'left');
+        $this->db->order_by('s.status_sirkulasi', 'asc');
+        $this->db->where('s.jenis_sirkulasi', 2);
+        // $this->db->where_not_in('s.status_sirkulasi', [0, 1]);
+        if ($username) {
+            $this->db->where('u.username', $username);
+        }
+        // if ($status_sirkulasi != null) {
+        //     if ($status_sirkulasi == 0) {
+        //         $this->db->where('s.status_sirkulasi', $status_sirkulasi);
+        //     } elseif ($status_sirkulasi == 99) {
+        //     } else {
+        //         $this->db->where('s.status_sirkulasi', $status_sirkulasi);
+        //     }
+        // }
+
+        if ($start_date) {
+            $this->db->where('s.tanggal_sirkulasi >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('s.tanggal_sirkulasi <=', $end_date);
+        }
+
+        return $this->db->get()->result_array();
+    }
+
     public function getBukuDipinjam($username = null, $status_sirkulasi = null, $start_date = null, $end_date = null)
     {
         $this->db->select('*');

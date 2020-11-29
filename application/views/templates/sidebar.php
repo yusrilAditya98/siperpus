@@ -285,7 +285,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/perpanjangan_peminjaman.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/perpanjangan') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Perpanjangan</p>
                                    </a>
@@ -297,7 +297,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/koleksi_sering_dipinjam.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/koleksi_sering_dipinjam') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Koleksi Sering Dipinjam</p>
                                    </a>
@@ -309,7 +309,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/baca_ditempat.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/baca_ditempat') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Baca Ditempat</p>
                                    </a>
@@ -321,7 +321,7 @@
                                    </a>
                                </li>
                                <li class="nav-item">
-                                   <a href="laporan/koleksi_digital.html" class="nav-link">
+                                   <a href="<?= base_url('laporan/koleksi_digital') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
                                        <p>Koleksi Digital</p>
                                    </a>

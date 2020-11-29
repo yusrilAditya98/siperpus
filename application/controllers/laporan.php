@@ -165,6 +165,13 @@ class laporan extends CI_Controller
     // kharis
     public function perpanjangan()
     {
+        $data['title'] = "Laporan Perpanjangan";
+        $data['perpanjangan'] =  $this->m_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/perpanjangan', $data);
+        $this->load->view('templates/footer');
     }
     // fadli
     public function sangsi()
@@ -180,7 +187,15 @@ class laporan extends CI_Controller
     }
     // khris
     public function koleksi_sering_dipinjam()
-    {
+    { 
+        $data['title'] = "Laporan Koleksi Sering Dipinjam";
+        $data['sering_dipinjam'] = $this->m_katalog_buku->getSeringDipinjam(null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/koleksi_sering_dipinjam', $data);
+        $this->load->view('templates/footer');
+
     }
     // fadli
     public function keterlambatan()
@@ -195,7 +210,14 @@ class laporan extends CI_Controller
     }
     // kharis
     public function baca_ditempat()
-    {
+    { 
+        $data['title'] = "Laporan Baca Ditempat";
+        $data['baca_ditempat'] = $this->m_katalog_buku->getBacaDitempat(null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/baca_ditempat', $data);
+        $this->load->view('templates/footer');
     }
     // fadli
     public function stock_opname()
