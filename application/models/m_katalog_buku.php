@@ -11,6 +11,13 @@ class m_katalog_buku extends CI_Model
     //set column field database for datatable searchable
     var $order = array('b.register' => 'asc'); // default order 
 
+    // start datatables
+    var $column_order_laporan = array(null, 'b.register', 'b.judul_buku', 'b.pengarang', 'b.penerbit', 'b.tahun_terbit', null, 'b.isbn', 'b.no_dewey', 'b.kota_terbit', 'b.nama_bahasa', 'b.nama_circ_type', 'b.nama_funding', 'b.nama_sumber', 'b.author_abrev', 'b.title_abrev', 'b.volume', 'b.kondisi_fisik', 'b.bibliography', 'b.subject');
+    //set column field database for datatable orderable
+    var $column_search_laporan = array('b.register', 'b.judul_buku', 'b.pengarang', 'b.penerbit', 'b.tahun_terbit');
+    //set column field database for datatable searchable
+    var $order_laporan = array('b.register' => 'asc'); // default order 
+
     private function _get_datatables_query($keywords = null, $filter = null)
     {
         // $this->db->select('*');
@@ -39,8 +46,88 @@ class m_katalog_buku extends CI_Model
             $this->db->where('b.digital_pdf', '');
         }
 
+        $i = 0;
+        foreach ($this->column_search_laporan as $item) { // loop column 
+            if (@$_POST['search']['value']) { // if datatable send POST for search
+                if ($i === 0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if (count($this->column_search_laporan) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
 
+        if (isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order)) {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
 
+    private function _get_datatables_query_laporan($keywords = null, $filter = null)
+    {
+        // $this->db->select('*');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber');
+        $this->db->from('buku as b');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+
+        if ($this->input->post('status')) {
+            $this->db->where('b.status_buku', $this->input->post('status'));
+        }
+
+        if ($this->input->post('jenis_koleksi')) {
+            $this->db->where('b.jk_id_jenis', $this->input->post('jenis_koleksi'));
+        }
+
+        $i = 0;
+        foreach ($this->column_search_laporan as $item) { // loop column 
+            if (@$_POST['search']['value']) { // if datatable send POST for search
+                if ($i === 0) { // first loop
+                    $this->db->group_start(); // open bracket. query Where with OR clause better with bracket. because maybe can combine with other WHERE with AND.
+                    $this->db->like($item, $_POST['search']['value']);
+                } else {
+                    $this->db->or_like($item, $_POST['search']['value']);
+                }
+                if (count($this->column_search_laporan) - 1 == $i) //last loop
+                    $this->db->group_end(); //close bracket
+            }
+            $i++;
+        }
+
+        if (isset($_POST['order'])) { // here order processing
+            $this->db->order_by($this->column_order_laporan[$_POST['order']['0']['column']], $_POST['order']['0']['dir']);
+        } else if (isset($this->order)) {
+            $order = $this->order;
+            $this->db->order_by(key($order), $order[key($order)]);
+        }
+    }
+
+    private function _get_datatables_query_koleksi($keywords = null, $filter = null)
+    {
+        // $this->db->select('*');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber');
+        $this->db->from('buku as b');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        $this->db->where('b.digital_pdf !=', '');
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
         $i = 0;
         foreach ($this->column_search as $item) { // loop column 
             if (@$_POST['search']['value']) { // if datatable send POST for search
@@ -63,6 +150,8 @@ class m_katalog_buku extends CI_Model
             $this->db->order_by(key($order), $order[key($order)]);
         }
     }
+
+
     function get_datatables($keywords = null, $filter = null)
     {
         if ($keywords != null && $filter != null) {
@@ -75,6 +164,34 @@ class m_katalog_buku extends CI_Model
         $query = $this->db->get();
         return $query->result();
     }
+
+
+    function get_datatables_laporan($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_get_datatables_query_laporan($keywords, $filter);
+        } else {
+            $this->_get_datatables_query_laporan();
+        }
+        if (@$_POST['length'] != -1)
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
+    function get_datatables_koleksi($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_get_datatables_query_koleksi($keywords, $filter);
+        } else {
+            $this->_get_datatables_query_koleksi();
+        }
+        if (@$_POST['length'] != -1)
+            $this->db->limit(@$_POST['length'], @$_POST['start']);
+        $query = $this->db->get();
+        return $query->result();
+    }
+
     function count_filtered($keywords = null, $filter = null)
     {
         if ($keywords != null && $filter != null) {
@@ -88,6 +205,27 @@ class m_katalog_buku extends CI_Model
     function count_all($keywords = null, $filter = null)
     {
         $this->db->from('buku');
+        if ($keywords != null && $filter != null) {
+            $this->db->like($filter, $keywords);
+        }
+        return $this->db->count_all_results();
+    }
+
+    function count_filtered_digital($keywords = null, $filter = null)
+    {
+        if ($keywords != null && $filter != null) {
+            $this->_get_datatables_query_koleksi($keywords, $filter);
+        } else {
+            $this->_get_datatables_query_koleksi();
+        }
+        $query = $this->db->get();
+        return $query->num_rows();
+    }
+
+    function count_all_digital($keywords = null, $filter = null)
+    {
+        $this->db->from('buku');
+        $this->db->where('buku.digital_pdf !=', '');
         if ($keywords != null && $filter != null) {
             $this->db->like($filter, $keywords);
         }

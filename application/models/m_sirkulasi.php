@@ -302,4 +302,21 @@ class M_sirkulasi extends CI_Model
         $result['telat'] = $telat['telat'] + $telatPerpanjangan['telat'];
         return $result;
     }
+
+    public function getDataKeranjang($start_date = null, $end_date = null)
+    {
+        $this->db->select('*');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b', 'b.register=s.b_register', 'left');
+        $this->db->join('user as u', 'u.username=s.u_username', 'left');
+        $this->db->where('s.jenis_sirkulasi', 1);
+        $this->db->where('s.status_sirkulasi', 0);
+        if ($start_date) {
+            $this->db->where('s.tanggal_mulai >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('s.tanggal_mulai <=', $end_date);
+        }
+        return $this->db->get()->result_array();
+    }
 }
