@@ -59,7 +59,7 @@ test
                             <table id="data_opname" class="table table-bordered  table-responsive display" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>#</th>
+                                        <th>No</th>
                                         <th>Register</th>
                                         <th>Judul</th>
                                         <th>Pengarang</th>
@@ -69,7 +69,7 @@ test
                                         <th>Status Sekarang</th>
                                         <th>Akses Sebelumnya</th>
                                         <th>Akses Sekarang</th>
-                                        <th></th>
+                                        <th>Aksi</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,8 +157,16 @@ test
                 "type": "POST",
                 "data": {
                     "id_opname": "<?= $this->uri->segment(4) ?>"
-                }
+                },
             },
+            "dom": 'Bfrtip',
+            "buttons": [
+                'copy', 'csv', 'excel', 'print', {
+                    "extend": 'pdf',
+                    "orientation": 'landscape',
+                    "pageSize": 'LEGAL'
+                }
+            ],
             "coloumnDefs": [{
 
             }],

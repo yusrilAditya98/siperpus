@@ -26,7 +26,107 @@ class laporan extends CI_Controller
         $this->load->model('m_pelanggaran');
         $this->load->model('m_status_buku');
         $this->load->model('m_stock_opname');
+        is_logged_in();
     }
+    public function Barcode($id = 12332)
+    {
+        $this->zend->load('Zend/Barcode');
+        Zend_Barcode::render('code128', 'image', array('text' => $id));
+    }
+
+    function get_ajax_admin($kategori = null)
+    {
+        if ($kategori == 'laporan') {
+            $list = $this->m_katalog_buku->get_datatables_laporan();
+        } else {
+            $list = $this->m_katalog_buku->get_datatables();
+        }
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->register;
+            $row[] = $item->judul_buku;
+            $row[] = $item->pengarang;
+            $row[] = $item->penerbit;
+            $row[] = $item->tahun_terbit;
+            if ($item->status_buku == 1) {
+                $row[] = '<span class="badge badge-success">tersedia</span>';
+            } else {
+                $row[] = '<span class="badge badge-secondary">dipinjam</span>';
+            }
+            // add html for action
+            $row[] =  $item->isbn;
+            $row[] = $item->no_dewey;
+            $row[] = $item->kota_terbit;
+            $row[] = $item->nama_bahasa;
+            $row[] = $item->nama_circ_type;
+            $row[] = $item->nama_funding;
+            $row[] = $item->nama_sumber;
+            $row[] = $item->author_abrev;
+            $row[] = $item->title_abrev;
+            $row[] = $item->volume;
+            $row[] = $item->kondisi_fisik;
+            $row[] = $item->bibliography;
+            $row[] = $item->subject;
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->m_katalog_buku->count_all(),
+            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
+    function get_ajax_koleksi_digital()
+    {
+
+        $list = $this->m_katalog_buku->get_datatables_koleksi();
+        $data = array();
+        $no = @$_POST['start'];
+        foreach ($list as $item) {
+            $no++;
+            $row = array();
+            $row[] = $no . ".";
+            $row[] = $item->register;
+            $row[] = $item->judul_buku;
+            $row[] = $item->pengarang;
+            $row[] = $item->penerbit;
+            $row[] = $item->tahun_terbit;
+            $row[] = $item->digital_pdf;
+
+            // add html for action
+            $row[] =  $item->isbn;
+            $row[] = $item->no_dewey;
+            $row[] = $item->pengarang;
+            $row[] = $item->nama_bahasa;
+            $row[] = $item->nama_circ_type;
+            $row[] = $item->nama_funding;
+            $row[] = $item->nama_sumber;
+            $row[] = $item->author_abrev;
+            $row[] = $item->title_abrev;
+            $row[] = $item->volume;
+            $row[] = $item->kondisi_fisik;
+            $row[] = $item->bibliography;
+            $row[] = $item->subject;
+            $data[] = $row;
+        }
+        $output = array(
+            "draw" => @$_POST['draw'],
+            "recordsTotal" => $this->m_katalog_buku->count_all_digital(),
+            "recordsFiltered" => $this->m_katalog_buku->count_filtered_digital(),
+            "data" => $data,
+        );
+        // output to json format
+        echo json_encode($output);
+    }
+
+
     // yusril
     public function peminjaman()
     {
@@ -43,19 +143,29 @@ class laporan extends CI_Controller
     public function keranjang_buku()
     {
         $data['title'] = "Laporan Keranjang Buku";
-        $data['buku_dipinjam'] =  $this->m_sirkulasi->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['buku'] =  $this->m_sirkulasi->getDataKeranjang($this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
-        $this->load->view('laporan/peminjaman', $data);
+        $this->load->view('laporan/keranjang_buku', $data);
         $this->load->view('templates/footer');
     }
     // yusril
     public function koleksi_buku()
-    { }
+    {
+        $data['title'] = "Laporan Koleksi Buku";
+        $data['jenis_koleksi'] = $this->db->get('jenis_koleksi')->result_array();
+        $data['status_buku'] = $this->db->get('status_buku')->result_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/katalog_buku', $data);
+        $this->load->view('templates/footer');
+    }
     // kharis
     public function perpanjangan()
-    { }
+    {
+    }
     // fadli
     public function sangsi()
     {
@@ -70,7 +180,8 @@ class laporan extends CI_Controller
     }
     // khris
     public function koleksi_sering_dipinjam()
-    { }
+    {
+    }
     // fadli
     public function keterlambatan()
     {
@@ -84,7 +195,8 @@ class laporan extends CI_Controller
     }
     // kharis
     public function baca_ditempat()
-    { }
+    {
+    }
     // fadli
     public function stock_opname()
     {
@@ -115,5 +227,12 @@ class laporan extends CI_Controller
     }
     // yusril
     public function koleksi_digital()
-    { }
+    {
+        $data['title'] = "Laporan Koleksi Buku";
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/koleksi_digital', $data);
+        $this->load->view('templates/footer');
+    }
 }

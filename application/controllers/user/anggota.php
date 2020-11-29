@@ -309,7 +309,6 @@ class Anggota extends CI_Controller
                         </div>
                     </div>
                     </div>
-
                 ';
                 $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             } else {
