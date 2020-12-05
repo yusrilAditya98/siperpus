@@ -12,10 +12,12 @@ class Admin extends CI_Controller
         $this->load->model('m_sirkulasi');
         $this->load->model('m_katalog_buku');
         is_logged_in();
+        cek_admin();
     }
 
     public function index()
     {
+
         $data['title'] = 'Dashboard';
         $data['status'] = $this->m_sirkulasi->dataAdmin();
         $data['jenis_koleksi'] = $this->m_katalog_buku->dataJenisBuku();
@@ -132,7 +134,8 @@ class Admin extends CI_Controller
         }
         redirect('user/admin/list');
     }
-    public function import(){
+    public function import()
+    {
         // upload file xls
         $target = basename($_FILES['import-data']['name']);
         if ($_FILES['import-data']['name']) {
@@ -155,7 +158,7 @@ class Admin extends CI_Controller
         $jumlah_baris = $data->rowcount($sheet_index = 0);
         $input_data = [];
         for ($i = 3; $i < $jumlah_baris; $i++) {
-            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+            if (str_replace("\0", "", $data->val($i, 2)) == "") {
                 break;
             }
             // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
@@ -164,7 +167,7 @@ class Admin extends CI_Controller
                 "nama" => str_replace("\0", "", $data->val($i, 3)),
                 "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "no_hp" => str_replace("\0", "", $data->val($i, 5)),
-                "password" => 'p'.str_replace("\0", "", $data->val($i, 2)),
+                "password" => 'p' . str_replace("\0", "", $data->val($i, 2)),
                 "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
                 "foto" => '',
                 "date_created" => date('Y-m-d'),

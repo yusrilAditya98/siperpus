@@ -219,6 +219,7 @@ class Welcome extends CI_Controller
 
     public function index()
     {
-        $this->load->view('welcome/landing_page');
+        $data['title'] = "Welcome - Siperpus";
+        $this->load->view('welcome/landing_page', $data);
     }
 }

@@ -162,4 +162,56 @@ class M_user extends CI_Model
         $this->db->where('username', $username);
         $this->db->update('user');
     }
+
+    public function dataRecall()
+    {
+        $this->db->select('r.*, s.no_transaksi, b.register, b.judul_buku, u.nama');
+        $this->db->from('recall as r');
+        $this->db->join('sirkulasi as s', 's.id_sirkulasi = r.id_sirkulasi', 'left');
+        $this->db->join('buku as b', 'b.register = s.b_register', 'left');
+        $this->db->join('user as u', 'u.username = s.u_username', 'left');
+        $this->db->where('s.u_username', $this->session->userdata('username'));
+        $this->db->where('r.status_recall', 1);
+        $this->db->where_in('s.status_sirkulasi', [4, 9]);
+        return $this->db->get()->result_array();
+    }
+
+    public function dataCardStatus($username)
+    {
+        $this->db->select('COUNT(s.b_register) as total');
+        $this->db->from('sirkulasi as s');
+        $this->db->where('s.u_username', $username);
+        $this->db->where('s.jenis_sirkulasi', 1);
+        $this->db->where_not_in('s.status_sirkulasi', [0]);
+        $data['buku_dipinjam'] =  $this->db->get()->row_array();
+
+        $this->db->select('COUNT(s.b_register) as total');
+        $this->db->from('sirkulasi as s');
+        $this->db->where('s.u_username', $username);
+        $this->db->where('s.jenis_sirkulasi', 2);
+        $data['buku_dibaca'] =  $this->db->get()->row_array();
+
+        $this->db->select('COUNT(s.b_register) as total');
+        $this->db->from('sirkulasi as s');
+        $this->db->where('s.u_username', $username);
+        $this->db->where('s.jenis_sirkulasi', 1);
+        $this->db->where('s.status_sirkulasi', 6);
+        $this->db->join('sirkulasi_pelanggaran as sp', 'sp.s_id_sirkulasi = s.id_sirkulasi', 'left');
+        $data['pelanggaran_buku'] =  $this->db->get()->row_array();
+
+        return $data;
+    }
+
+    public function dataBukuTerkini($username)
+    {
+        $this->db->select('*');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b', 's.b_register=b.register', 'left');
+        $this->db->join('user as u', 's.u_username=u.username', 'left');
+        $this->db->order_by('s.status_sirkulasi', 'asc');
+        $this->db->where('s.jenis_sirkulasi', 1);
+        $this->db->where_not_in('s.status_sirkulasi', [0]);
+        $this->db->where('u.username', $username);
+        return $this->db->get()->result_array();
+    }
 }

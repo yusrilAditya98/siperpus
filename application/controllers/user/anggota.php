@@ -4,6 +4,7 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Anggota extends CI_Controller
 {
+
     public function __construct()
     {
         parent::__construct();
@@ -12,20 +13,15 @@ class Anggota extends CI_Controller
         $this->load->model('m_cetak');
         $this->load->model('m_prodi', 'p');
         is_logged_in();
+        cek_anggota();
     }
 
     public function index()
-    {
+    {;
         $data['title'] = 'Dashboard';
-        $this->db->select('r.*, s.no_transaksi, b.register, b.judul_buku, u.nama');
-        $this->db->from('recall as r');
-        $this->db->join('sirkulasi as s', 's.id_sirkulasi = r.id_sirkulasi', 'left');
-        $this->db->join('buku as b', 'b.register = s.b_register', 'left');
-        $this->db->join('user as u', 'u.username = s.u_username', 'left');
-        $this->db->where('s.u_username', $this->session->userdata('username'));
-        $this->db->where('r.status_recall', 1);
-        $this->db->where_in('s.status_sirkulasi', [4, 9]);
-        $data['recall'] = $this->db->get()->result_array();
+        $data['recall'] = $this->u->dataRecall();
+        $data['card_status'] = $this->u->dataCardStatus($this->session->userdata('username'));
+        $data['card_peminjaman'] = $this->u->dataBukuTerkini($this->session->userdata('username'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');

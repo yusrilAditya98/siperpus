@@ -21,7 +21,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?= $card_status['buku_dipinjam']['total'] ?></h3>
               <p>Total Buku Dipinjam</p>
             </div>
             <div class="icon">
@@ -35,8 +35,8 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>2</h3>
-              <p>Buku Sedang Dipinjam</p>
+              <h3><?= $card_status['buku_dibaca']['total'] ?></h3>
+              <p>Total Buku Dibaca</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -51,8 +51,8 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>2</h3>
-              <p>Pelanggaran Buku</p>
+              <h3><?= $card_status['pelanggaran_buku']['total'] ?></h3>
+              <p>Total Pelanggaran Buku</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -97,9 +97,8 @@
                 <table id="example" class="table table-striped table-white table-bordered" style="width:100%">
                   <thead>
                     <tr>
-                      <th>#</th>
+                      <th>No</th>
                       <th>No. Transaksi</th>
-                      <th>No. Barcode</th>
                       <th>Judul</th>
                       <th>Penerbit</th>
                       <th>Tgl Peminjaman</th>
@@ -109,71 +108,40 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>1</td>
-                      <td>20061600006</td>
-                      <td>00000003610</td>
-                      <td>Segala-galanya Ambyar / F. Wicaksono</td>
-                      <td>Gramedia Widiasarana Indonesia,</td>
-                      <td>16-06-2020</td>
-                      <td>03-07-2020</td>
-                      <td>+-6</td>
-                      <td>
-                        <span class="badge badge-danger p-2">Terlambat</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td>20061600006</td>
-                      <td>00000003610</td>
-                      <td>Segala-galanya Ambyar / F. Wicaksono</td>
-                      <td>Gramedia Widiasarana Indonesia,</td>
-                      <td>16-06-2020</td>
-                      <td>03-07-2020</td>
-                      <td>+-6</td>
-                      <td>
-                        <span class="badge badge-success p-2">Dikembalikan</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td>20061600006</td>
-                      <td>00000003610</td>
-                      <td>Segala-galanya Ambyar / F. Wicaksono</td>
-                      <td>Gramedia Widiasarana Indonesia,</td>
-                      <td>16-06-2020</td>
-                      <td>03-07-2020</td>
-                      <td></td>
-                      <td>
-                        <span class="badge badge-primary p-2">Proses</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td>20061600006</td>
-                      <td>00000003610</td>
-                      <td>Segala-galanya Ambyar / F. Wicaksono</td>
-                      <td>Gramedia Widiasarana Indonesia,</td>
-                      <td>16-06-2020</td>
-                      <td>03-07-2020</td>
-                      <td></td>
-                      <td>
-                        <span class="badge badge-primary p-2">Proses</span>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td>20061600006</td>
-                      <td>00000003610</td>
-                      <td>Segala-galanya Ambyar / F. Wicaksono</td>
-                      <td>Gramedia Widiasarana Indonesia,</td>
-                      <td>16-06-2020</td>
-                      <td>03-07-2020</td>
-                      <td></td>
-                      <td>
-                        <span class="badge badge-primary p-2">Proses</span>
-                      </td>
-                    </tr>
+                    <?php $index = 1; ?>
+                    <?php foreach ($card_peminjaman as $cp) : ?>
+                      <tr>
+                        <td><?= $index++ ?></td>
+                        <td><?= $cp['no_transaksi'] ?></td>
+                        <td><?= $cp['judul_buku'] ?></td>
+                        <td><?= $cp['penerbit'] ?></td>
+                        <td><?= tgl_indo($cp['tanggal_mulai']) ?></td>
+                        <td><?= tgl_indo($cp['tanggal_akhir']) ?></td>
+                        <td><?= tgl_selisih(date("Y-m-d"), $cp['tanggal_akhir'], null, $cp['status_sirkulasi']) ?></td>
+                        <?php if ($cp['status_sirkulasi'] == 1) { ?>
+                          <td><span class="badge badge-primary">proses peminjaman</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 2) { ?>
+                          <td><span class="badge badge-warning">sedang dipersiapkan</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 3) { ?>
+                          <td><span class="badge badge-info">dapat diambil</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 4) { ?>
+                          <td><span class="badge badge-success">dipinjam</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 5) { ?>
+                          <td><span class="badge badge-danger">tolak peminjaman</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 6) { ?>
+                          <td><span class="badge badge-warning">pelanggaran</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 7) { ?>
+                          <td><span class="badge badge-primary">pengajuan perpajangan</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 8) { ?>
+                          <td><span class="badge badge-danger">tolak perpanjangan</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 9) { ?>
+                          <td><span class="badge badge-success">valid perpanjangan</span></td>
+                        <?php } else if ($cp['status_sirkulasi'] == 10) { ?>
+                          <td><span class="badge badge-success">selesai pengembalian</span></td>
+                        <?php } ?>
+                      </tr>
+                    <?php endforeach; ?>
+
                   </tbody>
                 </table>
               </div>

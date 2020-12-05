@@ -1,6 +1,6 @@
    <!-- Main Sidebar Container -->
    <aside class="main-sidebar sidebar-dark-primary elevation-4">
-       <a href="dashboard_admin.html" class="brand-link text-center text-bold">
+       <a href="<?= base_url("auth") ?>" class="brand-link text-center text-bold">
            <span class="brand-text" style="color: #f96332;">Sistem</span> <span style="color: #fff;">Perpustakaan</span>
        </a>
 
@@ -449,14 +449,14 @@
                                </p>
                            </a>
                        </li>
-                       <li class="nav-item">
-                           <a href="profil.html" class="nav-link">
+                       <!-- <li class="nav-item">
+                           <a href="<?= base_url('user/anggota/ubah/' . $this->session->userdata('username')) ?>" class="nav-link">
                                <i class="nav-icon fas fa-users"></i>
                                <p>
                                    Profil
                                </p>
                            </a>
-                       </li>
+                       </li> -->
 
                        <li class="nav-header">Menu Utama</li>
 
@@ -481,36 +481,24 @@
                                        <p>OPAC</p>
                                    </a>
                                </li>
-                               <li class="nav-item">
-                                   <a href="daftar_koleksidigital.html" class="nav-link">
-                                       <i class="far fa-circle nav-icon"></i>
-                                       <p>Daftar Koleksi Digital</p>
-                                   </a>
-                               </li>
-                               <li class="nav-item">
-                                   <a href="digital_collection.html" class="nav-link">
-                                       <i class="far fa-circle nav-icon"></i>
-                                       <p>Digital Collection</p>
-                                   </a>
-                               </li>
                            </ul>
                        </li>
-                       <li class="nav-item">
+                       <!-- <li class="nav-item">
                            <a href="./index.html" class="nav-link">
                                <i class="nav-icon fas fa-book-reader"></i>
                                <p>
                                    Baca Ditempat
                                </p>
                            </a>
-                       </li>
-                       <li class="nav-item">
+                       </li> -->
+                       <!-- <li class="nav-item">
                            <a href="<?= site_url() ?>sirkulasi/sumbangan_buku" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
                                </p>
                            </a>
-                       </li>
+                       </li> -->
                    </ul>
                </nav>
                <!-- /.sidebar-menu -->

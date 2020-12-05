@@ -64,5 +64,47 @@
 
         return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
     }
+
+    function tgl_selisih($date1, $date2, $kategori = null, $status)
+    {
+        $min = '';
+        $cek = false;;
+        $diff = abs(strtotime($date2) - strtotime($date1));
+        $diff2 = (strtotime($date2) - strtotime($date1));
+
+        if ($status == 4) {
+            if ($diff2 < 0) {
+                $cek = true;
+                $min = '-';
+            }
+        } elseif ($status == 9) {
+            if ($diff2 < 0) {
+                $cek = true;
+                $min = '-';
+            }
+        }
+
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+        // var_dump($days);
+        // die;
+        if ($kategori == 1) {
+            if ($cek) {
+                return $min . '' . $years;
+            }
+            return '';
+        } elseif ($kategori == 2) {
+            if ($cek) {
+                return $min . '' . $months;
+            }
+            return '';
+        } else {
+            if ($cek) {
+                return $min . '' . $days;
+            }
+            return '';
+        }
+    }
     ?>
     <div class="wrapper">
