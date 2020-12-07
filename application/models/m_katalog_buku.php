@@ -480,7 +480,8 @@ class m_katalog_buku extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function getSeringDipinjam($username = null, $start_date = null, $end_date = null){
+    public function getSeringDipinjam($username = null, $start_date = null, $end_date = null)
+    {
         $this->db->select('COUNT(id_sirkulasi) as jumlah, s.*, b.*');
         $this->db->from('sirkulasi as s');
         $this->db->join('buku as b', 's.b_register=b.register', 'left');
@@ -488,17 +489,17 @@ class m_katalog_buku extends CI_Model
         $this->db->order_by('s.status_sirkulasi', 'asc');
         $this->db->where('s.jenis_sirkulasi', 1);
         // status sirkulasi terdiri dari
-                        // 0 Keranjang peminjaman
-                        // 1 proses peminjaman
-                        // 2 sedang dipersiapkan
-                        // 3 dapat diambil
-                        // 4 pinjam
-                        // 5 tolak peminjaman
-                        // 6 pelanggaran
-                        // 7 pengajuan perpajangan
-                        // 8 tolak perpanjangan
-                        // 9 valid perpanjangan
-                        // 10 selesai pengembalian
+        // 0 Keranjang peminjaman
+        // 1 proses peminjaman
+        // 2 sedang dipersiapkan
+        // 3 dapat diambil
+        // 4 pinjam
+        // 5 tolak peminjaman
+        // 6 pelanggaran
+        // 7 pengajuan perpajangan
+        // 8 tolak perpanjangan
+        // 9 valid perpanjangan
+        // 10 selesai pengembalian
 
         // Seleksi Status Sirkulasi
         $this->db->where_in('s.status_sirkulasi', [4, 9, 10]);
@@ -527,7 +528,8 @@ class m_katalog_buku extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function getBacaDitempat($username = null, $start_date = null, $end_date = null){
+    public function getBacaDitempat($username = null, $start_date = null, $end_date = null)
+    {
         $this->db->select('*');
         $this->db->from('sirkulasi as s');
         $this->db->join('buku as b', 's.b_register=b.register', 'left');

@@ -52,7 +52,7 @@
 				<div class="col-lg-4">
 					<div class="card">
 						<div class="card-header">
-							<h3 class="card-title">Jeni Koleksi</h3>
+							<h3 class="card-title">Jenis Koleksi</h3>
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="collapse"><i class="fas fa-minus"></i>
 								</button>
@@ -152,7 +152,7 @@
 												<tr>
 													<td><?= $i++ ?></td>
 													<td><i class="fas fa-user mr-2"></i><?= $bt['nama'] ?><br><?= $bt['username'] ?></td>
-													<td><a href="pages/examples/invoice.html"><?= $bt['register'] ?></a></td>
+													<td><?= $bt['register'] ?></td>
 													<td><?= $bt['judul_buku'] ?></td>
 													<td><?= $bt['pengarang'] ?></td>
 													<td>

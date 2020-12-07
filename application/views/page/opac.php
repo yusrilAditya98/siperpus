@@ -52,16 +52,17 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <div class="card">
+
                                         <div class="card-body">
                                             <div class="form-group row">
                                                 <div class="col-sm-12">
                                                     <label>Cari</label>
                                                 </div>
                                                 <div class="col-sm-5">
-                                                    <input type="text" id="keywords" name="keywords" class="form-control" placeholder="Kata Kunci">
+                                                    <input type="text" id="keywords" name="keywords" class="form-control" placeholder="Kata Kunci" required>
                                                 </div>
                                                 <select class="custom-select col-sm-5" name="filter" id="filter" id="inlineFormCustomSelect">
-                                                    <option selected>Choose...</option>
+                                                    <option selected value="">Choose...</option>
                                                     <option value="judul_buku">Judul</option>
                                                     <option value="pengarang">Pengaran</option>
                                                     <option value="penerbit">Penerbit</option>
@@ -75,10 +76,11 @@
                                                 </div>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div id="hasil" class="row" style="display:none;">
+                            <div id="hasil" class="row" style="display:none; visibility: hidden;">
                                 <div class="col-lg-12">
                                     <table id="data-opac" class="table table-bordered display">
                                         <thead>
@@ -110,26 +112,40 @@
     $(document).ready(function() {
         // tampil_data_buku(); //pemanggilan fungsi tampil barang.
 
-        $('#cari').click(function(event) {
-            document.getElementById('hasil').removeAttribute('style');
-            var keywords = document.getElementById('keywords').value;
-            var filter = document.getElementById('filter').value;
-            $('#data-opac').DataTable({
-                "processing": true,
-                "serverSide": true,
-                "ajax": {
-                    "url": "<?= site_url('data/buku/cariOpac') ?>",
-                    "type": "POST",
-                    "data": {
-                        "filter": filter,
-                        "keywords": keywords
-                    }
-                },
-                "coloumnDefs": [{
+        document.getElementById('hasil').removeAttribute('style');
+        // var keywords = null;
+        // var filter = null;
+        // $('#cari').click(function(event) {
 
-                }],
-                "order": []
-            });
+        $('#data-opac').DataTable({
+            "processing": true,
+            "serverSide": true,
+            "ajax": {
+                "url": "<?= site_url('data/buku/cariOpac') ?>",
+                "type": "POST",
+                "data": function(data) {
+                    data.keywords = $('#keywords').val()
+                    data.filter = $('#filter').val()
+                }
+            },
+            "coloumnDefs": [{
+
+            }],
+            "order": []
         });
+        $('#hasil').hide();
+        $('#cari').on('click', function() { //button filter event click
+            $('#hasil').show()
+            console.log($('#filter').val())
+            console.log($('#keywords').val())
+            $('#data-opac').DataTable().ajax.reload(); //just reload table
+
+        });
+        // $('#start_date').on('change', function() { //button filter event click
+        //     console.log($('#start_date').val())
+        //     $('#data').DataTable().ajax.reload(); //just reload table
+        //     console.log('cek')
+        // });
     });
+    // });
 </script>

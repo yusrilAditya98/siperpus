@@ -17,7 +17,6 @@ class Admin extends CI_Controller
 
     public function index()
     {
-
         $data['title'] = 'Dashboard';
         $data['status'] = $this->m_sirkulasi->dataAdmin();
         $data['jenis_koleksi'] = $this->m_katalog_buku->dataJenisBuku();

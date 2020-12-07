@@ -22,7 +22,7 @@
           <div class="small-box bg-info">
             <div class="inner">
               <h3><?= $card_status['buku_dipinjam']['total'] ?></h3>
-              <p>Total Buku Dipinjam</p>
+              <p>Jumlah Buku Yang Pernah Dipinjam</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -36,7 +36,7 @@
           <div class="small-box bg-success">
             <div class="inner">
               <h3><?= $card_status['buku_dibaca']['total'] ?></h3>
-              <p>Total Buku Dibaca</p>
+              <p>Jumlah Buku Yang Dibaca</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>
@@ -52,7 +52,7 @@
           <div class="small-box bg-danger">
             <div class="inner">
               <h3><?= $card_status['pelanggaran_buku']['total'] ?></h3>
-              <p>Total Pelanggaran Buku</p>
+              <p>Jumlah Pelanggaran Buku</p>
             </div>
             <div class="icon">
               <i class="fas fa-book"></i>

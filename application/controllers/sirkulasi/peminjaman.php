@@ -636,8 +636,10 @@ class Peminjaman extends CI_Controller
     }
     public function validPinjam($id_sirkulasi)
     {
-        $status = $this->db->get('valid');
-        $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => $status]);
+        $status = $this->input->get('valid');
+        $this->db->set('status_sirkulasi', $status);
+        $this->db->where('id_sirkulasi', $id_sirkulasi);
+        $this->db->update('sirkulasi');
         $this->session->set_flashdata('success', 'Validasi perpanjangan berhasil');
         redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
     }

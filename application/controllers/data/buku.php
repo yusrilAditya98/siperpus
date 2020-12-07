@@ -876,7 +876,8 @@ class Buku extends CI_Controller
         $filter = $_POST['filter'];
         $this->get_ajax_opac($keywords, $filter);
     }
-    public function import(){
+    public function import()
+    {
         // upload file xls
         $target = basename($_FILES['import-data']['name']);
         if ($_FILES['import-data']['name']) {
@@ -899,7 +900,7 @@ class Buku extends CI_Controller
         $jumlah_baris = $data->rowcount($sheet_index = 0);
         $input_data = [];
         for ($i = 3; $i < $jumlah_baris; $i++) {
-            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+            if (str_replace("\0", "", $data->val($i, 2)) == "") {
                 break;
             }
             // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
@@ -908,7 +909,7 @@ class Buku extends CI_Controller
                 "judul_buku" => str_replace("\0", "", $data->val($i, 3)),
                 "pengarang" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "penerbit" => str_replace("\0", "", $data->val($i, 5)),
-                "tahun_terbit" => 'p'.str_replace("\0", "", $data->val($i, 6)),
+                "tahun_terbit" => 'p' . str_replace("\0", "", $data->val($i, 6)),
                 "kondisi_fisik" => str_replace("\0", "", $data->val($i, 8)),
                 "status_buku" => str_replace("\0", "", $data->val($i, 22)),
                 "jenis_akses" => str_replace("\0", "", $data->val($i, 21)),
@@ -931,20 +932,20 @@ class Buku extends CI_Controller
             ];
 
             // upload sampul
-        // $upload_image = $_FILES['sampul'];
-        // $upload_image = $data->val($i, 23);
-        // if ($upload_image) {
-        //     $config['allowed_types'] = 'jpg|JPG|jpeg|JPEG|png|PNG';
-        //     $config['max_size']     = '1024'; //kb
-        //     $config['upload_path'] = FCPATH . 'assets/sampul_buku/';
-        //     $config['file_name'] = 'sampul_buku_' . $data['judul_buku'];
-        //     $this->load->library('upload', $config);
-        //     if ($this->upload->do_upload('sampul')) {
-        //         $data['sampul'] = $this->upload->data('file_name');
-        //     } else {
-        //         return false;
-        //     }
-        // }
+            // $upload_image = $_FILES['sampul'];
+            // $upload_image = $data->val($i, 23);
+            // if ($upload_image) {
+            //     $config['allowed_types'] = 'jpg|JPG|jpeg|JPEG|png|PNG';
+            //     $config['max_size']     = '1024'; //kb
+            //     $config['upload_path'] = FCPATH . 'assets/sampul_buku/';
+            //     $config['file_name'] = 'sampul_buku_' . $data['judul_buku'];
+            //     $this->load->library('upload', $config);
+            //     if ($this->upload->do_upload('sampul')) {
+            //         $data['sampul'] = $this->upload->data('file_name');
+            //     } else {
+            //         return false;
+            //     }
+            // }
             array_push($input_data, $result);
         };
         // var_dump($input_data);die;
