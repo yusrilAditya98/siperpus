@@ -231,6 +231,12 @@
                                        <p>Data Petugas</p>
                                    </a>
                                </li>
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>data/kop_surat" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Kop Surat</p>
+                                   </a>
+                               </li>
                            </ul>
                        </li>
                        <li class="nav-item">
