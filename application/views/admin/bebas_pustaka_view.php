@@ -53,7 +53,7 @@
         </div> -->
         <div class="cetak">
             <div class="row justify-content-center">
-                <img src="<?= site_url() ?>assets/img/header_bebas_pustaka.jpg" alt="" srcset="">
+                <img src="<?= site_url() ?>assets/img/kopSurat/<?= $kop_surat[0]['nama_file'] ?>" alt="" srcset="">
             </div>
             <?php if ($status == 'bebas') : ?>
                 <h3 class="text-center pt-4"> SURAT KETERANGAN </h3>

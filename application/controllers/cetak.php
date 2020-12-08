@@ -14,6 +14,7 @@ class cetak extends CI_Controller
         $this->load->library('Ciqrcode');
         $this->load->model('m_katalog_buku');
         $this->load->model('m_petugas');
+        $this->load->model('m_kop_surat');
         is_logged_in();
     }
 
@@ -65,9 +66,13 @@ class cetak extends CI_Controller
             }
             // add html for action
             $temp = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>';
-            $temp_btn_pinjam = "";
+            // $temp_btn_pinjam = '<a href="" class="btn btn-success btn-sm"><i class="fa fa-plus"></i> Cetak</a>';
+            $temp_btn_cetak = '<input type="hidden" class="form-control" name="register" id="register' . $item->register . '" value="' . $item->register . '" required>
+            <span class="input-group-append">
+                <button type="button" id="tambah_cetak' . $item->register . '" class="btn btn-success btn-sm"><i class="fas fa-plus mr-2"></i>Cetak</button>
+            </span>';
 
-            $row[] = $temp . " " . $temp_btn_pinjam . ' <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
+            $row[] = $temp . " " . $temp_btn_cetak . ' <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -406,6 +411,7 @@ class cetak extends CI_Controller
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
         $data['cetak_code'] = $this->db->where(['status' => 0])->from('cetak')->join('buku', 'buku.register = cetak.b_register')->get()->result_array();
+        $data['katalog_buku'] = $this->m_katalog_buku->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -516,8 +522,9 @@ class cetak extends CI_Controller
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
         $data['mhs'] = $this->m_cetak->getUser($username);
-        $data['petugas'] = $this->m_petugas->getData(1);
+        $data['petugas'] = $this->m_petugas->getData(null, 1);
         $data['status'] = "$status";
+        $data['kop_surat'] = $this->m_kop_surat->getData(null, 1);
         $this->load->view('admin/bebas_pustaka_view', $data);
     }
 
