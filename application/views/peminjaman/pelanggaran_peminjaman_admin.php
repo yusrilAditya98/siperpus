@@ -50,12 +50,14 @@
                 <!-- /.card-header -->
                 <div class="card-body">
                   <div class="table-responsive">
-                    <table class="table table-bordered" id="data">
+                    <table class="table table-bordered" id="data-pinjam">
                       <thead>
                         <tr>
                           <th>No</th>
                           <th>No Transaksi</th>
                           <th>Register</th>
+                          <th>Username</th>
+                          <th>Nama</th>
                           <th>Judul Buku</th>
                           <th>Jenis Pelanggaran</th>
                           <th>Denda</th>
@@ -71,6 +73,8 @@
                             <td><?= $i++ ?></td>
                             <td><?= $b['no_transaksi'] ?></td>
                             <td><?= $b['register'] ?></td>
+                            <td><?= $b['username'] ?></td>
+                            <td><?= $b['nama'] ?></td>
                             <td><?= $b['judul_buku'] ?></td>
                             <td><?= $b['nama_pelanggaran'] ?></td>
                             <td><?= $b['nama_denda'] ?> <?= ' - ' . $b['denda'] ?></td>
@@ -269,3 +273,32 @@
     <?php endforeach; ?>
 
     <!-- /.content-wrapper -->
+
+    <script src="<?= base_url("plugins/jquery/jquery.min.js") ?>"></script>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        $('#data-pinjam').DataTable({
+          "coloumnDefs": [{
+
+          }],
+          "order": [],
+          "dom": 'Bfrtip',
+          "buttons": [
+            'copy', 'csv', 'excel', 'print', {
+              extend: 'pdf',
+              orientation: 'landscape',
+              pageSize: 'LEGAL'
+            }
+          ]
+        });
+
+        // $('#hasil').hide();
+        // $('#cari').on('click', function() { //button filter event click
+        //   $('#hasil').show()
+        //   console.log($('#filter').val())
+        //   console.log($('#keywords').val())
+        //   $('#data-opac').DataTable().ajax.reload(); //just reload table
+
+        // });
+      })
+    </script>

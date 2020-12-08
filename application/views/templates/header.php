@@ -101,7 +101,7 @@
             return '';
         } else {
             if ($cek) {
-                return $min . '' . $days;
+                return $min . '' . $days . ',Anda melewat tanggal jatuh tempo';
             }
             return '';
         }

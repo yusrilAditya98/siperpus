@@ -541,13 +541,13 @@ class Peminjaman extends CI_Controller
         $lama_peminjaman = $this->db->where(['status_peminjaman' => 1])->from('lama_peminjaman')->get()->row_array();
         $lama_pinjam = $lama_peminjaman['durasi_peminjaman'];
         $hari = '+' . $lama_pinjam . ' days';
-        $no_transaksi = uniqid();
+        $no_transaksi = uniqid() . random_int(1, 100);
         $cek = true;
         // cek no transaksi
         while ($cek) {
             $cek = $this->db->get_where('sirkulasi', ['no_transaksi' => $no_transaksi])->data_seek();
             if ($cek) {
-                $no_transaksi = uniqid();
+                $no_transaksi = uniqid() + $data['id_sirkulasi'];
             } else {
                 $cek = false;
             }
