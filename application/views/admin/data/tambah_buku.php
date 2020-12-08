@@ -213,6 +213,16 @@
                                                 <option value="2">Sedang Dipinjam</option>
                                             </select>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jenis Koleksi</label>
+                                            <select id="selectBox3" name="jk_id_jenis" class="form-control col-sm-10">
+                                                <option>Pilih Jenis Koleksi</option>
+                                                <?php foreach ($data_jenis_koleksi as $jk) : ?>
+                                                    <option value="<?= $jk['id_jenis'] ?>"><?= $jk['nama_jenis'] ?></option>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
+
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-block" type="submit">

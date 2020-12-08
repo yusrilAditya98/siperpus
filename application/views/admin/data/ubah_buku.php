@@ -241,6 +241,19 @@
                                                 <?php } ?>
                                             </select>
                                         </div>
+                                        <div class="form-group row">
+                                            <label class="col-sm-2 col-form-label">Jenis Koleksi</label>
+                                            <select id="selectBox3" name="jk_id_jenis" class="form-control col-sm-10">
+
+                                                <?php foreach ($data_jenis_koleksi as $jenis) : ?>
+                                                    <?php if ($data_katalog_buku[0]['id_jenis_koleksi'] == $jenis['id_jenis']) : ?>
+                                                        <option selected value="<?= $jenis['id_jenis'] ?>"><?= $jenis['nama_jenis'] ?></option>
+                                                    <?php else : ?>
+                                                        <option value="<?= $jenis['id_jenis'] ?>"><?= $jenis['nama_jenis'] ?></option>
+                                                    <?php endif; ?>
+                                                <?php endforeach; ?>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <button class="btn btn-primary btn-block" type="submit">

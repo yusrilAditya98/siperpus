@@ -248,6 +248,14 @@ class Buku extends CI_Controller
                                     ' . $item->subject . '
                                 </div>
                             </div>
+                            <div class="row bg-light">
+                            <div class="col-sm-6">
+                                Jenis Koleksi
+                            </div>
+                            <div class="col-sm-6">
+                                ' . $item->nama_jenis . '
+                            </div>
+                        </div>
                             </div>
                         </div>
   
@@ -530,11 +538,12 @@ class Buku extends CI_Controller
         $data_bahasa = $this->m_katalog_buku->getBahasa();
         $data_circ = $this->m_katalog_buku->getCirc();
         $data_funding = $this->m_katalog_buku->getFunding();
+        $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
-        $this->load->view('page/katalog_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding));
+        $this->load->view('page/katalog_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding, 'data_jenis_koleksi' => $data_jenis_koleksi));
         $this->load->view('templates/footer');
     }
 
@@ -566,11 +575,11 @@ class Buku extends CI_Controller
         $data_sumber = $this->m_katalog_buku->getSumber();
         $data_kategori = $this->m_katalog_buku->getKategori();
         $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
-
+        $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
-        $this->load->view('admin/data/tambah_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding, 'data_sumber' => $data_sumber, 'data_kategori' => $data_kategori, 'data_jenis_akses' => $data_jenis_akses));
+        $this->load->view('admin/data/tambah_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding, 'data_sumber' => $data_sumber, 'data_kategori' => $data_kategori, 'data_jenis_akses' => $data_jenis_akses, 'data_jenis_koleksi' => $data_jenis_koleksi));
         $this->load->view('templates/footer');
     }
 
@@ -585,11 +594,11 @@ class Buku extends CI_Controller
         $data_sumber = $this->m_katalog_buku->getSumber();
         $data_kategori = $this->m_katalog_buku->getKategori();
         $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
-
+        $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
-        $this->load->view('admin/data/ubah_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding, 'data_sumber' => $data_sumber, 'data_kategori' => $data_kategori, 'data_jenis_akses' => $data_jenis_akses));
+        $this->load->view('admin/data/ubah_buku', array('data_katalog_buku' => $data_katalog_buku, 'data_bahasa' => $data_bahasa, 'data_circ' => $data_circ, 'data_funding' => $data_funding, 'data_sumber' => $data_sumber, 'data_kategori' => $data_kategori, 'data_jenis_akses' => $data_jenis_akses, 'data_jenis_koleksi' => $data_jenis_koleksi));
         $this->load->view('templates/footer');
     }
 

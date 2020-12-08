@@ -21,13 +21,14 @@ class m_katalog_buku extends CI_Model
     private function _get_datatables_query($keywords = null, $filter = null)
     {
         // $this->db->select('*');
-        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber,jk.nama_jenis');
         $this->db->from('buku as b');
         $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
         $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
         $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
         $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
         $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        $this->db->join('jenis_koleksi as jk', 'b.jk_id_jenis = jk.id_jenis', 'left');
         if ($keywords != null && $filter != null) {
             $this->db->like($filter, $keywords);
         }
@@ -238,7 +239,7 @@ class m_katalog_buku extends CI_Model
         // $data = $this->db->query('select * from buku ' . $where);
         // $this->db->select('*');
         // $this->db->from('buku');
-        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber, j.nama_jenis');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber, j.nama_jenis, jk.nama_jenis as jenis_koleksi, jk.id_jenis as id_jenis_koleksi');
         $this->db->from('buku as b');
         $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
         $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
@@ -246,6 +247,7 @@ class m_katalog_buku extends CI_Model
         $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
         $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
         $this->db->join('jenis_akses as j', 'b.jenis_akses = j.id_jenis', 'left');
+        $this->db->join('jenis_koleksi as jk', 'b.jk_id_jenis = jk.id_jenis', 'left');
         if ($register != null) {
             $this->db->where('register', $register);
         }
@@ -320,6 +322,7 @@ class m_katalog_buku extends CI_Model
             'f_id_funding' => $this->input->post('f_id_funding'),
             'sk_id_sumber' => $this->input->post('sk_id_sumber'),
             'k_id_kategori' => $this->input->post('k_id_kategori'),
+            'jk_id_jenis' => $this->input->post('jk_id_jenis')
         ];
 
         // upload sampul
@@ -366,6 +369,7 @@ class m_katalog_buku extends CI_Model
             'f_id_funding' => $this->input->post('f_id_funding'),
             'sk_id_sumber' => $this->input->post('sk_id_sumber'),
             'k_id_kategori' => $this->input->post('k_id_kategori'),
+            'jk_id_jenis' => $this->input->post('jk_id_jenis')
         ];
 
         $ubah = $_POST['ubah-pict'];
