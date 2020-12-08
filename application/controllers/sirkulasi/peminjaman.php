@@ -684,13 +684,16 @@ class Peminjaman extends CI_Controller
         // cek no transaksi 
         $sirkulasi = $this->db->get_where('sirkulasi', ['b_register' => $register, 'no_transaksi' => $no_transaksi])->row_array();
         if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 8 || $sirkulasi['status_sirkulasi'] == 9) {
-            if ($pelanggaran == '' && $denda == '') {
+            if ($pelanggaran == "kosong" && $denda == "kosong") {
                 $data = [
                     'status' => 10,
                     'no_transaksi' => $no_transaksi,
                     'register' => $register
                 ];
-            } else {
+                $this->m_sirkulasi->updatePengembalianBuku($data);
+                $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
+                $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
+            } elseif ($pelanggaran != '' && $denda != '') {
                 $data = [
                     'status' => 6,
                     'no_transaksi' => $no_transaksi,
@@ -706,10 +709,12 @@ class Peminjaman extends CI_Controller
                     'status_pelanggaran' => 1,
                 ];
                 $this->m_sirkulasi->insertSirkulasiPelanggaran($dataPelanggaran);
+                $this->m_sirkulasi->updatePengembalianBuku($data);
+                $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
+                $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
+            } else {
+                $this->session->set_flashdata('danger', 'Buku dengan no register' . $register . ' gagal dikembalikan');
             }
-            $this->m_sirkulasi->updatePengembalianBuku($data);
-            $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
-            $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
         } else {
             $this->session->set_flashdata('danger', 'Buku dengan no register ' . $register . ' gagal dikembalikan');
         }

@@ -85,7 +85,7 @@
                                   <div class="row mb-2">
                                     <div class="col-lg-4">
                                       <select class="form-control" name="pelanggaran" id="pelanggaran">
-                                        <option value="">--tidak ada pelanggarang--</option>
+                                        <option value="kosong">--tidak ada pelanggarang--</option>
                                         <?php foreach ($pelanggaran as $p) : ?>
                                           <option value="<?= $p['id_pelanggaran'] ?>"><?= $p['nama_pelanggaran'] ?></option>
                                         <?php endforeach; ?>
@@ -93,12 +93,12 @@
                                     </div>
                                     <div class="col-lg-4">
                                       <select class="form-control" name="denda" id="denda">
-                                        <option value="">--tidak ada denda--</option>
+                                        <option value="kosong">--tidak ada denda--</option>
                                       </select>
                                     </div>
                                     <div class="col-lg-4">
                                       <div class="input-group">
-                                        <input type="hidden" name="no_transaksi" id="no_transaksi" value="<?= $buku_dipinjam[0]['no_transaksi'] ?>">
+                                        <input type="text" name="no_transaksi" class="form-control" id="no_transaksi" value="" placeholder="No transaksi" autofocus required>
                                         <input type="hidden" name="username" id="username" value="<?= $user['username'] ?>">
                                         <input type="hidden" name="status" value="10">
                                         <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
@@ -115,6 +115,7 @@
                                   <thead>
                                     <tr>
                                       <th>No</th>
+                                      <th>No Transaksi</th>
                                       <th>Register</th>
                                       <th>Judul</th>
                                       <th>Pengarang</th>
@@ -128,6 +129,7 @@
                                     foreach ($buku_dipinjam as $b) : ?>
                                       <tr>
                                         <td><?= $i++ ?></td>
+                                        <td><?= $b['no_transaksi'] ?></td>
                                         <td><?= $b['register'] ?></td>
                                         <td><?= $b['judul_buku'] ?></td>
                                         <td><?= $b['pengarang'] ?></td>

@@ -113,7 +113,7 @@ $('#pelanggaran').on('change', function () {
 	let pelanggaran = $('#pelanggaran').val();
 	console.log(pelanggaran)
 
-	if (pelanggaran != '') {
+	if (pelanggaran != 'kosong') {
 		$.ajax({
 			url: segments[0] + '/' + segments[3] + '/data/denda/get_ajax',
 			method: "get",
@@ -130,7 +130,7 @@ $('#pelanggaran').on('change', function () {
 		})
 	} else {
 		console.log('cek')
-		$('#denda').html('<option value="null">--tidak ada denda--</option>')
+		$('#denda').html('<option value="kosong">--tidak ada denda--</option>')
 	}
 })
 
