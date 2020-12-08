@@ -50,7 +50,7 @@
                                             <div class="card-body">
                                                 <div class="table-responsive">
                                                     <!-- <form action="<?= base_url('cetak/peminjaman/pinjam_admin') ?>" method="post"> -->
-                                                    <div class="row mb-2">
+                                                    <!-- <div class="row mb-2">
                                                         <div class="col-lg-4">
                                                             <div class="input-group">
                                                                 <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
@@ -59,7 +59,7 @@
                                                                 </span>
                                                             </div>
                                                         </div>
-                                                    </div>
+                                                    </div> -->
                                                     <!-- </form> -->
                                                     <table id="data2" class="table table-striped table-white mt-3" style="width:100%">
                                                         <thead>
@@ -180,7 +180,35 @@
                 "coloumnDefs": [{
 
                 }],
-                "order": []
+                "order": [],
+                "fnDrawCallback": function(oSettings) {
+                    <?php foreach ($katalog_buku as $so) : ?>
+                        $("#tambah_cetak<?= $so['register'] ?>").on('click', function() {
+                            var register = $("#register<?= $so['register'] ?>").val();
+                            register = register.trim();
+                            // console.log(register);
+                            $.ajax({
+                                url: "<?= base_url('cetak/tambahData') ?>",
+                                type: "POST",
+                                data: {
+                                    "register": register,
+                                },
+                                success: function(data) {
+                                    $('#data3').DataTable().ajax.reload();
+                                    alert("Added Successfully");
+                                    var count_data = document.getElementById("count_data").value;
+                                    var logic = parseInt(count_data) + 1;
+                                    document.getElementById("count_data").value = logic;
+                                    if (logic > 0) {
+                                        document.getElementById("data_tambahan").style.display = "";
+                                    } else {
+                                        document.getElementById("data_tambahan").style.display = "none";
+                                    }
+                                }
+                            });
+                        });
+                    <?php endforeach; ?>
+                }
             });
             $('#data3').DataTable({
                 "processing": true,
@@ -221,6 +249,7 @@
                 }
             });
         });
+
         $("#tambah_cetak").on('click', function() {
             var register = $("#register").val();
             register = register.trim();
