@@ -67,7 +67,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('data/buku/get_ajax') ?>",
+                "url": "<?= site_url('data/Buku/get_ajax') ?>",
                 "type": "POST",
                 "data": {
 

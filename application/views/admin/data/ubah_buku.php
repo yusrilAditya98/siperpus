@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/buku/katalog_buku_admin">Katalog Buku</a></li>
+                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/Buku/katalog_buku_admin">Katalog Buku</a></li>
                         <li class="breadcrumb-item active">Tambah Buku</li>
                     </ol>
                 </div>
@@ -35,7 +35,7 @@
                 </div>
                 <div class="col-lg-12">
                     <!-- <?= var_dump($data_katalog_buku); ?> -->
-                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>data/buku/ubahDataBuku">
+                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>data/Buku/ubahDataBuku">
                         <div class="card">
                             <div class="card-body">
                                 <div class="card">

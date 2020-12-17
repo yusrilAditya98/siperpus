@@ -2,21 +2,21 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class kategori extends CI_Controller
+class Kategori extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_kategori_buku');
+        $this->load->model('M_kategori_buku');
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_kategori = $this->m_kategori_buku->getData();
+        $data_kategori = $this->M_kategori_buku->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -26,7 +26,7 @@ class kategori extends CI_Controller
 
     public function tambah()
     {
-        $res = $this->m_kategori_buku->insertData();
+        $res = $this->M_kategori_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/kategori');
@@ -38,7 +38,7 @@ class kategori extends CI_Controller
 
     public function ubah($id_kategori)
     {
-        $res = $this->m_kategori_buku->updateData($id_kategori);
+        $res = $this->M_kategori_buku->updateData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/kategori');
@@ -50,7 +50,7 @@ class kategori extends CI_Controller
 
     function hapus($id_kategori)
     {
-        $res = $this->m_kategori_buku->deleteData($id_kategori);
+        $res = $this->M_kategori_buku->deleteData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/kategori');

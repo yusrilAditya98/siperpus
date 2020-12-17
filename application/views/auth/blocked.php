@@ -78,7 +78,7 @@
     </use>
     <h1>403</h1>
     <h2>Not this time, access forbidden!</h2>
-    <h2><a href="<?= base_url("auth") ?>">back to home</a></h2>
+    <h2><a href="<?= base_url("Auth") ?>">back to home</a></h2>
 </body>
 
 </html>

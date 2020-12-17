@@ -15,7 +15,7 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-            
+
         </div>
         <!-- /.content-header -->
 
@@ -33,7 +33,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="<?= base_url('laporan/koleksi_sering_dipinjam') ?>" method="get">
+                                <form action="<?= base_url('Laporan/koleksi_sering_dipinjam') ?>" method="get">
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="input-group mb-3">
@@ -86,7 +86,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 1;
+                                            <?php $i = 1;
                                             foreach ($sering_dipinjam as $b) : ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>

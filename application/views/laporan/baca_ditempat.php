@@ -32,7 +32,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="<?= base_url('laporan/baca_ditempat') ?>" method="get">
+                                <form action="<?= base_url('Laporan/baca_ditempat') ?>" method="get">
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="input-group mb-3">

@@ -2,21 +2,21 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class denda extends CI_Controller
+class Denda extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_jenis_denda');
+        $this->load->model('M_jenis_denda');
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_denda = $this->m_jenis_denda->getData();
+        $data_denda = $this->M_jenis_denda->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -26,7 +26,7 @@ class denda extends CI_Controller
 
     public function tambah()
     {
-        $res = $this->m_jenis_denda->insertData();
+        $res = $this->M_jenis_denda->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/denda');
@@ -38,7 +38,7 @@ class denda extends CI_Controller
 
     public function ubah($id_denda)
     {
-        $res = $this->m_jenis_denda->updateData($id_denda);
+        $res = $this->M_jenis_denda->updateData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/denda');
@@ -50,7 +50,7 @@ class denda extends CI_Controller
 
     function hapus($id_denda)
     {
-        $res = $this->m_jenis_denda->deleteData($id_denda);
+        $res = $this->M_jenis_denda->deleteData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/denda');

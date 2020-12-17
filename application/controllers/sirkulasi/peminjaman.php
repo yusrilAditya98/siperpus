@@ -7,11 +7,11 @@ class Peminjaman extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_user', 'u');
-        $this->load->model('m_prodi', 'p');
-        $this->load->model('m_katalog_buku');
-        $this->load->model('m_sirkulasi');
-        $this->load->model('m_pelanggaran');
+        $this->load->model('M_user', 'u');
+        $this->load->model('M_prodi', 'p');
+        $this->load->model('M_katalog_buku');
+        $this->load->model('M_sirkulasi');
+        $this->load->model('M_pelanggaran');
         $this->load->library('Zend');
         $this->load->library('Ciqrcode');
         is_logged_in();
@@ -32,7 +32,7 @@ class Peminjaman extends CI_Controller
     function get_ajax_peminjaman()
     {
         $temp_role_id = $_POST['role_id'];
-        $list = $this->m_katalog_buku->get_datatables();
+        $list = $this->M_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -226,8 +226,8 @@ class Peminjaman extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -250,7 +250,7 @@ class Peminjaman extends CI_Controller
 
     function get_ajax_validasi()
     {
-        $list = $this->m_sirkulasi->get_daftarvalidasi();
+        $list = $this->M_sirkulasi->get_daftarvalidasi();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -398,8 +398,8 @@ class Peminjaman extends CI_Controller
 
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_sirkulasi->count_all_v(),
-            "recordsFiltered" => $this->m_sirkulasi->count_filtered_v(),
+            "recordsTotal" => $this->M_sirkulasi->count_all_v(),
+            "recordsFiltered" => $this->M_sirkulasi->count_filtered_v(),
             "data" => $data,
         );
         // output to json format
@@ -445,7 +445,7 @@ class Peminjaman extends CI_Controller
     {
 
         $data = [
-            'buku_dipinjam' => $this->m_sirkulasi->bukuDipinjam($no_transaksi),
+            'buku_dipinjam' => $this->M_sirkulasi->bukuDipinjam($no_transaksi),
             'title' => 'Detail Validasi Peminjaman',
             'user' => $this->db->select('nama,username,no_transaksi,tanggal_mulai,tanggal_akhir')->from('sirkulasi')->join('user', 'user.username=sirkulasi.u_username', 'left')->where('sirkulasi.no_transaksi', $no_transaksi)->get()->row_array()
         ];
@@ -585,9 +585,9 @@ class Peminjaman extends CI_Controller
     {
         $title = 'Daftar Buku Dipinjam | Portal FH';
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            $data['buku_dipinjam'] =  $this->m_katalog_buku->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+            $data['buku_dipinjam'] =  $this->M_katalog_buku->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         } else {
-            $data['buku_dipinjam'] =  $this->m_katalog_buku->getBukuDipinjam($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+            $data['buku_dipinjam'] =  $this->M_katalog_buku->getBukuDipinjam($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         }
         $this->template($title);
         $this->load->view('peminjaman/daftar_buku_dipinjam', $data);
@@ -604,7 +604,7 @@ class Peminjaman extends CI_Controller
     public function perpanjangan_peminjaman()
     {
         $title = 'Perpanjangan Peminjaman | Portal FH';
-        $data['buku_perpanjangan'] = $data['buku_perpanjangan'] = $this->m_katalog_buku->getBukuPerpanjangan($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['buku_perpanjangan'] = $data['buku_perpanjangan'] = $this->M_katalog_buku->getBukuPerpanjangan($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
 
         $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $this->session->userdata('username')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
@@ -646,7 +646,7 @@ class Peminjaman extends CI_Controller
     public function pelanggaran_peminjaman()
     {
         $title = 'Pelanggaran Peminjaman | Portal FH';
-        $buku = $this->m_pelanggaran->getListPelanggaran();
+        $buku = $this->M_pelanggaran->getListPelanggaran();
         for ($i = 0; $i < count($buku); $i++) {
             if ($buku[$i]['d_id_denda'] == 3) {
                 if ($buku[$i]['tanggal_pengembalian'] > $buku[$i]['tanggal_akhir']) {
@@ -690,7 +690,7 @@ class Peminjaman extends CI_Controller
                     'no_transaksi' => $no_transaksi,
                     'register' => $register
                 ];
-                $this->m_sirkulasi->updatePengembalianBuku($data);
+                $this->M_sirkulasi->updatePengembalianBuku($data);
                 $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
                 $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
             } elseif ($pelanggaran != '' && $denda != '') {
@@ -708,8 +708,8 @@ class Peminjaman extends CI_Controller
                     'd_id_denda' => $denda,
                     'status_pelanggaran' => 1,
                 ];
-                $this->m_sirkulasi->insertSirkulasiPelanggaran($dataPelanggaran);
-                $this->m_sirkulasi->updatePengembalianBuku($data);
+                $this->M_sirkulasi->insertSirkulasiPelanggaran($dataPelanggaran);
+                $this->M_sirkulasi->updatePengembalianBuku($data);
                 $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
                 $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
             } else {
@@ -777,7 +777,7 @@ class Peminjaman extends CI_Controller
     public function perpanjangan_peminjaman_admin()
     {
         $title = 'Daftar Buku Dipinjam | Portal FH';
-        $data['buku_perpanjangan'] = $this->m_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['buku_perpanjangan'] = $this->M_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         $data['anggota'] = $this->db->get_where('user', ['ru_role_id' => 2]);
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman_admin', $data);
@@ -809,7 +809,7 @@ class Peminjaman extends CI_Controller
     public function pelanggaran_peminjaman_admin()
     {
         $title = 'Pelanggaran Peminjaman | Portal FH';
-        $buku = $this->m_pelanggaran->getListPelanggaran();
+        $buku = $this->M_pelanggaran->getListPelanggaran();
         for ($i = 0; $i < count($buku); $i++) {
             if ($buku[$i]['d_id_denda'] == 3) {
                 if ($buku[$i]['tanggal_pengembalian'] > $buku[$i]['tanggal_akhir']) {
@@ -841,7 +841,7 @@ class Peminjaman extends CI_Controller
             'status_pelanggaran' => 2
         ];
 
-        $this->m_sirkulasi->updateSirkulasiPelanggarang($data);
+        $this->M_sirkulasi->updateSirkulasiPelanggarang($data);
         $this->session->set_flashdata('success', 'Validasi Pelanggaran berhasil');
         redirect(site_url('/sirkulasi/peminjaman/pelanggaran_peminjaman_admin'));
     }

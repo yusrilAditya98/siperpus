@@ -9,7 +9,7 @@
                   <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                           <li class="breadcrumb-item"><a href="<?= base_url() ?>">Home</a></li>
-                          <li class="breadcrumb-item"><a href="<?= base_url('data/koleksi_digital') ?>">Koleksi Digital</a></li>
+                          <li class="breadcrumb-item"><a href="<?= base_url('data/Koleksi_digital') ?>">Koleksi Digital</a></li>
                           <li class="breadcrumb-item active"><?= $title ?></li>
                       </ol>
                   </div>
@@ -33,7 +33,7 @@
                           </div>
                           <!-- /.card-header -->
                           <!-- form start -->
-                          <form class="form-horizontal" action="<?= base_url('data/koleksi_digital/ubah/' . $koleksi_digital['id_koleksi']) ?>" method="POST" enctype="multipart/form-data">
+                          <form class="form-horizontal" action="<?= base_url('data/Koleksi_digital/ubah/' . $koleksi_digital['id_koleksi']) ?>" method="POST" enctype="multipart/form-data">
                               <input type="hidden" value="<?= $koleksi_digital['sampul_koleksi'] ?>" name="old_sampul_koleksi">
                               <div class="card-body">
                                   <div class="form-group row">
@@ -94,7 +94,7 @@
                               <!-- /.card-body -->
                               <div class="card-footer">
                                   <button type="submit" class="btn btn-info">Edit</button>
-                                  <a href="<?= base_url('data/koleksi_digital') ?>" class="btn btn-default float-right">Kembali</a>
+                                  <a href="<?= base_url('data/Koleksi_digital') ?>" class="btn btn-default float-right">Kembali</a>
                               </div>
                               <!-- /.card-footer -->
                           </form>

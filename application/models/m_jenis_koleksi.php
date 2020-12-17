@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_jenis_koleksi extends CI_Model
+class M_jenis_koleksi extends CI_Model
 {
 
     public function getData($id_jenis = null)

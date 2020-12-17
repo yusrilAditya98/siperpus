@@ -57,7 +57,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('sirkulasi/baca_ditmpt/list_ajax') ?>",
+                "url": "<?= site_url('sirkulasi/Baca_ditmpt/list_ajax') ?>",
                 "type": "POST",
                 "data": {
                     "role_id": "<?= $this->session->userdata('role_id') ?>"

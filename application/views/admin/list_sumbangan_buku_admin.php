@@ -55,7 +55,7 @@
                                         <h5>Halaman ini digunakan untuk melakukan sumbangan buku</h5>
 
                                         <p>Jika anda berminat menyumbangkan koleksi yang anda punya. bisa melalui halaman ini</p>
-                                        <a href="<?= site_url() ?>sirkulasi/sumbangan_buku/tambah_sumbangan_buku_admin" style="text-decoration:none;" class="btn btn-info text-white">
+                                        <a href="<?= site_url() ?>sirkulasi/Sumbangan_buku/tambah_sumbangan_buku_admin" style="text-decoration:none;" class="btn btn-info text-white">
                                             Tambah Sumbangan Buku
                                         </a>
                                     </div>
@@ -188,7 +188,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('sirkulasi/sumbangan_buku/get_ajax') ?>",
+                "url": "<?= site_url('sirkulasi/Sumbangan_buku/get_ajax') ?>",
                 "type": "POST",
                 "data": {
                     "role_id": '2',
@@ -203,7 +203,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('sirkulasi/sumbangan_buku/get_ajax') ?>",
+                "url": "<?= site_url('sirkulasi/Sumbangan_buku/get_ajax') ?>",
                 "type": "POST",
                 "data": {
                     "role_id": '3',
@@ -218,7 +218,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('sirkulasi/sumbangan_buku/get_ajax_admin') ?>",
+                "url": "<?= site_url('sirkulasi/Sumbangan_buku/get_ajax_admin') ?>",
                 "type": "POST"
             },
             "coloumnDefs": [{

@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="<?= base_url('user/anggota/tambah') ?>" method="post" enctype="multipart/form-data">
+                        <form class="form-horizontal" action="<?= base_url('user/Anggota/tambah') ?>" method="post" enctype="multipart/form-data">
                             <div class="card-body">
                                 <div class="form-group row">
                                     <label for="nama" class="col-sm-2 col-form-label">Nama</label>
@@ -126,7 +126,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">Tambah anggota</button>
-                                <a href="<?= base_url('user/anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
+                                <a href="<?= base_url('user/Anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
                             </div>
                             <!-- /.card-footer -->
                         </form>

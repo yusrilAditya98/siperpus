@@ -88,7 +88,7 @@
                             </div>
                             <div class="card-body">
                               <div class="table-responsive">
-                                <form action="<?= base_url('sirkulasi/peminjaman/pinjam_admin') ?>" method="post">
+                                <form action="<?= base_url('sirkulasi/Peminjaman/pinjam_admin') ?>" method="post">
                                   <div class="row mb-2">
                                     <div class="col-lg-4">
                                       <div class="input-group">
@@ -156,7 +156,7 @@
                                         <td><?= $b['judul_buku'] ?></td>
                                         <td><?= $b['pengarang'] ?></td>
                                         <td>
-                                          <a href="../peminjaman/hapusPinjam/<?= $b['id_sirkulasi'] ?>?username=<?= $user['username'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
+                                          <a href="../Peminjaman/hapusPinjam/<?= $b['id_sirkulasi'] ?>?username=<?= $user['username'] ?>" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                           <!-- <a href="../peminjaman/pinjamBuku/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i></a> -->
                                         </td>
                                       </tr>
@@ -167,7 +167,7 @@
                               <!-- /.table-responsive -->
                               <?php if (count($keranjang_pinjam) != 0) : ?>
                                 <div class="card-footer">
-                                  <form action="../peminjaman/pinjamSemua?username=<?= $user['username'] ?>" method="post">
+                                  <form action="../Peminjaman/pinjamSemua?username=<?= $user['username'] ?>" method="post">
                                     <div class="row">
                                       <div class="col-sm-6">
                                         <!-- text input -->

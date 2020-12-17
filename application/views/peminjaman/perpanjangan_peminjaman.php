@@ -48,7 +48,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <form action="<?= base_url('sirkulasi/peminjaman/perpanjangan_peminjaman') ?>" method="get">
+                  <form action="<?= base_url('sirkulasi/Peminjaman/perpanjangan_peminjaman') ?>" method="get">
                     <div class="row">
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
@@ -173,7 +173,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="../peminjaman/perpanjangan/" method="post">
+          <form action="../Peminjaman/perpanjangan/" method="post">
             <div class="modal-body">
               <div class="form-group">
                 <label for="kode_pinjam">Register</label>

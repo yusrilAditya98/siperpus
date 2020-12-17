@@ -8,13 +8,12 @@ class Welcome extends CI_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('m_katalog_buku', 'mb');
         $this->load->library('Ciqrcode');
-        $this->load->model('m_katalog_buku');
+        $this->load->model('M_katalog_buku');
     }
     function get_ajax()
     {
-        $list = $this->m_katalog_buku->get_datatables();
+        $list = $this->M_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -198,8 +197,8 @@ class Welcome extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format

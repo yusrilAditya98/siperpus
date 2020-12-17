@@ -15,7 +15,7 @@
                     </div><!-- /.col -->
                 </div><!-- /.row -->
             </div><!-- /.container-fluid -->
-            
+
         </div>
         <!-- /.content-header -->
 
@@ -33,7 +33,7 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-body">
-                                <form action="<?= base_url('laporan/perpanjangan') ?>" method="get">
+                                <form action="<?= base_url('Laporan/perpanjangan') ?>" method="get">
                                     <div class="row">
                                         <div class="col-lg-4">
                                             <div class="input-group mb-3">
@@ -93,7 +93,7 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <?php $i = 1;
+                                            <?php $i = 1;
                                             foreach ($perpanjangan as $b) : ?>
                                                 <tr>
                                                     <td><?= $i++ ?></td>
@@ -101,7 +101,7 @@
                                                         <td><?= $b['username'] ?></td>
                                                         <td><?= $b['nama'] ?></td>
                                                     <?php endif; ?>
-                                                    <td><a target="_blank" href="<?= base_url('cetak/cetak_transaksi/' . $b['no_transaksi']) ?>"><?= $b['no_transaksi'] ?></a></td>
+                                                    <td><a target="_blank" href="<?= base_url('Cetak/cetak_transaksi/' . $b['no_transaksi']) ?>"><?= $b['no_transaksi'] ?></a></td>
                                                     <td><?= $b['register'] ?></td>
                                                     <td><?= $b['judul_buku'] ?></td>
                                                     <td><?= $b['pengarang'] ?></td>

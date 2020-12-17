@@ -106,7 +106,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('welcome/get_ajax') ?>",
+                "url": "<?= site_url('Welcome/get_ajax') ?>",
                 "type": "POST"
             },
             "coloumnDefs": [{

@@ -10,7 +10,7 @@ class Buku extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('Ciqrcode');
         $this->load->library('Zend');
-        $this->load->model('m_katalog_buku');
+        $this->load->model('M_katalog_buku');
         is_logged_in();
     }
     public function Barcode($id = 12332)
@@ -21,7 +21,7 @@ class Buku extends CI_Controller
 
     function get_ajax_admin()
     {
-        $list = $this->m_katalog_buku->get_datatables();
+        $list = $this->M_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -269,8 +269,8 @@ class Buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -280,7 +280,7 @@ class Buku extends CI_Controller
     function get_ajax()
     {
         $temp_role_id = $this->input->post('role_id');
-        $list = $this->m_katalog_buku->get_datatables();
+        $list = $this->M_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -480,8 +480,8 @@ class Buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -513,10 +513,10 @@ class Buku extends CI_Controller
     public function buku_anggota()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_katalog_buku = $this->m_katalog_buku->getData();
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
+        $data_katalog_buku = $this->M_katalog_buku->getData();
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
         $data['buku_dipinjam'] = count($this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 0])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array());
         $data['jenis_koleksi'] = $this->db->get('jenis_koleksi')->result_array();
         $data['status_buku'] = $this->db->get('status_buku')->result_array();
@@ -534,10 +534,10 @@ class Buku extends CI_Controller
     public function list_buku()
     {
         $data['title'] = 'Daftar Buku | Portal FH';
-        $data_katalog_buku = $this->m_katalog_buku->getData();
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
+        $data_katalog_buku = $this->M_katalog_buku->getData();
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
         $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
 
         $this->load->view('templates/header', $data);
@@ -568,13 +568,13 @@ class Buku extends CI_Controller
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
 
-        $data_katalog_buku = $this->m_katalog_buku->getData();
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
-        $data_sumber = $this->m_katalog_buku->getSumber();
-        $data_kategori = $this->m_katalog_buku->getKategori();
-        $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
+        $data_katalog_buku = $this->M_katalog_buku->getData();
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
+        $data_sumber = $this->M_katalog_buku->getSumber();
+        $data_kategori = $this->M_katalog_buku->getKategori();
+        $data_jenis_akses = $this->M_katalog_buku->getJenisAkses();
         $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
@@ -587,13 +587,13 @@ class Buku extends CI_Controller
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
 
-        $data_katalog_buku = $this->m_katalog_buku->getData($register);
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
-        $data_sumber = $this->m_katalog_buku->getSumber();
-        $data_kategori = $this->m_katalog_buku->getKategori();
-        $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
+        $data_katalog_buku = $this->M_katalog_buku->getData($register);
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
+        $data_sumber = $this->M_katalog_buku->getSumber();
+        $data_kategori = $this->M_katalog_buku->getKategori();
+        $data_jenis_akses = $this->M_katalog_buku->getJenisAkses();
         $data_jenis_koleksi = $this->db->get('jenis_koleksi')->result_array();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
@@ -604,7 +604,7 @@ class Buku extends CI_Controller
 
     public function addDataBuku()
     {
-        $res = $this->m_katalog_buku->insertDataBuku();
+        $res = $this->M_katalog_buku->insertDataBuku();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/buku/katalog_buku_admin');
@@ -616,7 +616,7 @@ class Buku extends CI_Controller
 
     public function ubahDataBuku()
     {
-        $res = $this->m_katalog_buku->updateDataBuku();
+        $res = $this->M_katalog_buku->updateDataBuku();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/buku/katalog_buku_admin');
@@ -628,7 +628,7 @@ class Buku extends CI_Controller
 
     public function deleteDataBuku($register)
     {
-        $res = $this->m_katalog_buku->deleteDataBuku($register);
+        $res = $this->M_katalog_buku->deleteDataBuku($register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/buku/katalog_buku_admin');
@@ -641,7 +641,7 @@ class Buku extends CI_Controller
 
     public function addData()
     {
-        $res = $this->m_katalog_buku->insertData();
+        $res = $this->M_katalog_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/buku');
@@ -653,7 +653,7 @@ class Buku extends CI_Controller
 
     public function updateData()
     {
-        $res = $this->m_katalog_buku->updateData();
+        $res = $this->M_katalog_buku->updateData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/buku');
@@ -665,7 +665,7 @@ class Buku extends CI_Controller
 
     function deleteData($id_katalog_buku)
     {
-        $res = $this->m_katalog_buku->deleteData($id_katalog_buku);
+        $res = $this->M_katalog_buku->deleteData($id_katalog_buku);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/buku');
@@ -688,7 +688,7 @@ class Buku extends CI_Controller
 
     function get_ajax_opac($keywords, $filter)
     {
-        $list = $this->m_katalog_buku->get_datatables($keywords, $filter);
+        $list = $this->M_katalog_buku->get_datatables($keywords, $filter);
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -871,8 +871,8 @@ class Buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all($keywords, $filter),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered($keywords, $filter),
+            "recordsTotal" => $this->M_katalog_buku->count_all($keywords, $filter),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered($keywords, $filter),
             "data" => $data,
         );
         // output to json format

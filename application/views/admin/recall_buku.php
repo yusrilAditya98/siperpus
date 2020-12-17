@@ -49,18 +49,6 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
-                                                    <!-- <form action="<?= base_url('cetak/peminjaman/pinjam_admin') ?>" method="post"> -->
-                                                    <!-- <div class="row mb-2">
-                                                        <div class="col-lg-4">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
-                                                                <span class="input-group-append">
-                                                                    <button type="button" id="tambah_cetak" class="btn btn-success"><i class="fas fa-cart-plus mr-2"></i>Cetak</button>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-                                                    <!-- </form> -->
                                                     <table id="pinjaman_recall" class="table table-striped table-white mt-3" style="width:100%">
                                                         <thead>
                                                             <tr>
@@ -152,7 +140,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('recall/get_pinjaman_recall') ?>",
+                    "url": "<?= site_url('Recall/get_pinjaman_recall') ?>",
                     "type": "POST",
                     "data": {
 
@@ -170,7 +158,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('recall/get_recall') ?>",
+                    "url": "<?= site_url('Recall/get_recall') ?>",
                     "type": "POST",
                     "data": {
 
@@ -180,7 +168,7 @@
 
                 }],
                 "order": [],
-                
+
             });
         });
         $("#tambah_cetak").on('click', function() {
@@ -188,7 +176,7 @@
             register = register.trim();
             // console.log(register);
             $.ajax({
-                url: "<?= base_url('cetak/tambahData') ?>",
+                url: "<?= base_url('Cetak/tambahData') ?>",
                 type: "POST",
                 data: {
                     "register": register,

@@ -40,7 +40,7 @@
                         <div class="card-body">
                           <div class="row">
                             <div class="col-lg-6 text-center">
-                              <img src="<?= site_url('sirkulasi/peminjaman/QRcode/' . $this->uri->segment(4)) ?>">
+                              <img src="<?= site_url('sirkulasi/Peminjaman/QRcode/' . $this->uri->segment(4)) ?>">
                             </div>
                             <div class="col-lg-6">
                               <div class="mt-4">
@@ -79,7 +79,7 @@
                         </div>
                         <div class="col-lg-6">
 
-                          <form action="<?= base_url('sirkulasi/peminjaman/validasiPeminjaman') ?>" method="post">
+                          <form action="<?= base_url('sirkulasi/Peminjaman/validasiPeminjaman') ?>" method="post">
                             <div class="input-group">
                               <input type="hidden" name="no_transaksi" id="no_transaksi" value="<?= $this->uri->segment(4) ?>">
                               <input type="hidden" name="status" value="4">

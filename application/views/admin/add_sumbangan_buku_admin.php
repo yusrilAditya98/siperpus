@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url() ?>sirkulasi/sumbangan_buku/admin">Sumbangan Buku</a></li>
+                        <li class="breadcrumb-item"><a href="<?= site_url() ?>sirkulasi/Sumbangan_buku/admin">Sumbangan Buku</a></li>
                         <li class="breadcrumb-item active">Tambah Sumbangan Buku</li>
                     </ol>
                 </div>
@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>sirkulasi/sumbangan_buku/addDataSumbanganAdmin">
+                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>sirkulasi/Sumbangan_buku/addDataSumbanganAdmin">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Tambah Sumbangan Buku</h3>

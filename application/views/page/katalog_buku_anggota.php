@@ -84,7 +84,7 @@
                             <?php if ($this->session->userdata('role_id') == "role_id_1") : ?>
                                 <div class="row">
                                     <div class="col-lg-12 col-12">
-                                        <a href="<?= site_url() ?>data/buku/tambah" class="float-right btn btn-success mb-2">
+                                        <a href="<?= site_url() ?>data/Buku/tambah" class="float-right btn btn-success mb-2">
                                             Tambah Katalog Buku
                                         </a>
                                     </div>
@@ -124,7 +124,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('data/buku/get_ajax') ?>",
+                "url": "<?= site_url('data/Buku/get_ajax') ?>",
                 "type": "POST",
                 "data": function(data) {
                     data.role_id = "<?= $this->session->userdata('role_id') ?>"

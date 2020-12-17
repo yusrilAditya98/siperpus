@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="<?= base_url('user/admin/ubah/' . $list_admin['username']) ?>" method="post" enctype="multipart/form-data">
+                        <form class="form-horizontal" action="<?= base_url('user/Admin/ubah/' . $list_admin['username']) ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="old_username" value="<?= $list_admin['username'] ?>">
                             <input type="hidden" name="old_foto" value="<?= $list_admin['foto'] ?>">
                             <input type="hidden" id="prodi" value="p000" name="prodi">
@@ -110,7 +110,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">Ubah admin</button>
-                                <a href="<?= base_url('user/admin/list') ?>" class="btn btn-default float-right">Cancel</a>
+                                <a href="<?= base_url('user/Admin/list') ?>" class="btn btn-default float-right">Cancel</a>
                             </div>
                             <!-- /.card-footer -->
                         </form>

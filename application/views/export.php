@@ -2,7 +2,7 @@
 <html>
 
 <head>
-    <title><?= $title?> | Excel</title>
+    <title><?= $title ?> | Excel</title>
 </head>
 
 <body>
@@ -21,18 +21,17 @@
             text-align: center;
         }
 
-        table th{
+        table th {
             padding: 10px;
         }
-
     </style>
 
     <?php
     header("Content-type: application/vnd-ms-excel");
-    header("Content-Disposition: attachment; filename=".$filename.".xls");
+    header("Content-Disposition: attachment; filename=" . $filename . ".xls");
     ?>
 
-    <h3><?= $title?> | Excel</h3>
+    <h3><?= $title ?> | Excel</h3>
 
     <table border="1">
         <thead>
@@ -56,7 +55,7 @@
                     <td><?= $u['nama'] ?></td>
                     <td><?= $u['alamat'] ?></td>
                     <td><?= $u['no_hp'] ?></td>
-                    <?= ($u['status_aktif'] == 1) ? '<td>Aktif</td>' : '<td>Tidak Aktif</td>' ;?>
+                    <?= ($u['status_aktif'] == 1) ? '<td>Aktif</td>' : '<td>Tidak Aktif</td>'; ?>
                     <td><?= $u['nama_prodi'] ?></td>
                     <td><?= $u['role_nama'] ?></td>
                 </tr>

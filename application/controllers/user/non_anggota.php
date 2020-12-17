@@ -8,8 +8,8 @@ class Non_Anggota extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_user', 'u');
-        $this->load->model('m_prodi', 'p');
+        $this->load->model('M_user', 'u');
+        $this->load->model('M_prodi', 'p');
         is_logged_in();
     }
 
@@ -126,7 +126,8 @@ class Non_Anggota extends CI_Controller
         redirect('user/non_anggota/list');
     }
 
-    public function import(){
+    public function import()
+    {
         // upload file xls
         $target = basename($_FILES['import-data']['name']);
         if ($_FILES['import-data']['name']) {
@@ -149,7 +150,7 @@ class Non_Anggota extends CI_Controller
         $jumlah_baris = $data->rowcount($sheet_index = 0);
         $input_data = [];
         for ($i = 3; $i < $jumlah_baris; $i++) {
-            if(str_replace("\0", "", $data->val($i, 2)) == ""){
+            if (str_replace("\0", "", $data->val($i, 2)) == "") {
                 break;
             }
             // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
@@ -158,7 +159,7 @@ class Non_Anggota extends CI_Controller
                 "nama" => str_replace("\0", "", $data->val($i, 3)),
                 "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "no_hp" => str_replace("\0", "", $data->val($i, 5)),
-                "password" => 'p'.str_replace("\0", "", $data->val($i, 2)),
+                "password" => 'p' . str_replace("\0", "", $data->val($i, 2)),
                 "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
                 "foto" => '',
                 "date_created" => date('Y-m-d'),

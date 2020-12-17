@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_sumbangan_buku extends CI_Model
+class M_sumbangan_buku extends CI_Model
 {
     var $column_order = array(null, 'b.register', 'b.judul_buku', 'u.nama', 'sb.tanggal_sumbangan', 'sb.status_sumbangan', null);
     //set column field database for datatable orderable

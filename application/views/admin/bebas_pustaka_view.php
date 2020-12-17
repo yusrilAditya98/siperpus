@@ -120,7 +120,7 @@
                             <td style="width:40% text-center">
                                 <h5>Malang, <?= date("d F Y") ?></h5>
                                 <h5>Petugas Ruang Baca FHUB</h5>
-                                <img width="150" src="<?= site_url('cetak/QRPustaka/' . $mhs['username'] . '/' . $status) ?>">
+                                <img width="150" src="<?= site_url('Cetak/QRPustaka/' . $mhs['username'] . '/' . $status) ?>">
                                 <h5><?= $petugas[0]['nama'] ?></h5>
                                 <?php if ($petugas[0]['jenis_no_induk'] == 1) : ?>
                                     <h5>NIK.<?= $petugas[0]['no_induk'] ?></h5>

@@ -90,7 +90,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('user/anggota/get_status_mahasiswa') ?>",
+                    "url": "<?= site_url('user/Anggota/get_status_mahasiswa') ?>",
                     "type": "POST",
                     "data": {}
                 },

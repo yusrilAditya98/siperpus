@@ -121,7 +121,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('data/buku/cariOpac') ?>",
+                "url": "<?= site_url('data/Buku/cariOpac') ?>",
                 "type": "POST",
                 "data": function(data) {
                     data.keywords = $('#keywords').val()

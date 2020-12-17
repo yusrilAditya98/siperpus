@@ -159,7 +159,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('laporan/get_ajax_admin/laporan') ?>",
+                "url": "<?= site_url('Laporan/get_ajax_admin/laporan') ?>",
                 "type": "POST",
                 "data": function(data) {
                     data.status = $('#status').val()

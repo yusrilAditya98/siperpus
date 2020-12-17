@@ -2,19 +2,19 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class cetak extends CI_Controller
+class Cetak extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('m_cetak');
-        $this->load->model('m_user');
+        $this->load->model('M_cetak');
+        $this->load->model('M_user');
         $this->load->library('Zend');
         $this->load->library('Ciqrcode');
-        $this->load->model('m_katalog_buku');
-        $this->load->model('m_petugas');
-        $this->load->model('m_kop_surat');
+        $this->load->model('M_katalog_buku');
+        $this->load->model('M_petugas');
+        $this->load->model('M_kop_surat');
         is_logged_in();
     }
 
@@ -47,7 +47,7 @@ class cetak extends CI_Controller
 
     function get_katalog()
     {
-        $list = $this->m_katalog_buku->get_datatables();
+        $list = $this->M_katalog_buku->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -243,8 +243,8 @@ class cetak extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -253,7 +253,7 @@ class cetak extends CI_Controller
 
     function get_data_cetak()
     {
-        $list = $this->m_cetak->get_datatables();
+        $list = $this->M_cetak->get_datatables();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -269,8 +269,8 @@ class cetak extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_cetak->count_all(),
-            "recordsFiltered" => $this->m_cetak->count_filtered(),
+            "recordsTotal" => $this->M_cetak->count_all(),
+            "recordsFiltered" => $this->M_cetak->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -279,7 +279,7 @@ class cetak extends CI_Controller
 
     function get_status_mahasiswa()
     {
-        $list = $this->m_cetak->get_datatables2();
+        $list = $this->M_cetak->get_datatables2();
         $data = array();
         $no = @$_POST['start'];
         $mhs = [];
@@ -296,11 +296,11 @@ class cetak extends CI_Controller
         // echo "<br>";
         // echo "<br>";
         for ($i = 0; $i < count($mhs); $i++) {
-            $cek_sirkulasi = $this->m_cetak->getDataSirkulasi(null, $mhs[$i]);
+            $cek_sirkulasi = $this->M_cetak->getDataSirkulasi(null, $mhs[$i]);
             foreach ($cek_sirkulasi as $item) {
                 $status[$mhs[$i]][] = $item['id_sirkulasi'] . "-" . $item['status_sirkulasi'];
                 if ($item['status_sirkulasi'] == 6) {
-                    $cek_pelanggaran = $this->m_cetak->getDataSirkulasiPelanggaran($item['id_sirkulasi']);
+                    $cek_pelanggaran = $this->M_cetak->getDataSirkulasiPelanggaran($item['id_sirkulasi']);
                     if ($cek_pelanggaran[0]['status_pelanggaran'] == 1) {
                         $mhs_sirkulasi[] = $item['u_username'];
                         $daftar_buku[$item['u_username']][] = $item['b_register'] . "/" . $item['status_sirkulasi'];
@@ -331,7 +331,7 @@ class cetak extends CI_Controller
                 } else {
                     $status_buku = '<span class="badge bg-danger">Belum menyelesaikan pelanggaran buku</span>';
                 }
-                $nama_buku = $this->m_katalog_buku->getData($temp_daftar_buku[$mhs_sirkulasi[$i]][$z][0]);
+                $nama_buku = $this->M_katalog_buku->getData($temp_daftar_buku[$mhs_sirkulasi[$i]][$z][0]);
                 $buku[$mhs_sirkulasi[$i]][] = "- " . $nama_buku[0]['judul_buku'] . " => " . $status_buku;
             }
         }
@@ -385,8 +385,8 @@ class cetak extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_cetak->count_all2(),
-            "recordsFiltered" => $this->m_cetak->count_filtered2(),
+            "recordsTotal" => $this->M_cetak->count_all2(),
+            "recordsFiltered" => $this->M_cetak->count_filtered2(),
             "data" => $data,
         );
         // output to json format
@@ -411,7 +411,7 @@ class cetak extends CI_Controller
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
         $data['cetak_code'] = $this->db->where(['status' => 0])->from('cetak')->join('buku', 'buku.register = cetak.b_register')->get()->result_array();
-        $data['katalog_buku'] = $this->m_katalog_buku->getData();
+        $data['katalog_buku'] = $this->M_katalog_buku->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -420,12 +420,12 @@ class cetak extends CI_Controller
     }
     public function tambahData()
     {
-        $res = $this->m_cetak->insertData();
+        $res = $this->M_cetak->insertData();
     }
 
     function hapusData($id_cetak)
     {
-        $res = $this->m_cetak->deleteData($id_cetak);
+        $res = $this->M_cetak->deleteData($id_cetak);
     }
     public function view()
     {
@@ -450,7 +450,7 @@ class cetak extends CI_Controller
                     'qrcode' => '1',
                     'status' => '1',
                 ];
-                $res = $this->m_cetak->updateData($data, $id_cetak[$i]);
+                $res = $this->M_cetak->updateData($data, $id_cetak[$i]);
             }
         }
         if ($_POST['pilihan'] == 2) {
@@ -461,7 +461,7 @@ class cetak extends CI_Controller
                     'barcode' => '1',
                     'status' => '1',
                 ];
-                $res = $this->m_cetak->updateData($data, $id_cetak[$i]);
+                $res = $this->M_cetak->updateData($data, $id_cetak[$i]);
             }
         }
         if ($_POST['pilihan'] == 3) {
@@ -473,14 +473,14 @@ class cetak extends CI_Controller
                     'qrcode' => '1',
                     'status' => '1',
                 ];
-                $res = $this->m_cetak->updateData($data, $id_cetak[$i]);
+                $res = $this->M_cetak->updateData($data, $id_cetak[$i]);
             }
         }
 
         $data['cetak_buku'] = [];
 
         for ($i = 0; $i < count($register); $i++) {
-            $buku_cetak = $this->m_katalog_buku->getData($register[$i]);
+            $buku_cetak = $this->M_katalog_buku->getData($register[$i]);
             if ($_POST['pilihan'] == 1) {
                 $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^1^0";
             }
@@ -521,10 +521,10 @@ class cetak extends CI_Controller
     public function bebas_pustaka_view($username, $status)
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
-        $data['mhs'] = $this->m_cetak->getUser($username);
-        $data['petugas'] = $this->m_petugas->getData(null, 1);
+        $data['mhs'] = $this->M_cetak->getUser($username);
+        $data['petugas'] = $this->M_petugas->getData(null, 1);
         $data['status'] = "$status";
-        $data['kop_surat'] = $this->m_kop_surat->getData(null, 1);
+        $data['kop_surat'] = $this->M_kop_surat->getData(null, 1);
         $this->load->view('admin/bebas_pustaka_view', $data);
     }
 

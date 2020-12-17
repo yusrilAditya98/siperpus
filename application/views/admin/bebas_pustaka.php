@@ -91,7 +91,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('cetak/get_status_mahasiswa') ?>",
+                    "url": "<?= site_url('Cetak/get_status_mahasiswa') ?>",
                     "type": "POST",
                     "data": {
 
@@ -105,36 +105,4 @@
             });
 
         });
-        // $("#tambah_cetak").on('click', function() {
-        //     var register = $("#register").val();
-        //     $.ajax({
-        //         url: "<?= base_url('cetak/tambahData') ?>",
-        //         type: "POST",
-        //         data: {
-        //             "register": register,
-        //         },
-        //         success: function(data) {
-        //             document.getElementById("register").value = "";
-        //             $('#data3').DataTable().ajax.reload();
-        //             alert("Added Successfully");
-        //             var count_data = document.getElementById("count_data").value;
-        //             var logic = parseInt(count_data) + 1;
-        //             document.getElementById("count_data").value = logic;
-        //             if (logic > 0) {
-        //                 document.getElementById("data_tambahan").style.display = "";
-        //             } else {
-        //                 document.getElementById("data_tambahan").style.display = "none";
-        //             }
-        //         }
-        //     });
-        // });
-        // $("#cetak_buku").on('click', function() {
-        //     document.getElementById("keranjang").innerHTML = '<tr><td class="text-center" colspan="5">Data Not Available</td></tr>';
-        //     var count_data = 0;
-        //     if (count_data > 0) {
-        //         document.getElementById("data_tambahan").style.display = "";
-        //     } else {
-        //         document.getElementById("data_tambahan").style.display = "none";
-        //     }
-        // });
     </script>

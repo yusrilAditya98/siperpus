@@ -9,9 +9,9 @@ class Anggota extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_user', 'u');
-        $this->load->model('m_cetak');
-        $this->load->model('m_prodi', 'p');
+        $this->load->model('M_user', 'u');
+        $this->load->model('M_cetak');
+        $this->load->model('M_prodi', 'p');
         is_logged_in();
         cek_anggota();
     }
@@ -214,7 +214,7 @@ class Anggota extends CI_Controller
     public function get_status_mahasiswa()
     {
         $username_siswa = $this->session->userdata('username');
-        $list = $this->m_user->get_datatables2($username_siswa);
+        $list = $this->M_user->get_datatables2($username_siswa);
         $data = array();
         $no = @$_POST['start'];
         $mhs = [];
@@ -233,11 +233,11 @@ class Anggota extends CI_Controller
         // echo "<br>";
         // echo "<br>";
         for ($i = 0; $i < count($mhs); $i++) {
-            $cek_sirkulasi = $this->m_cetak->getDataSirkulasi(null, $mhs[$i]);
+            $cek_sirkulasi = $this->M_cetak->getDataSirkulasi(null, $mhs[$i]);
             foreach ($cek_sirkulasi as $item) {
                 $status[$mhs[$i]][] = $item['id_sirkulasi'] . "-" . $item['status_sirkulasi'];
                 if ($item['status_sirkulasi'] == 6) {
-                    $cek_pelanggaran = $this->m_cetak->getDataSirkulasiPelanggaran($item['id_sirkulasi']);
+                    $cek_pelanggaran = $this->M_cetak->getDataSirkulasiPelanggaran($item['id_sirkulasi']);
                     if ($cek_pelanggaran[0]['status_pelanggaran'] == 1) {
                         $mhs_sirkulasi[] = $item['u_username'];
                         $daftar_buku[$item['u_username']][] = $item['b_register'] . "/" . $item['status_sirkulasi'];
@@ -316,8 +316,8 @@ class Anggota extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_user->count_all2($username_siswa),
-            "recordsFiltered" => $this->m_user->count_filtered2($username_siswa),
+            "recordsTotal" => $this->M_user->count_all2($username_siswa),
+            "recordsFiltered" => $this->M_user->count_filtered2($username_siswa),
             "data" => $data,
         );
         // output to json format

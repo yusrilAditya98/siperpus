@@ -51,11 +51,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-sm-12">
-                                    <a href="<?= base_url('user/anggota/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Anggota</a>
+                                    <a href="<?= base_url('user/Anggota/tambah') ?>" class="float-right btn btn-success mb-2">Tambah Anggota</a>
                                     <button data-toggle="modal" data-target="#importAnggota" class="float-right btn btn-info mb-2 mr-2">
                                         Import Anggota
                                     </button>
-                                    <a href="<?= base_url('user/anggota/export') ?>" class="float-right btn btn-secondary mb-2 mr-2">Export Anggota</a>
+                                    <a href="<?= base_url('user/Anggota/export') ?>" class="float-right btn btn-secondary mb-2 mr-2">Export Anggota</a>
                                 </div>
                             </div>
                             <table class="table table-bordered">
@@ -81,8 +81,8 @@
                                             <?php endif; ?>
                                             <td>
                                                 <button class="btn btn-warning ubah-password" data-toggle="modal" data-target="#passwordModal" data-id="<?= $lu['username'] ?>">Password</button>
-                                                <a href="<?= base_url('user/anggota/ubah/' . $lu['username']) ?>" class="btn btn-info">Edit</a>
-                                                <a href="<?= base_url('user/anggota/hapus/' . $lu['username']) ?>" class="btn btn-danger">Hapus</a></td>
+                                                <a href="<?= base_url('user/Anggota/ubah/' . $lu['username']) ?>" class="btn btn-info">Edit</a>
+                                                <a href="<?= base_url('user/Anggota/hapus/' . $lu['username']) ?>" class="btn btn-danger">Hapus</a></td>
                                         </tr>
                                     <?php endforeach; ?>
                                 </tbody>
@@ -111,7 +111,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="<?= base_url('user/anggota/ubahPassword') ?>" method="post">
+            <form action="<?= base_url('user/Anggota/ubahPassword') ?>" method="post">
                 <input type="hidden" name="username" id="ubah_password">
                 <div class="modal-body">
                     <div class="form-group">
@@ -141,7 +141,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form class="form-horizontal" action="<?= site_url() ?>user/anggota/import" method="POST" enctype="multipart/form-data">
+            <form class="form-horizontal" action="<?= site_url() ?>user/Anggota/import" method="POST" enctype="multipart/form-data">
                 <div class="modal-body">
                     <div class="form-group row">
                         <div class="col-sm-12">

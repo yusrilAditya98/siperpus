@@ -2,21 +2,21 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class jenis_koleksi extends CI_Controller
+class Jenis_koleksi extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_jenis_koleksi');
+        $this->load->model('M_jenis_koleksi');
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Daftar Jenis Koleksi | Portal FH';
-        $data['jenis_koleksi'] = $this->m_jenis_koleksi->getData();
+        $data['jenis_koleksi'] = $this->M_jenis_koleksi->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -26,7 +26,7 @@ class jenis_koleksi extends CI_Controller
 
     public function tambah()
     {
-        $res = $this->m_jenis_koleksi->insertData();
+        $res = $this->M_jenis_koleksi->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/jenis_koleksi');
@@ -38,7 +38,7 @@ class jenis_koleksi extends CI_Controller
 
     public function ubah($id_jenis_akses)
     {
-        $res = $this->m_jenis_koleksi->updateData($id_jenis_akses);
+        $res = $this->M_jenis_koleksi->updateData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/jenis_koleksi');
@@ -50,7 +50,7 @@ class jenis_koleksi extends CI_Controller
 
     function hapus($id_jenis_akses)
     {
-        $res = $this->m_jenis_koleksi->deleteData($id_jenis_akses);
+        $res = $this->M_jenis_koleksi->deleteData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/jenis_koleksi');

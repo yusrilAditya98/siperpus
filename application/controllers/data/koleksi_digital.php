@@ -7,8 +7,8 @@ class Koleksi_digital extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_koleksi_digital', 'kd');
-        $this->load->model('m_jenis_koleksi', 'jk');
+        $this->load->model('M_koleksi_digital', 'kd');
+        $this->load->model('M_jenis_koleksi', 'jk');
         is_logged_in();
     }
 

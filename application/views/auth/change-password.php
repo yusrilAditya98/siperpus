@@ -17,7 +17,7 @@
 
                 </div>
                 <?= $this->session->flashdata('message');  ?>
-                <form class="user" method="post" action="<?= base_url('auth/changepassword'); ?>">
+                <form class="user" method="post" action="<?= base_url('Auth/changepassword'); ?>">
                   <div class="form-group">
                     <input type="password" class="form-control form-control-user" id="password1" name="password1" placeholder="Enter New Password...">
                     <?= form_error('password1', '<small class="text-danger pl-3">', '</small>'); ?>

@@ -9,8 +9,8 @@ class Baca_ditmpt extends CI_Controller
         $this->load->library('form_validation');
         $this->load->library('form_validation');
         $this->load->library('Ciqrcode');
-        $this->load->model('m_katalog_buku');
-        $this->load->model('m_sirkulasi', 'sirkulasi');
+        $this->load->model('M_katalog_buku');
+        $this->load->model('M_sirkulasi', 'sirkulasi');
         is_logged_in();
     }
 

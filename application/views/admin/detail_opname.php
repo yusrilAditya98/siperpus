@@ -10,7 +10,7 @@ test
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/stock_opname">Opname</a></li>
+                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/Stock_opname">Opname</a></li>
                         <li class="breadcrumb-item active">Detail Opname</li>
                     </ol>
                 </div>
@@ -34,13 +34,13 @@ test
 
             <div class="row card pt-4 pl-4 pb-3">
                 <div class="col-lg-12">
-                    <a href="<?= site_url() ?>data/stock_opname" style="font-size:12px; color:white" class="btn btn-success">
+                    <a href="<?= site_url() ?>data/Stock_opname" style="font-size:12px; color:white" class="btn btn-success">
                         <i class="fa fa-check mr-2"></i> Selesai
                     </a>
                 </div>
                 <hr>
                 <div class="col-lg-12">
-                    <form class="form-inline" action="<?= site_url() ?>data/stock_opname/add_buku_opname" method="POST">
+                    <form class="form-inline" action="<?= site_url() ?>data/Stock_opname/add_buku_opname" method="POST">
                         <div class="form-group mb-2">
                             <input type="text" name="b_register" autofocus placeholder="Masukkan No.Register" class="form-control">
                             <input type="hidden" name="o_id_opname" value="<?= $this->uri->segment(4) ?>" class="form-control">
@@ -153,7 +153,7 @@ test
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('data/stock_opname/get_ajax_opname') ?>",
+                "url": "<?= site_url('data/Stock_opname/get_ajax_opname') ?>",
                 "type": "POST",
                 "data": {
                     "id_opname": "<?= $this->uri->segment(4) ?>"
@@ -180,7 +180,7 @@ test
                         title: '<span class="text-info"><strong>Ubah Status Buku</strong></span>' +
                             '<button type="button" id="close" class="close" onclick="$(&quot;#menu_status<?= $so['id_buku_opname'] ?>&quot;).popover(&quot;hide&quot;);">&times;</button>',
                         content: `<div id="PopoverContent<?= $so['id_buku_opname'] ?>">
-                                    <form action="<?= base_url('data/stock_opname/ubah_status_buku_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
+                                    <form action="<?= base_url('data/Stock_opname/ubah_status_buku_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
                                         <input type="text" name="id_buku_opname" value="<?= $so['id_buku_opname'] ?>">
                                         <div class="form-group mt-2">
                                             <select class="form-control" name="status_buku">
@@ -203,7 +203,7 @@ test
                         title: '<span class="text-info"><strong>Ubah Jenis Akses</strong></span>' +
                             '<button type="button" id="close" class="close" onclick="$(&quot;#menu_akses<?= $so['id_buku_opname'] ?>&quot;).popover(&quot;hide&quot;);">&times;</button>',
                         content: `<div id="PopoverContent<?= $so['id_buku_opname'] ?>">
-                                    <form action="<?= base_url('data/stock_opname/ubah_jenis_akses_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
+                                    <form action="<?= base_url('data/Stock_opname/ubah_jenis_akses_opname/' . $so['id_buku_opname']) . '/' . $so['o_id_opname'] ?>" method="post">
                                         <input type="hidden" name="id_buku_opname" value="<?= $so['id_buku_opname'] ?>">
                                         <div class="form-group mt-2">
                                             <select class="form-control" name="jenis_akses">
@@ -226,7 +226,7 @@ test
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('data/stock_opname/get_ajax_buku') ?>",
+                "url": "<?= site_url('data/Stock_opname/get_ajax_buku') ?>",
                 "type": "POST",
                 "data": {
                     "id_opname": "<?= $this->uri->segment(4) ?>"
@@ -242,7 +242,7 @@ test
 
     function countStock() {
         $.ajax({
-            url: "<?= site_url('data/stock_opname/get_count_stock') ?>",
+            url: "<?= site_url('data/Stock_opname/get_count_stock') ?>",
             type: 'POST',
             data: {
                 "id_opname": "<?= $this->uri->segment(4) ?>",

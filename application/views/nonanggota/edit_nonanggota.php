@@ -39,7 +39,7 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form class="form-horizontal" action="<?= base_url('user/non_anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
+                        <form class="form-horizontal" action="<?= base_url('user/Non_anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
                             <input type="hidden" name="old_username" value="<?= $list_user['username'] ?>">
                             <input type="hidden" name="old_foto" value="<?= $list_user['foto'] ?>">
                             <div class="card-body">
@@ -125,7 +125,7 @@
                             <!-- /.card-body -->
                             <div class="card-footer">
                                 <button type="submit" class="btn btn-info">Ubah anggota</button>
-                                <a href="<?= base_url('user/non_anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
+                                <a href="<?= base_url('user/Non_anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
                             </div>
                             <!-- /.card-footer -->
                         </form>

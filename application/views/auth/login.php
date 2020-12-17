@@ -14,7 +14,7 @@
 							<?php if ($this->session->flashdata('message')) : ?>
 								<?= $this->session->flashdata('message') ?>
 							<?php endif; ?>
-							<form action="<?= base_url('auth') ?>" method="post">
+							<form action="<?= base_url('Auth') ?>" method="post">
 								<div class="input-group no-border input-lg">
 									<div class="input-group-prepend">
 										<span class="input-group-text">
@@ -33,7 +33,7 @@
 								</div>
 								<br>
 								<button class="btn btn-primary btn-block btn-round"><i class="fa fa-sign-in-alt"></i> Login</button>
-								<a href="<?= base_url('welcome') ?>">back to home</a>
+								<a href="<?= base_url('Welcome') ?>">back to home</a>
 
 							</form>
 						</div>

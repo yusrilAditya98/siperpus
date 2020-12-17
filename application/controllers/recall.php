@@ -2,21 +2,21 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class recall extends CI_Controller
+class Recall extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
-        $this->load->model('m_recall');
-        $this->load->model('m_user');
-        $this->load->model('m_katalog_buku');
+        $this->load->model('M_recall');
+        $this->load->model('M_user');
+        $this->load->model('M_katalog_buku');
         is_logged_in();
     }
 
     function get_recall()
     {
-        $list = $this->m_recall->get_datatables();
+        $list = $this->M_recall->get_datatables();
         // var_dump($list);die;
         $data = array();
         $no = @$_POST['start'];
@@ -52,7 +52,7 @@ class recall extends CI_Controller
                                 <div class="form-group row">
                                     <label for="digital_pdf" class="col-sm-2 col-form-label">Keterangan</label>
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control" name="keterangan" placeholder="Keterangan" value="'.$item->keterangan.'">
+                                        <input type="text" class="form-control" name="keterangan" placeholder="Keterangan" value="' . $item->keterangan . '">
                                     </div>
                                 </div>
                                 <div class="form-group row">
@@ -74,13 +74,13 @@ class recall extends CI_Controller
                 </div>
             </div>
             ';
-        
+
             $data[] = $row;
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_recall->count_all(),
-            "recordsFiltered" => $this->m_recall->count_filtered(),
+            "recordsTotal" => $this->M_recall->count_all(),
+            "recordsFiltered" => $this->M_recall->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -89,7 +89,7 @@ class recall extends CI_Controller
 
     function get_pinjaman_recall()
     {
-        $list = $this->m_recall->get_datatables2();
+        $list = $this->M_recall->get_datatables2();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -111,8 +111,8 @@ class recall extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_recall->count_all(),
-            "recordsFiltered" => $this->m_recall->count_filtered(),
+            "recordsTotal" => $this->M_recall->count_all(),
+            "recordsFiltered" => $this->M_recall->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -145,10 +145,10 @@ class recall extends CI_Controller
     public function tambahRecall($id_sirkulasi)
     {
         $recall = $this->db->get_where('recall', ['id_sirkulasi' => $id_sirkulasi])->row_array();
-        if($recall != null){
+        if ($recall != null) {
             $res = 0;
-        }else{
-            $res = $this->m_recall->insertData($id_sirkulasi);
+        } else {
+            $res = $this->M_recall->insertData($id_sirkulasi);
         }
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data Recall berhasil ditambahkan');
@@ -160,7 +160,7 @@ class recall extends CI_Controller
     }
     public function ubahDataRecall($id_recall)
     {
-        $res = $this->m_recall->updateDataRecall($id_recall);
+        $res = $this->M_recall->updateDataRecall($id_recall);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data Recall berhasil diubah');
             redirect('recall');
@@ -175,7 +175,7 @@ class recall extends CI_Controller
         $data = $this->db->get_where('recall', ['id_recall' => $id_recall])->row_array();
         $d['status_recall'] = 0;
         $this->db->update('sirkulasi', $d, ['id_sirkulasi' => $data['id_sirkulasi']]);
-        $res = $this->m_recall->deleteDataRecall($id_recall);
+        $res = $this->M_recall->deleteDataRecall($id_recall);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data Recall berhasil dihapus');
             redirect('recall');
@@ -199,7 +199,7 @@ class recall extends CI_Controller
     public function bebas_pustaka_view($username, $status)
     {
         $data['title'] = 'Cetak Barcode & QR Code Buku | Portal FH';
-        $data['mhs'] = $this->m_recall->getUser($username);
+        $data['mhs'] = $this->M_recall->getUser($username);
         $data['status'] = "$status";
         $this->load->view('admin/bebas_pustaka_view', $data);
     }

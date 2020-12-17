@@ -2,11 +2,11 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_recall extends CI_Model
+class M_recall extends CI_Model
 {
-    var $column_order = array(null, 's.no_transaksi', 'b.register','b.judul_buku', 'u.nama', 'r.status_recall', 'r.keterangan', null);
+    var $column_order = array(null, 's.no_transaksi', 'b.register', 'b.judul_buku', 'u.nama', 'r.status_recall', 'r.keterangan', null);
     //set column field database for datatable orderable
-    var $column_search = array('s.no_transaksi', 'b.register','b.judul_buku', 'u.nama', 'r.status_recall', 'r.keterangan');
+    var $column_search = array('s.no_transaksi', 'b.register', 'b.judul_buku', 'u.nama', 'r.status_recall', 'r.keterangan');
     //set column field database for datatable searchable
     var $order_recall = array('r.id_recall' => 'asc'); // default order 
 

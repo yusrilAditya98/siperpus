@@ -74,7 +74,7 @@
                                         <td style="width:65%">
                                             <b><?= $cetak[1] ?></b>
                                             <br>
-                                            <img height="100" class="pt-2" src="<?= site_url('data/buku/QRcode/' . $cetak[0]) ?>">
+                                            <img height="100" class="pt-2" src="<?= site_url('data/Buku/QRcode/' . $cetak[0]) ?>">
                                             <br>
                                             <b>*<?= $cetak[0] ?>*</b>
                                         </td>
@@ -102,7 +102,7 @@
                                         <td style="width:65%">
                                             <b><?= $cetak[1] ?></b>
                                             <br>
-                                            <img height="100" class="pt-2" src="<?= site_url('data/buku/Barcode/' . $cetak[0]) ?>">
+                                            <img height="100" class="pt-2" src="<?= site_url('data/Buku/Barcode/' . $cetak[0]) ?>">
                                         </td>
                                         <td>
                                             <h5><b><?= $cetak[2] ?></b></h5>

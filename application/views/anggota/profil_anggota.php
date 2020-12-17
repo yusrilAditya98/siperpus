@@ -51,7 +51,7 @@
                                     <div class="tab-content" id="vert-tabs-tabContent">
                                         <div class="tab-pane text-left fade active show" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                                             <!-- form start -->
-                                            <form class="form-horizontal" action="<?= base_url('user/anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
+                                            <form class="form-horizontal" action="<?= base_url('user/Anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
                                                 <input type="hidden" name="old_username" value="<?= $list_user['username'] ?>">
                                                 <input type="hidden" name="old_foto" value="<?= $list_user['foto'] ?>">
                                                 <div class="form-group row">
@@ -147,7 +147,7 @@
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="vert-tabs-password" role="tabpanel" aria-labelledby="vert-tabs-password-tab">
-                                            <form action="<?= base_url('user/anggota/ubahPassword') ?>" method="post">
+                                            <form action="<?= base_url('user/Anggota/ubahPassword') ?>" method="post">
                                                 <input type="hidden" name="username" id="ubah_password" value="<?= $list_user['username'] ?>">
 
                                                 <div class="card-body">

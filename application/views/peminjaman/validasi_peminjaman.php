@@ -35,7 +35,7 @@
         <div class="col-lg-12">
           <div class="card">
             <div class="card-body">
-              <form action="<?= base_url('sirkulasi/peminjaman/daftar_buku_dipinjam') ?>" method="get">
+              <form action="<?= base_url('sirkulasi/Peminjaman/daftar_buku_dipinjam') ?>" method="get">
                 <div class="row">
                   <div class="col-lg-4">
                     <div class="input-group mb-3">
@@ -152,7 +152,7 @@
       "processing": true,
       "serverSide": true,
       "ajax": {
-        "url": "<?= site_url('sirkulasi/peminjaman/get_ajax_validasi') ?>",
+        "url": "<?= site_url('sirkulasi/Peminjaman/get_ajax_validasi') ?>",
         "type": "POST",
         "data": function(data) {
           data.status_sirkulasi = $('#status_sirkulasi').val()

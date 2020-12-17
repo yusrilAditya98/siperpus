@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_jenis_denda extends CI_Model
+class M_jenis_denda extends CI_Model
 {
     public function getData($nama_denda = null)
     {

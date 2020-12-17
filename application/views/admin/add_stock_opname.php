@@ -9,7 +9,7 @@
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/stock_opname">Stock Opname</a></li>
+                        <li class="breadcrumb-item"><a href="<?= site_url() ?>data/Stock_opname">Stock Opname</a></li>
                         <li class="breadcrumb-item active">Create Stock Opname</li>
                     </ol>
                 </div>
@@ -22,7 +22,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-lg-12">
-                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>data/stock_opname/addData">
+                    <form enctype="multipart/form-data" method="POST" action="<?= site_url() ?>data/Stock_opname/addData">
                         <div class="card">
                             <div class="card-header">
                                 <h3 class="card-title">Create Stock Opname</h3>

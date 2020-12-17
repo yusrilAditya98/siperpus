@@ -2,21 +2,21 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class lama_peminjaman extends CI_Controller
+class Lama_peminjaman extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_lama_peminjaman');
+        $this->load->model('M_lama_peminjaman');
         is_logged_in();
     }
 
     public function index()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_lama_peminjaman = $this->m_lama_peminjaman->getData();
+        $data_lama_peminjaman = $this->M_lama_peminjaman->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -26,7 +26,7 @@ class lama_peminjaman extends CI_Controller
 
     public function tambah()
     {
-        $res = $this->m_lama_peminjaman->insertData();
+        $res = $this->M_lama_peminjaman->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/lama_peminjaman');
@@ -38,7 +38,7 @@ class lama_peminjaman extends CI_Controller
 
     public function ubah($id_lama_peminjaman)
     {
-        $res = $this->m_lama_peminjaman->updateData($id_lama_peminjaman);
+        $res = $this->M_lama_peminjaman->updateData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/lama_peminjaman');
@@ -50,7 +50,7 @@ class lama_peminjaman extends CI_Controller
 
     function hapus($id_lama_peminjaman)
     {
-        $res = $this->m_lama_peminjaman->deleteData($id_lama_peminjaman);
+        $res = $this->M_lama_peminjaman->deleteData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/lama_peminjaman');

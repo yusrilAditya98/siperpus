@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_cetak extends CI_Model
+class M_cetak extends CI_Model
 {
     var $column_order = array(null, 'c.b_register', 'b.judul_buku', 'b.pengarang', null);
     //set column field database for datatable orderable

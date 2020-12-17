@@ -35,7 +35,7 @@
             <div class="col-12">
               <div class="card">
                 <div class="card-body">
-                  <form action="../peminjaman/pengembalian_peminjaman_admin" method="get">
+                  <form action="../Peminjaman/pengembalian_peminjaman_admin" method="get">
                     <div class="form-group row">
                       <div class="col-sm-12">
                         <label>Masukkan Nomor Anggota</label>
@@ -81,7 +81,7 @@
                             <div class="card-footer">Daftar Buku Dipinjam</div>
                             <div class="card-body">
                               <?php if ($buku_dipinjam) : ?>
-                                <form action="<?= base_url('sirkulasi/peminjaman/kembalikan') ?>" method="post">
+                                <form action="<?= base_url('sirkulasi/Peminjaman/kembalikan') ?>" method="post">
                                   <div class="row mb-2">
                                     <div class="col-lg-4">
                                       <select class="form-control" name="pelanggaran" id="pelanggaran">

@@ -41,7 +41,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <form action="<?= base_url('sirkulasi/peminjaman/perpanjangan_peminjaman_admin') ?>" method="get">
+                  <form action="<?= base_url('sirkulasi/Peminjaman/perpanjangan_peminjaman_admin') ?>" method="get">
                     <div class="row">
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
@@ -124,8 +124,8 @@
                             <td><?= date('d-m-Y', strtotime($b['tanggal_perpanjangan'])) ?></td>
                             <?php if ($b['status_sirkulasi'] == 7) { ?>
                               <td><span class="badge bg-primary">pengajuan perpanjangan</span></td>
-                              <td><a href="../peminjaman/validPinjam/<?= $b['id_sirkulasi'] ?>?valid=9" class="btn btn-success"><i class="fas fa-check"></i></a>
-                                <a href="../peminjaman/tolakPinjam/<?= $b['id_sirkulasi'] ?>?valid=8" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
+                              <td><a href="../Peminjaman/validPinjam/<?= $b['id_sirkulasi'] ?>?valid=9" class="btn btn-success"><i class="fas fa-check"></i></a>
+                                <a href="../Peminjaman/tolakPinjam/<?= $b['id_sirkulasi'] ?>?valid=8" class="btn btn-danger"><i class="fas fa-times"></i></a></td>
                             <?php } else if ($b['status_sirkulasi'] == 8) { ?>
                               <td><span class="badge bg-danger">tolak perpanjangan</span><br>
                                 <p>Harap buku segera dikembalikan sebelum batas akhir</p>
@@ -167,7 +167,7 @@
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <form action="../peminjaman/perpanjangan/" method="post">
+          <form action="../Peminjaman/perpanjangan/" method="post">
             <div class="modal-body">
               <div class="form-group">
                 <label for="username">Username</label>

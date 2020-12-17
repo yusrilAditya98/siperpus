@@ -50,7 +50,7 @@
                                         <h5>Halaman ini digunakan untuk melakukan Stock Opaname</h5>
 
                                         <p>Jika akan dilakukan perhitungan stock opname maka bisa melalui halaman ini</p>
-                                        <a href="<?= site_url() ?>data/stock_opname/create" style="text-decoration:none;" class="btn btn-info text-white">
+                                        <a href="<?= site_url() ?>data/Stock_opname/create" style="text-decoration:none;" class="btn btn-info text-white">
                                             Tambah
                                         </a>
                                     </div>
@@ -88,7 +88,7 @@
                                                     <?php $i = 1; ?>
                                                     <?php foreach ($data_opname as $lp) : ?>
                                                         <tr>
-                                                            <form action="<?= base_url('data/stock_opname/ubah/' . $lp['id_opname']) ?>" method="post">
+                                                            <form action="<?= base_url('data/Stock_opname/ubah/' . $lp['id_opname']) ?>" method="post">
                                                                 <td><?= $i++; ?></td>
                                                                 <td>
                                                                     <input type="date" class="form-control" name="tanggal" value="<?= substr($lp['tanggal'], 0, 10) ?>">
@@ -103,11 +103,11 @@
                                                                     <button type="submit" style="font-size:12px;" class="btn btn-primary">
                                                                         <i class="fa fa-edit"></i> Koreksi
                                                                     </button>
-                                                                    <a href="<?= base_url('data/stock_opname/hapus/' . $lp['id_opname']) ?>" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?')">
+                                                                    <a href="<?= base_url('data/Stock_opname/hapus/' . $lp['id_opname']) ?>" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm('ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?')">
                                                                         <i class="fa fa-trash"></i> Hapus
                                                                     </a>
                                                                     |
-                                                                    <a href="<?= base_url('data/stock_opname/detail/' . $lp['id_opname']) ?>" style="font-size:12px;" class="ml-2 btn btn-info">
+                                                                    <a href="<?= base_url('data/Stock_opname/detail/' . $lp['id_opname']) ?>" style="font-size:12px;" class="ml-2 btn btn-info">
                                                                         <i class="fa fa-list"></i> Detail
                                                                     </a>
                                                                 </td>

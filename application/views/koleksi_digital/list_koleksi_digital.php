@@ -39,7 +39,7 @@
               </div>
               <div class="card-body">
                 <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
-                  <a href="<?= base_url('data/koleksi_digital/tambah') ?>" class="btn btn-success float-right mb-2">Tambah Koleksi</a>
+                  <a href="<?= base_url('data/Koleksi_digital/tambah') ?>" class="btn btn-success float-right mb-2">Tambah Koleksi</a>
                 <?php endif; ?>
                 <div class="table-responsive">
                   <table id="example" class="table table-striped table-white" style="width:100%">
@@ -67,10 +67,10 @@
                           <td>
                             <div class="btn-group">
                               <?php if ($this->session->userdata('role_id') == 'role_id_1') : ?>
-                                <a type="button" href="<?= base_url('data/koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-primary text-white"><i class="fas fa-edit mr-2"></i>Edit</a>
-                                <a onclick="return confirm('Apakah yakin akan dihapus?')" type="button" href="<?= base_url('data/koleksi_digital/hapus/' . $lk['id_koleksi']) ?>" class="btn btn-danger text-white"><i class="fas fa-trash mr-2"></i> Hapus</a>
+                                <a type="button" href="<?= base_url('data/Koleksi_digital/ubah/' . $lk['id_koleksi']) ?>" class="btn btn-primary text-white"><i class="fas fa-edit mr-2"></i>Edit</a>
+                                <a onclick="return confirm('Apakah yakin akan dihapus?')" type="button" href="<?= base_url('data/Koleksi_digital/hapus/' . $lk['id_koleksi']) ?>" class="btn btn-danger text-white"><i class="fas fa-trash mr-2"></i> Hapus</a>
                               <?php endif; ?>
-                              <a type="button" target="_blank" href="<?= base_url('data/koleksi_digital/lihat/' . $lk['id_koleksi']) ?>" class="btn btn-info text-white"><i class="fas fa-eye mr-2"></i>View</a>
+                              <a type="button" target="_blank" href="<?= base_url('data/Koleksi_digital/lihat/' . $lk['id_koleksi']) ?>" class="btn btn-info text-white"><i class="fas fa-eye mr-2"></i>View</a>
                             </div>
 
                           </td>

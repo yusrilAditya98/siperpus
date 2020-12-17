@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_koleksi_digital extends CI_Model
+class M_koleksi_digital extends CI_Model
 {
 
     public function getKoleksi($id_koleksi = null)

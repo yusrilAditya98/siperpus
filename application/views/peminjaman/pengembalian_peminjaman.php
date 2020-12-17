@@ -67,7 +67,7 @@
                             <td><span class="bg-info p-2">Perpanjangan</span></td>
                           <?php } else { ?>
                           <?php } ?> -->
-                            <td><a href="../peminjaman/kembalikan/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-success"><i class="fas fa-undo"></i></a></td>
+                            <td><a href="../Peminjaman/kembalikan/<?= $b['id_sirkulasi'] ?>" class="btn btn-sm btn-success"><i class="fas fa-undo"></i></a></td>
 
                           </tr>
                         <?php endforeach; ?>

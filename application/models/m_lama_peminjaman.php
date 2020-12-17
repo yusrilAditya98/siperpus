@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_lama_peminjaman extends CI_Model
+class M_lama_peminjaman extends CI_Model
 {
     public function getData($durasi_peminjaman = null, $status_peminjaman = null)
     {

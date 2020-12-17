@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_katalog_buku extends CI_Model
+class M_katalog_buku extends CI_Model
 {
     // start datatables
     var $column_order = array(null, 'b.register', 'b.judul_buku', 'b.pengarang', 'b.penerbit', 'b.tahun_terbit', 'b.digital_pdf', null);

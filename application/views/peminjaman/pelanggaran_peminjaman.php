@@ -124,7 +124,7 @@
                   <img class="img-thumbnail" src="<?= base_url('assets/sampul_buku/' . $b['sampul']) ?>">
                   <div class="row pt-4">
                     <div class="col-lg-12 text-center">
-                      <img src="<?= site_url('data/buku/QRcode/' . $b['register'])   ?>">
+                      <img src="<?= site_url('data/Buku/QRcode/' . $b['register'])   ?>">
                     </div>
                     <div class="col-lg-12 text-center">
                       <button class="btn btn-warning mb-2"><i class="fas fa-print mr-2"></i>Cetak</button>

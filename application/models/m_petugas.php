@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_petugas extends CI_Model
+class M_petugas extends CI_Model
 {
     public function getData($id = null, $status = null)
     {

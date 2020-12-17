@@ -13,19 +13,19 @@ use Box\Spout\Writer\WriterFactory;
 use Box\Spout\Common\Type;
 use Box\Spout\Writer\Style\StyleBuilder;
 
-class laporan extends CI_Controller
+class Laporan extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->helper("url");
-        $this->load->model('m_katalog_buku');
-        $this->load->model('m_sirkulasi');
-        $this->load->model('m_jenis_denda');
-        $this->load->model('m_pelanggaran');
-        $this->load->model('m_status_buku');
-        $this->load->model('m_stock_opname');
+        $this->load->model('M_katalog_buku');
+        $this->load->model('M_sirkulasi');
+        $this->load->model('M_jenis_denda');
+        $this->load->model('M_pelanggaran');
+        $this->load->model('M_status_buku');
+        $this->load->model('M_stock_opname');
         is_logged_in();
     }
     public function Barcode($id = 12332)
@@ -37,9 +37,9 @@ class laporan extends CI_Controller
     function get_ajax_admin($kategori = null)
     {
         if ($kategori == 'laporan') {
-            $list = $this->m_katalog_buku->get_datatables_laporan();
+            $list = $this->M_katalog_buku->get_datatables_laporan();
         } else {
-            $list = $this->m_katalog_buku->get_datatables();
+            $list = $this->M_katalog_buku->get_datatables();
         }
         $data = array();
         $no = @$_POST['start'];
@@ -75,8 +75,8 @@ class laporan extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered(),
+            "recordsTotal" => $this->M_katalog_buku->count_all(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered(),
             "data" => $data,
         );
         // output to json format
@@ -86,7 +86,7 @@ class laporan extends CI_Controller
     function get_ajax_koleksi_digital()
     {
 
-        $list = $this->m_katalog_buku->get_datatables_koleksi();
+        $list = $this->M_katalog_buku->get_datatables_koleksi();
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -118,8 +118,8 @@ class laporan extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_katalog_buku->count_all_digital(),
-            "recordsFiltered" => $this->m_katalog_buku->count_filtered_digital(),
+            "recordsTotal" => $this->M_katalog_buku->count_all_digital(),
+            "recordsFiltered" => $this->M_katalog_buku->count_filtered_digital(),
             "data" => $data,
         );
         // output to json format
@@ -131,7 +131,7 @@ class laporan extends CI_Controller
     public function peminjaman()
     {
         $data['title'] = "Laporan Peminjaman";
-        $data['buku_dipinjam'] =  $this->m_katalog_buku->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['buku_dipinjam'] =  $this->M_katalog_buku->getBukuDipinjam(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -143,7 +143,7 @@ class laporan extends CI_Controller
     public function keranjang_buku()
     {
         $data['title'] = "Laporan Keranjang Buku";
-        $data['buku'] =  $this->m_sirkulasi->getDataKeranjang($this->input->get('start_date'), $this->input->get('end_date'));
+        $data['buku'] =  $this->M_sirkulasi->getDataKeranjang($this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -166,7 +166,7 @@ class laporan extends CI_Controller
     public function perpanjangan()
     {
         $data['title'] = "Laporan Perpanjangan";
-        $data['perpanjangan'] =  $this->m_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['perpanjangan'] =  $this->M_katalog_buku->getBukuPerpanjangan(null, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -177,8 +177,8 @@ class laporan extends CI_Controller
     public function sangsi()
     {
         $data['title'] = "Laporan Sangsi";
-        $data['sirkulasi_pelanggaran'] =  $this->m_pelanggaran->getListPelanggaran(null, $this->input->get('id_pelanggaran'), null, $this->input->get('start_date'), $this->input->get('end_date'));
-        $data['pelanggaran'] =  $this->m_pelanggaran->getPelanggaran();
+        $data['sirkulasi_pelanggaran'] =  $this->M_pelanggaran->getListPelanggaran(null, $this->input->get('id_pelanggaran'), null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['pelanggaran'] =  $this->M_pelanggaran->getPelanggaran();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -187,21 +187,20 @@ class laporan extends CI_Controller
     }
     // khris
     public function koleksi_sering_dipinjam()
-    { 
+    {
         $data['title'] = "Laporan Koleksi Sering Dipinjam";
-        $data['sering_dipinjam'] = $this->m_katalog_buku->getSeringDipinjam(null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['sering_dipinjam'] = $this->M_katalog_buku->getSeringDipinjam(null, $this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
         $this->load->view('laporan/koleksi_sering_dipinjam', $data);
         $this->load->view('templates/footer');
-
     }
     // fadli
     public function keterlambatan()
     {
         $data['title'] = "Laporan Keterlambatan";
-        $data['sirkulasi_pelanggaran'] =  $this->m_pelanggaran->getListPelanggaran(null, 1, null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['sirkulasi_pelanggaran'] =  $this->M_pelanggaran->getListPelanggaran(null, 1, null, $this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -210,9 +209,9 @@ class laporan extends CI_Controller
     }
     // kharis
     public function baca_ditempat()
-    { 
+    {
         $data['title'] = "Laporan Baca Ditempat";
-        $data['baca_ditempat'] = $this->m_katalog_buku->getBacaDitempat(null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $data['baca_ditempat'] = $this->M_katalog_buku->getBacaDitempat(null, $this->input->get('start_date'), $this->input->get('end_date'));
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -223,10 +222,10 @@ class laporan extends CI_Controller
     public function stock_opname()
     {
         $data['title'] = "Laporan Stock Opname";
-        $data['data_status_buku'] = $this->m_status_buku->getData();
+        $data['data_status_buku'] = $this->M_status_buku->getData();
         $id_opname = [];
         $status_opname = [];
-        $opname = $this->m_stock_opname->getDataLaporanOpname(null, $this->input->get('start_date'), $this->input->get('end_date'));
+        $opname = $this->M_stock_opname->getDataLaporanOpname(null, $this->input->get('start_date'), $this->input->get('end_date'));
         if (count($opname) >= 1) {
             foreach ($opname as $o) {
                 if ($o['status_now'] != null || $o['akses_now'] != null) {

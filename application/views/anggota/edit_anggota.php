@@ -55,7 +55,7 @@
                                     <div class="tab-content" id="vert-tabs-tabContent">
                                         <div class="tab-pane text-left fade active show" id="vert-tabs-home" role="tabpanel" aria-labelledby="vert-tabs-home-tab">
                                             <!-- form start -->
-                                            <form class="form-horizontal" action="<?= base_url('user/anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
+                                            <form class="form-horizontal" action="<?= base_url('user/Anggota/ubah/' . $list_user['username']) ?>" method="post" enctype="multipart/form-data">
                                                 <input type="hidden" name="old_username" value="<?= $list_user['username'] ?>">
                                                 <input type="hidden" name="old_foto" value="<?= $list_user['foto'] ?>">
                                                 <div class="form-group row">
@@ -177,7 +177,7 @@
                         <!-- /.card-body -->
                         <div class="card-footer">
 
-                            <a href="<?= base_url('user/anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
+                            <a href="<?= base_url('user/Anggota/list') ?>" class="btn btn-default float-right">Cancel</a>
                         </div>
                         <!-- /.card-footer -->
                         </form>

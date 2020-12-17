@@ -75,7 +75,7 @@
                   </div>
                   <?php if (count($buku_dipinjam) != 0) : ?>
                     <div class="card-footer">
-                      <form action="../peminjaman/pinjamSemua" method="post">
+                      <form action="../Peminjaman/pinjamSemua" method="post">
                         <div class="row">
                           <div class="col-sm-6">
                             <!-- text input -->

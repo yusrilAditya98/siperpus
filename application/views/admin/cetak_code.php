@@ -49,18 +49,6 @@
                                             </div>
                                             <div class="card-body">
                                                 <div class="table-responsive">
-                                                    <!-- <form action="<?= base_url('cetak/peminjaman/pinjam_admin') ?>" method="post"> -->
-                                                    <!-- <div class="row mb-2">
-                                                        <div class="col-lg-4">
-                                                            <div class="input-group">
-                                                                <input type="text" class="form-control" name="register" id="register" autofocus placeholder="nomer register..." required>
-                                                                <span class="input-group-append">
-                                                                    <button type="button" id="tambah_cetak" class="btn btn-success"><i class="fas fa-cart-plus mr-2"></i>Cetak</button>
-                                                                </span>
-                                                            </div>
-                                                        </div>
-                                                    </div> -->
-                                                    <!-- </form> -->
                                                     <table id="data2" class="table table-striped table-white mt-3" style="width:100%">
                                                         <thead>
                                                             <tr>
@@ -113,7 +101,7 @@
                                                     <div class="card-footer">
                                                         <div class="row">
                                                             <div class="col-sm-6">
-                                                                <form target="_blank" action="<?= site_url() ?>cetak/view" method="POST">
+                                                                <form target="_blank" action="<?= site_url() ?>Cetak/view" method="POST">
                                                                     <!-- text input -->
                                                                     <div class="form-group">
                                                                         <label>Pilih cetak</label>
@@ -171,7 +159,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('cetak/get_katalog') ?>",
+                    "url": "<?= site_url('Cetak/get_katalog') ?>",
                     "type": "POST",
                     "data": {
 
@@ -188,7 +176,7 @@
                             register = register.trim();
                             // console.log(register);
                             $.ajax({
-                                url: "<?= base_url('cetak/tambahData') ?>",
+                                url: "<?= base_url('Cetak/tambahData') ?>",
                                 type: "POST",
                                 data: {
                                     "register": register,
@@ -214,7 +202,7 @@
                 "processing": true,
                 "serverSide": true,
                 "ajax": {
-                    "url": "<?= site_url('cetak/get_data_cetak') ?>",
+                    "url": "<?= site_url('Cetak/get_data_cetak') ?>",
                     "type": "POST",
                     "data": {
 
@@ -228,7 +216,7 @@
                     <?php foreach ($cetak_code as $so) : ?>
                         $("#btn_delete<?= $so['id_cetak'] ?>").on('click', function() {
                             $.ajax({
-                                url: "<?= base_url() ?>cetak/hapusData/<?= $so['id_cetak'] ?>",
+                                url: "<?= base_url() ?>Cetak/hapusData/<?= $so['id_cetak'] ?>",
                                 type: "POST",
                                 data: {},
                                 success: function(data) {
@@ -255,7 +243,7 @@
             register = register.trim();
             // console.log(register);
             $.ajax({
-                url: "<?= base_url('cetak/tambahData') ?>",
+                url: "<?= base_url('Cetak/tambahData') ?>",
                 type: "POST",
                 data: {
                     "register": register,

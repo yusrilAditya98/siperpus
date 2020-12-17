@@ -65,7 +65,7 @@
                                  </thead>
                                  <tbody>
                                      <tr>
-                                         <form action="<?= base_url('data/pelanggaran/tambah') ?>" method="post">
+                                         <form action="<?= base_url('data/Pelanggaran/tambah') ?>" method="post">
                                              <td>#</td>
                                              <td><input type="text" class="form-control" name="nama_pelanggaran" placeholder="masukan jenis pelanggaran.."></td>
                                              <td> <button type="submit" class=" btn btn-success ">Tambah Pelanggaran</button></td>
@@ -74,7 +74,7 @@
                                      <?php $i = 1; ?>
                                      <?php foreach ($list_pelanggaran as $lp) : ?>
                                          <tr>
-                                             <form action="<?= base_url('data/pelanggaran/ubah/' . $lp['id_pelanggaran']) ?>" method="post">
+                                             <form action="<?= base_url('data/Pelanggaran/ubah/' . $lp['id_pelanggaran']) ?>" method="post">
                                                  <td><?= $i++; ?></td>
                                                  <td>
                                                      <input type="text" class="form-control" name="nama_pelanggaran" value=" <?= $lp['nama_pelanggaran'] ?>">

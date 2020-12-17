@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class sumbangan_buku extends CI_Controller
+class Sumbangan_buku extends CI_Controller
 {
 
     public function __construct()
@@ -10,14 +10,15 @@ class sumbangan_buku extends CI_Controller
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->library('Ciqrcode');
-        $this->load->model('m_sumbangan_buku');
+        $this->load->model('M_sumbangan_buku');
+        $this->load->model('M_katalog_buku');
         is_logged_in();
     }
 
     function get_ajax_admin()
     {
         $role_id = '1';
-        $list = $this->m_sumbangan_buku->get_datatables($role_id);
+        $list = $this->M_sumbangan_buku->get_datatables($role_id);
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -209,8 +210,8 @@ class sumbangan_buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_sumbangan_buku->count_all($role_id),
-            "recordsFiltered" => $this->m_sumbangan_buku->count_filtered($role_id),
+            "recordsTotal" => $this->M_sumbangan_buku->count_all($role_id),
+            "recordsFiltered" => $this->M_sumbangan_buku->count_filtered($role_id),
             "data" => $data,
         );
         // output to json format
@@ -220,7 +221,7 @@ class sumbangan_buku extends CI_Controller
     function get_ajax()
     {
         $role_id = $_POST['role_id'];
-        $list = $this->m_sumbangan_buku->get_datatables($role_id);
+        $list = $this->M_sumbangan_buku->get_datatables($role_id);
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -581,8 +582,8 @@ class sumbangan_buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_sumbangan_buku->count_all($role_id),
-            "recordsFiltered" => $this->m_sumbangan_buku->count_filtered($role_id),
+            "recordsTotal" => $this->M_sumbangan_buku->count_all($role_id),
+            "recordsFiltered" => $this->M_sumbangan_buku->count_filtered($role_id),
             "data" => $data,
         );
         // output to json format
@@ -593,7 +594,7 @@ class sumbangan_buku extends CI_Controller
     {
         $role_id = $_POST['role_id'];
         $username = $_POST['username'];
-        $list = $this->m_sumbangan_buku->get_datatables($role_id, $username);
+        $list = $this->M_sumbangan_buku->get_datatables($role_id, $username);
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -785,8 +786,8 @@ class sumbangan_buku extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_sumbangan_buku->count_all($role_id, $username),
-            "recordsFiltered" => $this->m_sumbangan_buku->count_filtered($role_id, $username),
+            "recordsTotal" => $this->M_sumbangan_buku->count_all($role_id, $username),
+            "recordsFiltered" => $this->M_sumbangan_buku->count_filtered($role_id, $username),
             "data" => $data,
         );
         // output to json format
@@ -829,13 +830,13 @@ class sumbangan_buku extends CI_Controller
     public function tambah_sumbangan_buku_admin()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_sumbangan_buku = $this->m_sumbangan_buku->getData();
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
-        $data_sumber = $this->m_katalog_buku->getSumber();
-        $data_kategori = $this->m_katalog_buku->getKategori();
-        $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
+        $data_sumbangan_buku = $this->M_sumbangan_buku->getData();
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
+        $data_sumber = $this->M_katalog_buku->getSumber();
+        $data_kategori = $this->M_katalog_buku->getKategori();
+        $data_jenis_akses = $this->M_katalog_buku->getJenisAkses();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -845,7 +846,7 @@ class sumbangan_buku extends CI_Controller
 
     public function terima_sumbangan($id_sumbangan)
     {
-        $res = $this->m_sumbangan_buku->terima_sumbangan($id_sumbangan);
+        $res = $this->M_sumbangan_buku->terima_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('sirkulasi/sumbangan_buku/admin');
@@ -857,7 +858,7 @@ class sumbangan_buku extends CI_Controller
 
     public function tolak_sumbangan($id_sumbangan)
     {
-        $res = $this->m_sumbangan_buku->tolak_sumbangan($id_sumbangan);
+        $res = $this->M_sumbangan_buku->tolak_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('sirkulasi/sumbangan_buku/admin');
@@ -869,7 +870,7 @@ class sumbangan_buku extends CI_Controller
 
     public function batal_sumbangan($id_sumbangan)
     {
-        $res = $this->m_sumbangan_buku->batal_sumbangan($id_sumbangan);
+        $res = $this->M_sumbangan_buku->batal_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('sirkulasi/sumbangan_buku/admin');
@@ -881,7 +882,7 @@ class sumbangan_buku extends CI_Controller
 
     public function addDataSumbanganAdmin()
     {
-        $res = $this->m_sumbangan_buku->insertData();
+        $res = $this->M_sumbangan_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('sirkulasi/sumbangan_buku/admin');
@@ -893,7 +894,7 @@ class sumbangan_buku extends CI_Controller
 
     public function deleteDataSumbanganAdmin($id_sumbangan, $register)
     {
-        $res = $this->m_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
+        $res = $this->M_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('sirkulasi/sumbangan_buku/admin');
@@ -906,13 +907,13 @@ class sumbangan_buku extends CI_Controller
     public function tambah_sumbangan_buku()
     {
         $data['title'] = 'Daftar Sumber Koleksi | Portal FH';
-        $data_sumbangan_buku = $this->m_sumbangan_buku->getData();
-        $data_bahasa = $this->m_katalog_buku->getBahasa();
-        $data_circ = $this->m_katalog_buku->getCirc();
-        $data_funding = $this->m_katalog_buku->getFunding();
-        $data_sumber = $this->m_katalog_buku->getSumber();
-        $data_kategori = $this->m_katalog_buku->getKategori();
-        $data_jenis_akses = $this->m_katalog_buku->getJenisAkses();
+        $data_sumbangan_buku = $this->M_sumbangan_buku->getData();
+        $data_bahasa = $this->M_katalog_buku->getBahasa();
+        $data_circ = $this->M_katalog_buku->getCirc();
+        $data_funding = $this->M_katalog_buku->getFunding();
+        $data_sumber = $this->M_katalog_buku->getSumber();
+        $data_kategori = $this->M_katalog_buku->getKategori();
+        $data_jenis_akses = $this->M_katalog_buku->getJenisAkses();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -922,7 +923,7 @@ class sumbangan_buku extends CI_Controller
 
     public function addDataSumbangan()
     {
-        $res = $this->m_sumbangan_buku->insertData();
+        $res = $this->M_sumbangan_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('sirkulasi/sumbangan_buku');
@@ -934,7 +935,7 @@ class sumbangan_buku extends CI_Controller
 
     public function deleteDataSumbangan($id_sumbangan, $register)
     {
-        $res = $this->m_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
+        $res = $this->M_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('sirkulasi/sumbangan_buku');

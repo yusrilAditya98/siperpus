@@ -122,7 +122,7 @@
                   <img class="img-thumbnail" src="<?= base_url('assets/sampul_buku/' . $b['sampul']) ?>">
                   <div class="row pt-4">
                     <div class="col-lg-12 text-center">
-                      <img src="<?= site_url('data/buku/QRcode/' . $b['register'])   ?>">
+                      <img src="<?= site_url('data/Buku/QRcode/' . $b['register'])   ?>">
                     </div>
                     <div class="col-lg-12 text-center">
                       <button class="btn btn-warning mb-2"><i class="fas fa-print mr-2"></i>Cetak</button>
@@ -252,7 +252,7 @@
                 </div>
               </div>
             </div>
-            <form action="<?= base_url('sirkulasi/peminjaman/validasiPelanggaran') ?>" method="POST">
+            <form action="<?= base_url('sirkulasi/Peminjaman/validasiPelanggaran') ?>" method="POST">
               <input type="hidden" value="<?= $b['s_id_sirkulasi'] ?>" name="id_sirkulasi">
               <input type="hidden" value="<?= $b['p_id_pelanggaran'] ?>" name="id_pelanggaran">
               <div class="modal-footer">

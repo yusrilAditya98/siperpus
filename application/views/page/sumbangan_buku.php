@@ -55,7 +55,7 @@
                                         <h5>Halaman ini digunakan untuk melakukan sumbangan</h5>
 
                                         <p>Jika anda berminat menyumbangkan koleksi yang anda punya. bisa melalui halaman ini</p>
-                                        <a href="<?= site_url() ?>sirkulasi/sumbangan_buku/tambah_sumbangan_buku" style="text-decoration:none;" class="btn btn-info text-white">
+                                        <a href="<?= site_url() ?>sirkulasi/Sumbangan_buku/tambah_sumbangan_buku" style="text-decoration:none;" class="btn btn-info text-white">
                                             Tambah Sumbangan Buku
                                         </a>
                                     </div>
@@ -115,7 +115,7 @@
             "processing": true,
             "serverSide": true,
             "ajax": {
-                "url": "<?= site_url('sirkulasi/sumbangan_buku/get_ajax_anggota') ?>",
+                "url": "<?= site_url('sirkulasi/Sumbangan_buku/get_ajax_anggota') ?>",
                 "type": "POST",
                 "data": {
                     "role_id": '<?= substr($this->session->userdata('role_id'), -1) ?>',

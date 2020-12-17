@@ -7,7 +7,7 @@ class Pelanggaran extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_pelanggaran', 'p');
+        $this->load->model('M_pelanggaran', 'p');
         is_logged_in();
     }
 

@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_kategori_buku extends CI_Model
+class M_kategori_buku extends CI_Model
 {
     public function getData($nama_kategori = null)
     {

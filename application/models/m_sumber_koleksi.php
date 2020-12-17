@@ -2,7 +2,7 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class m_sumber_koleksi extends CI_Model
+class M_sumber_koleksi extends CI_Model
 {
     public function getData($nama_sumber = null)
     {

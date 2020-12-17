@@ -2,24 +2,24 @@
 defined('BASEPATH') or exit('No direct script access allowed');
 
 
-class stock_opname extends CI_Controller
+class Stock_opname extends CI_Controller
 {
 
     public function __construct()
     {
         parent::__construct();
         $this->load->library('form_validation');
-        $this->load->model('m_stock_opname');
-        $this->load->model('m_status_buku');
-        $this->load->model('m_jenis_akses');
-        $this->load->model('m_katalog_buku');
+        $this->load->model('M_stock_opname');
+        $this->load->model('M_status_buku');
+        $this->load->model('M_jenis_akses');
+        $this->load->model('M_katalog_buku');
         is_logged_in();
     }
 
     function get_ajax_opname()
     {
         $id_opname = $_POST['id_opname'];
-        $list = $this->m_stock_opname->get_datatables_opname($id_opname);
+        $list = $this->M_stock_opname->get_datatables_opname($id_opname);
 
         $data = array();
         $no = @$_POST['start'];
@@ -33,9 +33,9 @@ class stock_opname extends CI_Controller
             $row[] = $item->penerbit;
             $row[] = $item->tahun_terbit;
 
-            $data_buku = $this->m_katalog_buku->getData($item->register);
-            $status_buku = $this->m_status_buku->getData($data_buku[0]['status_buku']);
-            $jenis_akses = $this->m_jenis_akses->getData($data_buku[0]['jenis_akses']);
+            $data_buku = $this->M_katalog_buku->getData($item->register);
+            $status_buku = $this->M_status_buku->getData($data_buku[0]['status_buku']);
+            $jenis_akses = $this->M_jenis_akses->getData($data_buku[0]['jenis_akses']);
 
             $row[] = ucwords($item->nama_status);
             $row[] = '<button id="menu_status' . $item->id_buku_opname . '" type="button" class="btn" data-toggle="popover" style="border-bottom:1px solid blue; color:blue;" > ' . ucwords($status_buku[0]['nama_status']) . ' </button>';
@@ -51,8 +51,8 @@ class stock_opname extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_stock_opname->count_all_opname($id_opname),
-            "recordsFiltered" => $this->m_stock_opname->count_filtered_opname($id_opname),
+            "recordsTotal" => $this->M_stock_opname->count_all_opname($id_opname),
+            "recordsFiltered" => $this->M_stock_opname->count_filtered_opname($id_opname),
             "data" => $data,
         );
         // output to json format
@@ -62,7 +62,7 @@ class stock_opname extends CI_Controller
     function get_ajax_buku()
     {
         $id_opname = $_POST['id_opname'];
-        $list = $this->m_stock_opname->get_datatables($id_opname);
+        $list = $this->M_stock_opname->get_datatables($id_opname);
         $data = array();
         $no = @$_POST['start'];
         foreach ($list as $item) {
@@ -80,8 +80,8 @@ class stock_opname extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->m_stock_opname->count_all($id_opname),
-            "recordsFiltered" => $this->m_stock_opname->count_filtered($id_opname),
+            "recordsTotal" => $this->M_stock_opname->count_all($id_opname),
+            "recordsFiltered" => $this->M_stock_opname->count_filtered($id_opname),
             "data" => $data,
         );
         // output to json format
@@ -91,12 +91,12 @@ class stock_opname extends CI_Controller
     function get_count_stock()
     {
         $id_opname = $_POST['id_opname'];
-        $data_opname = $this->m_stock_opname->getDataOpname(null, $id_opname);
+        $data_opname = $this->M_stock_opname->getDataOpname(null, $id_opname);
         $data_stock = [];
         if (!empty($data_opname)) {
-            $data_stock  = $this->m_stock_opname->getStockStatus($id_opname);
+            $data_stock  = $this->M_stock_opname->getStockStatus($id_opname);
         }
-        $data_status_buku = $this->m_status_buku->getData();
+        $data_status_buku = $this->M_status_buku->getData();
         $temp_status = [];
         $temp_status2 = [];
         $temp_status_buku = [];
@@ -145,7 +145,7 @@ class stock_opname extends CI_Controller
     public function index()
     {
         $data['title'] = 'Daftar Stock Opname | Portal FH';
-        $data_opname = $this->m_stock_opname->getData();
+        $data_opname = $this->M_stock_opname->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -156,7 +156,7 @@ class stock_opname extends CI_Controller
     public function create()
     {
         $data['title'] = 'Daftar Stock Opname | Portal FH';
-        // $data_stock_opname = $this->m_stock_opname->getData();
+        // $data_stock_opname = $this->M_stock_opname->getData();
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -167,9 +167,9 @@ class stock_opname extends CI_Controller
     public function detail($id_opname)
     {
         $data['title'] = 'Detail Stock Opname | Portal FH';
-        $data_stock_opname = $this->m_stock_opname->getDataOpname(null, $id_opname);
-        $data_status_buku = $this->m_status_buku->getData();
-        $data_jenis_akses = $this->m_jenis_akses->getData();
+        $data_stock_opname = $this->M_stock_opname->getDataOpname(null, $id_opname);
+        $data_status_buku = $this->M_status_buku->getData();
+        $data_jenis_akses = $this->M_jenis_akses->getData();
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
@@ -180,7 +180,7 @@ class stock_opname extends CI_Controller
 
     public function addData()
     {
-        $res = $this->m_stock_opname->insertData();
+        $res = $this->M_stock_opname->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/stock_opname');
@@ -192,7 +192,7 @@ class stock_opname extends CI_Controller
 
     public function ubah($id_opname)
     {
-        $res = $this->m_stock_opname->updateData($id_opname);
+        $res = $this->M_stock_opname->updateData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/stock_opname');
@@ -204,7 +204,7 @@ class stock_opname extends CI_Controller
 
     function hapus($id_opname)
     {
-        $res = $this->m_stock_opname->deleteData($id_opname);
+        $res = $this->M_stock_opname->deleteData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/stock_opname');
@@ -216,8 +216,8 @@ class stock_opname extends CI_Controller
 
     public function add_buku_opname()
     {
-        $data = $this->m_katalog_buku->getData($_POST['b_register']);
-        $res = $this->m_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
+        $data = $this->M_katalog_buku->getData($_POST['b_register']);
+        $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
             redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
@@ -229,7 +229,7 @@ class stock_opname extends CI_Controller
 
     function hapus_buku_opname($id_buku_opname, $id_opname)
     {
-        $res = $this->m_stock_opname->deleteDataOpname($id_buku_opname);
+        $res = $this->M_stock_opname->deleteDataOpname($id_buku_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
             redirect('data/stock_opname/detail/' . $id_opname);
@@ -241,8 +241,8 @@ class stock_opname extends CI_Controller
 
     function ubah_status_buku_opname($id_buku_opname, $id_opname)
     {
-        $data = $this->m_stock_opname->getDataOpname($id_buku_opname);
-        $res = $this->m_stock_opname->updateDataOpnameStatus($data[0]['b_register']);
+        $data = $this->M_stock_opname->getDataOpname($id_buku_opname);
+        $res = $this->M_stock_opname->updateDataOpnameStatus($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/stock_opname/detail/' . $id_opname);
@@ -254,8 +254,8 @@ class stock_opname extends CI_Controller
 
     function ubah_jenis_akses_opname($id_buku_opname, $id_opname)
     {
-        $data = $this->m_stock_opname->getDataOpname($id_buku_opname);
-        $res = $this->m_stock_opname->updateDataOpnameAkses($data[0]['b_register']);
+        $data = $this->M_stock_opname->getDataOpname($id_buku_opname);
+        $res = $this->M_stock_opname->updateDataOpnameAkses($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
             redirect('data/stock_opname/detail/' . $id_opname);

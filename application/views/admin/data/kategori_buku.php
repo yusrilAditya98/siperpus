@@ -65,7 +65,7 @@
                                  </thead>
                                  <tbody>
                                      <tr>
-                                         <form action="<?= base_url('data/kategori/tambah') ?>" method="post">
+                                         <form action="<?= base_url('data/Kategori/tambah') ?>" method="post">
                                              <td>#</td>
                                              <td><input type="text" class="form-control" name="nama_kategori" placeholder="masukan Kategori.."></td>
                                              <td> <button type="submit" class=" btn btn-success ">Tambah Kategori</button></td>
@@ -74,14 +74,14 @@
                                      <?php $i = 1; ?>
                                      <?php foreach ($data_kategori as $lp) : ?>
                                          <tr>
-                                             <form action="<?= base_url('data/kategori/ubah/' . $lp['id_kategori']) ?>" method="post">
+                                             <form action="<?= base_url('data/Kategori/ubah/' . $lp['id_kategori']) ?>" method="post">
                                                  <td><?= $i++; ?></td>
                                                  <td>
                                                      <input type="text" class="form-control" name="nama_kategori" value=" <?= $lp['nama_kategori'] ?>">
                                                  </td>
                                                  <td>
                                                      <button type="submit" class="btn btn-info">Edit</button>
-                                                     <a href="<?= base_url('data/kategori/hapus/' . $lp['id_kategori']) ?>" class="btn btn-danger">Hapus</a>
+                                                     <a href="<?= base_url('data/Kategori/hapus/' . $lp['id_kategori']) ?>" class="btn btn-danger">Hapus</a>
                                                  </td>
                                              </form>
                                          </tr>
