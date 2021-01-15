@@ -23,7 +23,7 @@ class Baca_ditmpt extends CI_Controller
             $no++;
             $row = array();
             $row[] = $no;
-            $row[] = $item->tanggal_sirkulasi;
+            $row[] = date("d-m-Y", strtotime($item->tanggal_sirkulasi));
             $row[] = $item->u_username;
             $row[] = $item->nama;
             $row[] = $item->register;

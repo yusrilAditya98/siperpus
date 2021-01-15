@@ -186,7 +186,7 @@
                       Tanggal Sirkulasi
                     </div>
                     <div class="col-sm-6">
-                      <?= $b['tanggal_sirkulasi'] ?>
+                      <?= format_tgl($b['tanggal_sirkulasi']) ?>
                     </div>
                   </div>
                   <div class="row bg-light">
@@ -194,7 +194,7 @@
                       Tanggal Mulai
                     </div>
                     <div class="col-sm-6">
-                      <?= $b['tanggal_mulai'] ?>
+                      <?= format_tgl($b['tanggal_mulai']) ?>
                     </div>
                   </div>
                   <div class="row">
@@ -202,7 +202,7 @@
                       Tanggal Akhir
                     </div>
                     <div class="col-sm-6">
-                      <?= $b['tanggal_akhir'] ?>
+                      <?= format_tgl($b['tanggal_akhir']) ?>
                     </div>
                   </div>
                   <div class="row">
@@ -210,7 +210,7 @@
                       Tanggal Pengembalian
                     </div>
                     <div class="col-sm-6">
-                      <?= $b['tanggal_pengembalian'] ?>
+                      <?= format_tgl($b['tanggal_pengembalian']) ?>
                     </div>
                   </div>
                   <div class="row bg-light">

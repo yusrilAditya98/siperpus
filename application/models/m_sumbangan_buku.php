@@ -137,6 +137,7 @@ class M_sumbangan_buku extends CI_Model
             $status_sumbangan = '1';
         }
         $data_sumbangan =  [
+            'tanggal_sumbangan' => $this->input->post('tanggal_sumbangan'),
             'u_username' => $this->input->post('username'),
             'b_register' => $this->input->post('register'),
             'status_sumbangan' => $status_sumbangan,

@@ -106,5 +106,10 @@
             return '';
         }
     }
+
+    function format_tgl($orgDate){
+        $newDate = date("d-m-Y", strtotime($orgDate));  
+        return $newDate;  
+    }
     ?>
     <div class="wrapper">

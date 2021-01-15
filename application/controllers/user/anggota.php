@@ -214,7 +214,7 @@ class Anggota extends CI_Controller
     public function get_status_mahasiswa()
     {
         $username_siswa = $this->session->userdata('username');
-        $list = $this->M_user->get_datatables2($username_siswa);
+        $list = $this->u->get_datatables2($username_siswa);
         $data = array();
         $no = @$_POST['start'];
         $mhs = [];
@@ -316,8 +316,8 @@ class Anggota extends CI_Controller
         }
         $output = array(
             "draw" => @$_POST['draw'],
-            "recordsTotal" => $this->M_user->count_all2($username_siswa),
-            "recordsFiltered" => $this->M_user->count_filtered2($username_siswa),
+            "recordsTotal" => $this->u->count_all2($username_siswa),
+            "recordsFiltered" => $this->u->count_filtered2($username_siswa),
             "data" => $data,
         );
         // output to json format

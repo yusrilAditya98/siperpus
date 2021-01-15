@@ -263,8 +263,8 @@ class Peminjaman extends CI_Controller
             $row[] = $item->no_transaksi;
             $row[] = $item->username;
             $row[] = $item->nama;
-            $row[] = $item->tanggal_mulai;
-            $row[] = $item->tanggal_akhir;
+            $row[] = date("d-m-Y", strtotime($item->tanggal_mulai));
+            $row[] = date("d-m-Y", strtotime($item->tanggal_akhir));
             $minStatus =  $this->db->select('MIN(status_sirkulasi) as status_sirkulasi')->from('sirkulasi')->where('no_transaksi', $item->no_transaksi)->get()->row_array();
 
 

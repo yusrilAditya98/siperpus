@@ -29,7 +29,7 @@ class Sumbangan_buku extends CI_Controller
             $row[] = $item->judul_buku;
             $row[] = $item->nama;
             $date = date_create($item->tanggal_sumbangan);
-            $row[] = date_format($date, "M d, Y");
+            $row[] = date_format($date, 'd-m-Y');
             if ($item->status_sumbangan == 1) {
                 $row[] = '<span class="badge bg-info">Diproses</span>';
             } else if ($item->status_sumbangan == 2) {
@@ -882,14 +882,22 @@ class Sumbangan_buku extends CI_Controller
 
     public function addDataSumbanganAdmin()
     {
-        $res = $this->M_sumbangan_buku->insertData();
-        if ($res >= 1) {
-            $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('sirkulasi/sumbangan_buku/admin');
-        } else {
-            $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+        $this->form_validation->set_rules('register', 'Register', 'required|is_unique[buku.register]');
+        if ($this->form_validation->run() == false) {
+        
+            $this->session->set_flashdata('warning', $this->form_validation->error_string());
             redirect('sirkulasi/sumbangan_buku/tambah_sumbangan_buku_admin');
+        }else{
+            $res = $this->M_sumbangan_buku->insertData();
+            if ($res >= 1) {
+                $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
+                redirect('sirkulasi/sumbangan_buku/admin');
+            } else {
+                $this->session->set_flashdata('warning', 'Gagal menambahkan data');
+                redirect('sirkulasi/sumbangan_buku/tambah_sumbangan_buku_admin');
+            }
         }
+       
     }
 
     public function deleteDataSumbanganAdmin($id_sumbangan, $register)

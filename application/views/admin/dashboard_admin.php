@@ -122,7 +122,7 @@
 				<div class="col-lg-8">
 					<div class="card">
 						<div class="card-header border-transparent">
-							<h3 class="card-title">Buku Akan Dipinjam Hari Ini - <?= tgl_indo(date('Y-m-d')) ?></h3>
+							<h3 class="card-title">Buku Akan Dipinjam Hari Ini | <?= date('d-m-Y') ?></h3>
 
 							<div class="card-tools">
 								<button type="button" class="btn btn-tool" data-card-widget="collapse">

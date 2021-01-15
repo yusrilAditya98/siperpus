@@ -115,8 +115,8 @@
                         <td><?= $cp['no_transaksi'] ?></td>
                         <td><?= $cp['judul_buku'] ?></td>
                         <td><?= $cp['penerbit'] ?></td>
-                        <td><?= tgl_indo($cp['tanggal_mulai']) ?></td>
-                        <td><?= tgl_indo($cp['tanggal_akhir']) ?></td>
+                        <td><?= format_tgl($cp['tanggal_mulai']) ?></td>
+                        <td><?= format_tgl($cp['tanggal_akhir']) ?></td>
                         <td><?= tgl_selisih(date("Y-m-d"), $cp['tanggal_akhir'], null, $cp['status_sirkulasi']) ?></td>
                         <?php if ($cp['status_sirkulasi'] == 1) { ?>
                           <td><span class="badge badge-primary">proses peminjaman</span></td>

@@ -58,6 +58,13 @@
                                         </div>
                                         <div class="card-body">
                                             <div class="form-group row">
+                                                <label class="col-sm-2 col-form-label">Tanggal Sumbangan</label>
+                                                <div class="col-sm-10">
+                                                    <input type="date" name="tanggal_sumbangan" required class="form-control" value="<?= date("Y-m-d")?>">
+                                                    <p class="text-danger"><?php echo validation_errors(); ?></p>
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Id Penyumbang</label>
                                                 <div class="col-sm-10">
                                                     <input type="text" name="username" required class="form-control" placeholder="Masukkan ID...">

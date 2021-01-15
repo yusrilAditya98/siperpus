@@ -87,7 +87,7 @@ class M_koleksi_digital extends CI_Model
         $upload_image = $_FILES['digital_pdf'];
         if ($upload_image['error'] != 4) {
             $config['allowed_types'] = 'pdf';
-            $config['max_size']     = '6000'; //kb
+            $config['max_size']     = '50000'; //kb
             $config['upload_path'] = './assets/koleksi_digital/';
             $config['file_name'] = 'koleksi_digital_' . $id_koleksi . '_' . $name;
             $this->load->library('upload', $config);
