@@ -95,17 +95,20 @@ class M_user extends CI_Model
             'nama' => $this->input->post('nama'),
             'alamat' => $this->input->post('alamat'),
             'no_hp' => $this->input->post('no_hp'),
+            'email' => $this->input->post('email'),
             'password' =>  password_hash($this->input->post('password1'), PASSWORD_DEFAULT),
             'status_aktif' => $this->input->post('status_aktif'),
             'date_created' => date("Y-m-d"),
             'p_id_prodi' => $this->input->post('prodi'),
-            'ru_role_id' => $role_id
+            'ru_role_id' => $role_id,
+            'date_ended' => $this->input->post('date_ended'),
         ];
+        var_dump($data);
 
         // cek jika ada gambar yang di upload
         $upload_image = $_FILES['foto'];
         if ($upload_image['error'] != 4) {
-            $config['allowed_types'] = 'jpg';
+            $config['allowed_types'] = 'jpg|png|jpeg|JPG|PNG|JPEG';
             $config['max_size']     = '1024'; //kb
             $config['upload_path'] = './assets/foto_profil/';
             $config['file_name'] = 'foto_profil_' . $data['username'];
@@ -126,9 +129,11 @@ class M_user extends CI_Model
             'username' => $this->input->post('username'),
             'nama' => $this->input->post('nama'),
             'alamat' => $this->input->post('alamat'),
+            'email' => $this->input->post('email'),
             'no_hp' => $this->input->post('no_hp'),
             'status_aktif' => $this->input->post('status_aktif'),
             'p_id_prodi' => $this->input->post('prodi'),
+            'date_ended' => $this->input->post('date_ended'),
         ];
 
 
@@ -161,6 +166,14 @@ class M_user extends CI_Model
         $this->db->set('password', $password);
         $this->db->where('username', $username);
         $this->db->update('user');
+    }
+
+    public function updateStatusUser($username)
+    {
+        $this->db->set('status_aktif', 0);
+        $this->db->where('username', $username);
+        $this->db->update('user');
+        return true;
     }
 
     public function dataRecall()

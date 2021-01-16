@@ -643,6 +643,34 @@ class Peminjaman extends CI_Controller
         $this->session->set_flashdata('success', 'Validasi perpanjangan berhasil');
         redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
     }
+
+    public function testDate($startdate, $enddate)
+    {
+        $start = new DateTime($startdate);
+        $end = new DateTime($enddate);
+        // otherwise the  end date is excluded (bug?)
+        $end->modify('-1 day');
+
+        $interval = $end->diff($start);
+
+        // total days
+        $days = $interval->days;
+
+        // create an iterateable period of date (P1D equates to 1 day)
+        $period = new DatePeriod($start, new DateInterval('P1D'), $end);
+
+        foreach ($period as $dt) {
+            $curr = $dt->format('D');
+
+            // substract if Saturday or Sunday
+            if ($curr == 'Sat' || $curr == 'Sun') {
+                $days--;
+            }
+        }
+
+
+        return $days; // 4
+    }
     public function pelanggaran_peminjaman()
     {
         $title = 'Pelanggaran Peminjaman | Portal FH';
@@ -653,7 +681,8 @@ class Peminjaman extends CI_Controller
                     $awal  = date_create($buku[$i]['tanggal_akhir']);
                     $akhir = date_create($buku[$i]['tanggal_pengembalian']); // waktu sekarang
                     $diff  = date_diff($awal, $akhir);
-                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . $diff->days . ' = Rp. ' . (1000 * intval($diff->days));
+                    $selisih = $this->testDate($buku[$i]['tanggal_akhir'], $buku[$i]['tanggal_pengembalian']);
+                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . $selisih . ' = Rp. ' . (1000 * intval($selisih));
                 } else {
                     $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . 0 . ' = Rp. ' . (1000 * 0);
                 }
@@ -816,7 +845,8 @@ class Peminjaman extends CI_Controller
                     $awal  = date_create($buku[$i]['tanggal_akhir']);
                     $akhir = date_create($buku[$i]['tanggal_pengembalian']); // waktu sekarang
                     $diff  = date_diff($awal, $akhir);
-                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . $diff->days . ' = Rp. ' . (1000 * intval($diff->days));
+                    $selisih = $this->testDate($buku[$i]['tanggal_akhir'], $buku[$i]['tanggal_pengembalian']);
+                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . $selisih . ' = Rp. ' . (1000 * intval($selisih));
                 } else {
                     $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . 0 . ' = Rp. ' . (1000 * 0);
                 }

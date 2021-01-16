@@ -6,8 +6,9 @@ class M_stock_opname extends CI_Model
 {
     public function getData($id_opname = null)
     {
-        $this->db->select('*');
+        $this->db->select('*,u.nama');
         $this->db->from('opname');
+        $this->db->join('user as u', 'opname.pj_entry_opname = u.username', 'left');
         if ($id_opname != null) {
             $this->db->where('opname.id_opname', $id_opname);
             return $this->db->get()->row();
@@ -76,6 +77,7 @@ class M_stock_opname extends CI_Model
             'tahun' => $this->input->post('tahun'),
             'tanggal' => $this->input->post('tanggal'),
             'keterangan' => $this->input->post('keterangan'),
+            'pj_entry_opname' => $this->session->userdata('username')
         ];
         $this->db->insert('opname', $data);
         return true;

@@ -81,6 +81,7 @@
                                                         <th>Tanggal</th>
                                                         <th>Tahun</th>
                                                         <th>Keterangan</th>
+                                                        <th>Penanggung Jawab</th>
                                                         <th>Aksi</th>
                                                     </tr>
                                                 </thead>
@@ -91,13 +92,16 @@
                                                             <form action="<?= base_url('data/Stock_opname/ubah/' . $lp['id_opname']) ?>" method="post">
                                                                 <td><?= $i++; ?></td>
                                                                 <td>
-                                                                    <input type="date" class="form-control" name="tanggal" value="<?= substr($lp['tanggal'], 0, 10) ?>">
+                                                                    <input type="date" class="form-control" name="tanggal" min="<?= substr($lp['tanggal'], 0, 10) ?>" value="<?= substr($lp['tanggal'], 0, 10) ?>">
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="form-control" name="tahun" value="<?= $lp['tahun'] ?>">
+                                                                    <input type="number" min="<?= $lp['tahun'] ?>" class="form-control" name="tahun" value="<?= $lp['tahun'] ?>">
                                                                 </td>
                                                                 <td>
                                                                     <input type="text" class="form-control" name="keterangan" value="<?= $lp['keterangan'] ?>">
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" readonly class="form-control" name="pj_entry_user" value="<?= $lp['nama'] ?>">
                                                                 </td>
                                                                 <td>
                                                                     <button type="submit" style="font-size:12px;" class="btn btn-primary">

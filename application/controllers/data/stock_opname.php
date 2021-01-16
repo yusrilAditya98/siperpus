@@ -88,6 +88,22 @@ class Stock_opname extends CI_Controller
         echo json_encode($output);
     }
 
+    public function doneOpname($last_opname)
+    {
+        if ($last_opname != 0) {
+            $list = $this->M_stock_opname->get_datatables($last_opname);
+            $data = array();
+            $no = @$_POST['start'];
+            foreach ($list as $item) {
+                $no++;
+                $update = $this->M_katalog_buku->updateBukuNonAktif($item->register);
+            }
+            $this->index();
+        } else {
+            $this->index();
+        }
+    }
+
     function get_count_stock()
     {
         $id_opname = $_POST['id_opname'];

@@ -79,6 +79,13 @@
                                                         <?= form_error('alamat', '<small class="text-danger pl-3">', '</small>'); ?>
                                                     </div>
                                                 </div>
+                                                <div class="form-group row">
+                                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="text" name="email" class="form-control" id="email" placeholder="masukan email..." value="<?= $list_user['email'] ?>">
+                                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                                    </div>
+                                                </div>
                                                 <div class=" form-group row">
                                                     <label for="no_hp" class="col-sm-2 col-form-label">No Hp</label>
                                                     <div class="col-sm-10">
@@ -132,8 +139,13 @@
                                                         <small>*format gambar berupa .jpg dengan ukuran maksimal 1MB</small>
                                                         <?= form_error('foto', '<small class="text-danger pl-3">', '</small>'); ?>
                                                     </div>
-
-
+                                                </div>
+                                                <div class="form-group row">
+                                                    <label for="date_ended" class="col-sm-2 col-form-label">Masa Berlaku Akun</label>
+                                                    <div class="col-sm-10">
+                                                        <input type="date" name="date_ended" class="form-control" id="date_ended" value="<?= $list_user['date_ended'] ?>">
+                                                        <?= form_error('date_ended', '<small class="text-danger pl-3">', '</small>'); ?>
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-info">Ubah anggota</button>
                                             </form>

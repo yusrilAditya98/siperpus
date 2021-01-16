@@ -9,6 +9,7 @@ class Auth extends CI_Controller
     {
         parent::__construct();
         $this->load->library('form_validation');
+        $this->load->model('M_user', 'u');
     }
 
     public function index()
@@ -38,30 +39,39 @@ class Auth extends CI_Controller
         $user = $this->db->get_where('user', ['username' => $username])->row_array();
         // usernya ada
         if ($user) {
-            // jika usernya aktif
-            if ($user['status_aktif'] == 1) {
-                // cek password
-                if (password_verify($password, $user['password'])) {
-                    $data = [
-                        'username' => $user['username'],
-                        'nama' => $user['nama'],
-                        'role_id' => 'role_id_' . $user['ru_role_id']
-                    ];
-                    $this->session->set_userdata($data);
-                    if ($user['ru_role_id'] == 1) {
-                        redirect('user/admin');
-                    } elseif ($user['ru_role_id'] == 2) {
-                        redirect('user/anggota');
+            $today = date("Y-m-d");
+            // masa berlaku akun
+            if ($user['date_ended'] == $today) {
+                $updateUser = $this->u->updateStatusUser($username);
+                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This username expired !</div>');
+                redirect('auth');
+            } else {
+                // jika usernya aktif
+                if ($user['status_aktif'] == 1) {
+                    // cek password
+                    if (password_verify($password, $user['password'])) {
+                        $data = [
+                            'username' => $user['username'],
+                            'nama' => $user['nama'],
+                            'role_id' => 'role_id_' . $user['ru_role_id']
+                        ];
+                        $this->session->set_userdata($data);
+                        if ($user['ru_role_id'] == 1) {
+                            redirect('user/admin');
+                        } elseif ($user['ru_role_id'] == 2) {
+                            redirect('user/anggota');
+                        } else {
+                            redirect('user/non_anggota');
+                        }
                     } else {
-                        redirect('user/non_anggota');
+                        $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password !</div>');
+                        redirect('auth');
                     }
                 } else {
-                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password !</div>');
+                    $updateUser = $this->u->updateStatusUser($username);
+                    $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This username has not been activated !</div>');
                     redirect('auth');
                 }
-            } else {
-                $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This username has not been activated !</div>');
-                redirect('auth');
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username is not registerd !</div>');
