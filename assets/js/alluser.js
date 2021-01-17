@@ -45,7 +45,7 @@ $('#submit_baca_ditempat').on('click', function () {
 	let urlSampul = ""
 	let data = [];
 	$.ajax({
-		url: segments[0] + '/' + segments[3] + '/sirkulasi/baca_ditmpt/tambah',
+		url: segments[0] + '/' + segments[3] + '/sirkulasi/Baca_ditmpt/tambah',
 		data: {
 			'username': username,
 			'register': register,
@@ -115,7 +115,7 @@ $('#pelanggaran').on('change', function () {
 
 	if (pelanggaran != 'kosong') {
 		$.ajax({
-			url: segments[0] + '/' + segments[3] + '/data/denda/get_ajax',
+			url: segments[0] + '/' + segments[3] + '/data/Denda/get_ajax',
 			method: "get",
 			dataType: 'json',
 			success: function (result) {
@@ -149,7 +149,7 @@ $('#p_username').keyup(function () {
 
 	$('#kode_pinjam').html('')
 	$.ajax({
-		url: segments[0] + '/' + segments[3] + '/sirkulasi/peminjaman/ajax_perpanjangan/' + username,
+		url: segments[0] + '/' + segments[3] + '/sirkulasi/Peminjaman/ajax_perpanjangan/' + username,
 		method: "get",
 		dataType: 'json',
 		success: function (result) {
