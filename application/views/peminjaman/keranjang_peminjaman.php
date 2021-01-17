@@ -81,7 +81,7 @@
                             <!-- text input -->
                             <div class="form-group">
                               <label>Tanggal Pinjam</label>
-                              <input type="date" name="tanggal_pinjam" class="form-control" required>
+                              <input type="date" name="tanggal_pinjam" min="<?= date('Y-m-d') ?>" value="<?= date('Y-m-d') ?>" id="txtDate" class="form-control" required>
                             </div>
                           </div>
                           <div class="col-sm-6">

@@ -233,6 +233,7 @@ class M_sirkulasi extends CI_Model
 
     public function updatePengembalianBuku($data)
     {
+        $this->db->set('pj_entry_pengembalian', $this->session->userdata("username"));
         $this->db->set('tanggal_pengembalian', date('Y-m-d'));
         $this->db->set('status_sirkulasi', $data['status']);
         $this->db->where('no_transaksi', $data['no_transaksi']);

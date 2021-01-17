@@ -59,11 +59,11 @@
                                 <div class="row">
                                   <div class="col-lg-6">
                                     <h6 class="text-secondary mb-n1">Tanggal Mulai</h6>
-                                    <h2><?= $user['tanggal_mulai'] ?></h2>
+                                    <h2><?= date("d-m-Y", strtotime($user['tanggal_mulai'])); ?></h2>
                                   </div>
                                   <div class="col-lg-6">
                                     <h6 class="text-secondary mb-n1">Tanggal Selesai</h6>
-                                    <h2><?= $user['tanggal_akhir'] ?></h2>
+                                    <h2><?= date("d-m-Y", strtotime($user['tanggal_akhir']));  ?></h2>
                                   </div>
                                 </div>
                               </div>

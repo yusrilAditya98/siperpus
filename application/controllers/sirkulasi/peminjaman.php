@@ -289,7 +289,7 @@ class Peminjaman extends CI_Controller
             foreach ($dataBuku as $b) {
                 $status = "";
                 if ($b['status_sirkulasi'] == 1) {
-                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a><a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=5') . '" class="btn btn-danger btn-flat mb-2 mr-2"><i class="fas fa-times mr-2"></i>Tolak Peminjaman</a>';
+                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2&status_pj=1') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a><a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=5&status_pj=1') . '" class="btn btn-danger btn-flat mb-2 mr-2"><i class="fas fa-times mr-2"></i>Tolak Peminjaman</a>';
                     $status = '<span class="badge badge-primary">proses peminjaman</span>';
                 } elseif ($b['status_sirkulasi'] == 2) {
                     $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=3') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Dapat Diambil</a>';
@@ -344,11 +344,11 @@ class Peminjaman extends CI_Controller
                                     <div class="row">
                                         <div class="col-lg-6">
                                             <h6 class="text-secondary mb-n1">Tanggal Mulai</h6>
-                                            <h2>' . $item->tanggal_mulai . '</h2>
+                                            <h2>' . date("d-m-Y", strtotime($item->tanggal_mulai)) . '</h2>
                                         </div>
                                         <div class="col-lg-6">
                                             <h6 class="text-secondary mb-n1">Tanggal Selesai</h6>
-                                            <h2>' . $item->tanggal_akhir . '</h2>
+                                            <h2>' . date("d-m-Y", strtotime($item->tanggal_akhir)) . '</h2>
                                         </div>
                                     </div>
                                       
@@ -467,6 +467,7 @@ class Peminjaman extends CI_Controller
         $sirkulasi = $this->db->get_where('sirkulasi', ['b_register' => $register, 'no_transaksi' => $no_transaksi])->row_array();
         if ($sirkulasi) {
             if ($sirkulasi['status_sirkulasi'] == 3) {
+                $this->db->set('pj_entry_pengambilan', $this->session->userdata('username'));
                 $this->db->set('status_sirkulasi', $status);
                 $this->db->where('b_register', $register);
                 $this->db->where('no_transaksi', $no_transaksi);
@@ -903,6 +904,14 @@ class Peminjaman extends CI_Controller
             $this->db->set('status_buku', 1);
             $this->db->where('register', $buku['b_register']);
             $this->db->update('buku');
+        }
+        // status pj 1 => peminjaman ; 2 => pengambilan ; 3 => pengembalian
+        if ($this->input->get('status_pj') == 1) {
+            $this->db->set('pj_entry_peminjaman', $this->session->userdata('username'));
+        } elseif ($this->input->get('status_pj') == 2) {
+            $this->db->set('pj_entry_pengambilan', $this->session->userdata('username'));
+        } elseif ($this->input->get('status_pj') == 3) {
+            $this->db->set('pj_entry_pengembalian', $this->session->userdata('username'));
         }
         $this->db->set('status_sirkulasi', $status);
         $this->db->where('no_transaksi', $no_transaksi);
