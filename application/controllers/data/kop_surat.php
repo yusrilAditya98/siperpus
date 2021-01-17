@@ -29,10 +29,10 @@ class Kop_surat extends CI_Controller
         $res = $this->M_kop_surat->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         }
     }
 
@@ -41,10 +41,10 @@ class Kop_surat extends CI_Controller
         $res = $this->M_kop_surat->updateData($id_kop_surat);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         }
     }
 
@@ -57,10 +57,10 @@ class Kop_surat extends CI_Controller
         $res = $this->M_kop_surat->deleteData($id_kop_surat);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/kop_surat');
+            redirect('data/Kop_surat');
         }
     }
 

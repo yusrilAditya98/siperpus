@@ -4,7 +4,7 @@ function is_logged_in()
 {
     $ci = get_instance();
     if (!$ci->session->userdata('role_id')) {
-        redirect('auth');
+        redirect('Auth');
     } else {
     }
 }
@@ -12,11 +12,11 @@ function is_logged_in()
 function link_dashboard($role_id)
 {
     if ($role_id == "role_id_1") {
-        redirect('user/admin');
+        redirect('user/Admin');
     } elseif ($role_id == "role_id_2") {
-        redirect('user/anggota');
+        redirect('user/Anggota');
     } else {
-        redirect('user/non_anggota');
+        redirect('user/Non_anggota');
     }
 }
 
@@ -73,6 +73,6 @@ function cek_akses($data, $segment)
     }
 
     if (!$akses) {
-        redirect('auth/blocked');
+        redirect('Auth/blocked');
     }
 }

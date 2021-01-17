@@ -26,20 +26,20 @@ class Pelanggaran extends CI_Controller
     {
         $this->p->insertPelanggaran();
         $this->session->set_flashdata('success', 'Data berhasil ditambah');
-        redirect('data/pelanggaran');
+        redirect('data/Pelanggaran');
     }
 
     public function hapus($id)
     {
         $this->db->delete('pelanggaran', ['id_pelanggaran' => $id]);
         $this->session->set_flashdata('success', 'Data berhasil dihapus');
-        redirect('data/pelanggaran');
+        redirect('data/Pelanggaran');
     }
 
     public function ubah($id)
     {
         $this->p->editPelanggaran($id);
         $this->session->set_flashdata('success', 'Data berhasil diubah');
-        redirect('data/pelanggaran');
+        redirect('data/Pelanggaran');
     }
 }

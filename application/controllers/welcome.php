@@ -42,7 +42,7 @@ class Welcome extends CI_Controller
                             <img class="img-thumbnail" src="' . base_url('assets/sampul_buku/' . $item->sampul) . '">
                             <div class="row pt-4">
                             <div class="col-lg-12 text-center">
-                                <img src="' . site_url('welcome/QRcode/' . $item->register) . '">
+                                <img src="' . site_url('Welcome/QRcode/' . $item->register) . '">
                             </div>
                         </div>
                         </div>

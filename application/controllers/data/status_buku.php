@@ -29,10 +29,10 @@ class Status_Buku extends CI_Controller
         $res = $this->M_status_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         }
     }
 
@@ -41,10 +41,10 @@ class Status_Buku extends CI_Controller
         $res = $this->M_status_buku->updateData($id_status);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         }
     }
 
@@ -53,10 +53,10 @@ class Status_Buku extends CI_Controller
         $res = $this->M_status_buku->deleteData($id_status);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/status_buku');
+            redirect('data/Status_buku');
         }
     }
 }

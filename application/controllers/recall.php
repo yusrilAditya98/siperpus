@@ -36,7 +36,7 @@ class Recall extends CI_Controller
             $row[] = $item->keterangan;
             // add html for action
             $row[] = '<div class="btn-group"><button class="btn btn-sm btn-info" data-toggle="modal" data-target="#btnEditRecall' . $item->id_recall . '"><i class="fa fa-edit"></i></button>
-            <a href="' . site_url('recall/deleteDataRecall/' . $item->id_recall) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA RECALL INI ... ?/")"><i class="fa fa-trash"></i></a>
+            <a href="' . site_url('Recall/deleteDataRecall/' . $item->id_recall) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA RECALL INI ... ?/")"><i class="fa fa-trash"></i></a>
 
             <div class="modal fade recall-data" id="btnEditRecall' . $item->id_recall . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -47,7 +47,7 @@ class Recall extends CI_Controller
                                 <span aria-hidden="true">&times;</span>
                             </button>
                         </div>
-                        <form class="form-horizontal" action="' . base_url('recall/ubahDataRecall/' . $item->id_recall) . '" method="POST" enctype="multipart/form-data">
+                        <form class="form-horizontal" action="' . base_url('Recall/ubahDataRecall/' . $item->id_recall) . '" method="POST" enctype="multipart/form-data">
                             <div class="modal-body">
                                 <div class="form-group row">
                                     <label for="digital_pdf" class="col-sm-2 col-form-label">Keterangan</label>
@@ -105,7 +105,7 @@ class Recall extends CI_Controller
             } else {
                 $row[] = '<span class="badge badge-secondary">tidak direcall</span>';
             }
-            $row[] = ' <a href="' . site_url('recall/tambahRecall/' . $item->id_sirkulasi) . '" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Recall</a>';
+            $row[] = ' <a href="' . site_url('Recall/tambahRecall/' . $item->id_sirkulasi) . '" class="btn btn-sm btn-success"><i class="fas fa-plus"></i> Recall</a>';
 
             $data[] = $row;
         }

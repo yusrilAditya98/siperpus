@@ -53,7 +53,7 @@ class Peminjaman extends CI_Controller
             $temp = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>';
             $temp_btn_pinjam = "";
             if ($temp_role_id == "role_id_2") {
-                $temp_btn_pinjam = '<a href="../../sirkulasi/peminjaman/pinjam/' . $item->register . '" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i> Pinjam</a>';
+                $temp_btn_pinjam = '<a href="../../sirkulasi/Peminjaman/pinjam/' . $item->register . '" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i> Pinjam</a>';
             }
             $row[] = $temp . " " . $temp_btn_pinjam . ' <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
@@ -70,7 +70,7 @@ class Peminjaman extends CI_Controller
                             <img class="img-thumbnail" src="' . base_url('assets/sampul_buku/' . $item->sampul) . '">
                             <div class="row pt-4">
                             <div class="col-lg-12 text-center">
-                                <img src="' . site_url('data/buku/QRcode/' . $item->register) . '">
+                                <img src="' . site_url('data/Buku/QRcode/' . $item->register) . '">
                             </div>
                         </div>
                         </div>
@@ -274,7 +274,7 @@ class Peminjaman extends CI_Controller
                 $row[] = '<span class="badge badge-warning">sedang dipersiapkan</span>';
             } elseif ($minStatus['status_sirkulasi'] == 3) {
                 $row[] = '<span class="badge badge-info">dapat segera diambil</span>';
-                $btnValid = '<a href="' . base_url('sirkulasi/peminjaman/detailValidasiPeminjaman/' . $item->no_transaksi) . '" class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i>validasi</a>';
+                $btnValid = '<a href="' . base_url('sirkulasi/Peminjaman/detailValidasiPeminjaman/' . $item->no_transaksi) . '" class="btn btn-sm btn-success"><i class="fa fa-check mr-2"></i>validasi</a>';
             } elseif ($minStatus['status_sirkulasi'] == 4) {
                 $row[] = '<span class="badge badge-success">dipinjam</span>';
             } else {
@@ -289,10 +289,10 @@ class Peminjaman extends CI_Controller
             foreach ($dataBuku as $b) {
                 $status = "";
                 if ($b['status_sirkulasi'] == 1) {
-                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2&status_pj=1') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a><a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=5&status_pj=1') . '" class="btn btn-danger btn-flat mb-2 mr-2"><i class="fas fa-times mr-2"></i>Tolak Peminjaman</a>';
+                    $staSirkulasi = '<a href="' . site_url('sirkulasi/Peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=2&status_pj=1') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Persiapkan Peminjaman</a><a href="' . site_url('sirkulasi/Peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=5&status_pj=1') . '" class="btn btn-danger btn-flat mb-2 mr-2"><i class="fas fa-times mr-2"></i>Tolak Peminjaman</a>';
                     $status = '<span class="badge badge-primary">proses peminjaman</span>';
                 } elseif ($b['status_sirkulasi'] == 2) {
-                    $staSirkulasi = '<a href="' . site_url('sirkulasi/peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=3') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Dapat Diambil</a>';
+                    $staSirkulasi = '<a href="' . site_url('sirkulasi/Peminjaman/ubahStatusPeminjaman/' . $item->no_transaksi . '?status=3') . '" class="btn btn-success btn-flat mb-2"><i class="fas fa-check mr-2"></i>Dapat Diambil</a>';
                     $status = '<span class="badge badge-warning">sedang dipersiapkan</span>';
                 } elseif ($b['status_sirkulasi'] == 3) {
                     $staSirkulasi = '';
@@ -325,7 +325,7 @@ class Peminjaman extends CI_Controller
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <img src="' . site_url('sirkulasi/peminjaman/QRcode/' . $item->no_transaksi) . '">
+                                    <img src="' . site_url('sirkulasi/Peminjaman/QRcode/' . $item->no_transaksi) . '">
                                 </div>
                                 <div class="col-lg-6"> 
                                     <div class="mt-4">
@@ -489,9 +489,9 @@ class Peminjaman extends CI_Controller
             }
         }
         if ($cek) {
-            redirect('sirkulasi/peminjaman/validasi_peminjaman');
+            redirect('sirkulasi/Peminjaman/validasi_peminjaman');
         } else {
-            redirect('sirkulasi/peminjaman/detailValidasiPeminjaman/' . $no_transaksi);
+            redirect('sirkulasi/Peminjaman/detailValidasiPeminjaman/' . $no_transaksi);
         }
         echo json_encode($data);
     }
@@ -521,13 +521,13 @@ class Peminjaman extends CI_Controller
         } else {
             $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
         }
-        redirect(site_url('/data/buku/buku_anggota'));
+        redirect(site_url('/data/Buku/buku_anggota'));
     }
     public function pinjamBuku($id_sirkulasi)
     {
         $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => 2]);
         $this->session->set_flashdata('success', 'Buku berhasil dipinjam');
-        redirect(site_url('/sirkulasi/peminjaman/keranjang_peminjaman'));
+        redirect(site_url('/sirkulasi/Peminjaman/keranjang_peminjaman'));
     }
     public function pinjamSemua()
     {
@@ -561,9 +561,9 @@ class Peminjaman extends CI_Controller
         }
         $this->session->set_flashdata('success', 'Peminjaman buku berhasil diajukan');
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            redirect(site_url('/sirkulasi/peminjaman/validasi_peminjaman'));
+            redirect(site_url('/sirkulasi/Peminjaman/validasi_peminjaman'));
         } else {
-            redirect(site_url('/sirkulasi/peminjaman/keranjang_peminjaman'));
+            redirect(site_url('/sirkulasi/Peminjaman/keranjang_peminjaman'));
         }
     }
     public function hapusPinjam($id_sirkulasi)
@@ -577,9 +577,9 @@ class Peminjaman extends CI_Controller
         $this->session->set_flashdata('success', 'Keranjang buku sudah dihapus');
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
-            redirect(site_url('/sirkulasi/peminjaman/peminjaman_buku_admin?username=' . $username));
+            redirect(site_url('/sirkulasi/Peminjaman/Peminjaman_buku_admin?username=' . $username));
         } else {
-            redirect(site_url('/sirkulasi/peminjaman/keranjang_peminjaman'));
+            redirect(site_url('/sirkulasi/Peminjaman/keranjang_peminjaman'));
         }
     }
     public function daftar_buku_dipinjam()
@@ -630,9 +630,9 @@ class Peminjaman extends CI_Controller
         $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => $status_sirkulasi, 'tanggal_perpanjangan' => $tanggal_perpanjangan]);
         $this->session->set_flashdata('success', 'Pengajuan perpanjangan berhasil');
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
+            redirect(site_url('/sirkulasi/Peminjaman/perpanjangan_peminjaman_admin'));
         } else {
-            redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman'));
+            redirect(site_url('/sirkulasi/Peminjaman/perpanjangan_peminjaman'));
         }
     }
     public function validPinjam($id_sirkulasi)
@@ -642,7 +642,7 @@ class Peminjaman extends CI_Controller
         $this->db->where('id_sirkulasi', $id_sirkulasi);
         $this->db->update('sirkulasi');
         $this->session->set_flashdata('success', 'Validasi perpanjangan berhasil');
-        redirect(site_url('/sirkulasi/peminjaman/perpanjangan_peminjaman_admin'));
+        redirect(site_url('/sirkulasi/Peminjaman/perpanjangan_peminjaman_admin'));
     }
 
     public function testDate($startdate, $enddate)
@@ -750,9 +750,9 @@ class Peminjaman extends CI_Controller
         }
 
         if ($this->session->userdata('role_id') == 'role_id_1') {
-            redirect(site_url('/sirkulasi/peminjaman/pengembalian_peminjaman_admin?username=' . $username));
+            redirect(site_url('/sirkulasi/Peminjaman/pengembalian_peminjaman_admin?username=' . $username));
         } else {
-            redirect(site_url('/sirkulasi/peminjaman/pengembalian_peminjaman'));
+            redirect(site_url('/sirkulasi/Peminjaman/pengembalian_peminjaman'));
         }
     }
 
@@ -771,7 +771,7 @@ class Peminjaman extends CI_Controller
             $data['user'] = null;
         }
         $this->template($title);
-        $this->load->view('peminjaman/peminjaman_buku_admin', $data);
+        $this->load->view('peminjaman/Peminjaman_buku_admin', $data);
         $this->load->view('templates/footer');
     }
     public function pinjam_admin()
@@ -801,7 +801,7 @@ class Peminjaman extends CI_Controller
         } else {
             $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
         }
-        redirect(site_url('/sirkulasi/peminjaman/peminjaman_buku_admin?username=' . $username));
+        redirect(site_url('/sirkulasi/Peminjaman/Peminjaman_buku_admin?username=' . $username));
     }
 
     public function perpanjangan_peminjaman_admin()
@@ -824,7 +824,7 @@ class Peminjaman extends CI_Controller
     {
         $this->db->where('id_sirkulasi', $id_sirkulasi)->update('sirkulasi', ['status_sirkulasi' => 2]);
         $this->session->set_flashdata('success', 'Validasi peminjaman berhasil');
-        redirect(site_url('/sirkulasi/peminjaman/validasi_peminjaman'));
+        redirect(site_url('/sirkulasi/Peminjaman/validasi_peminjaman'));
     }
     public function tolak_pinjam($id_sirkulasi)
     {
@@ -834,7 +834,7 @@ class Peminjaman extends CI_Controller
         $this->db->where('register', $sirkulasi['b_register'])->update('buku', ['status_buku' => 1]);
 
         $this->session->set_flashdata('success', 'Validasi peminjaman ditolak');
-        redirect(site_url('/sirkulasi/peminjaman/validasi_peminjaman'));
+        redirect(site_url('/sirkulasi/Peminjaman/validasi_peminjaman'));
     }
     public function pelanggaran_peminjaman_admin()
     {
@@ -874,7 +874,7 @@ class Peminjaman extends CI_Controller
 
         $this->M_sirkulasi->updateSirkulasiPelanggarang($data);
         $this->session->set_flashdata('success', 'Validasi Pelanggaran berhasil');
-        redirect(site_url('/sirkulasi/peminjaman/pelanggaran_peminjaman_admin'));
+        redirect(site_url('/sirkulasi/Peminjaman/pelanggaran_peminjaman_admin'));
     }
     public function pengembalian_peminjaman_admin()
     {
@@ -916,7 +916,7 @@ class Peminjaman extends CI_Controller
         $this->db->set('status_sirkulasi', $status);
         $this->db->where('no_transaksi', $no_transaksi);
         $this->db->update('sirkulasi');
-        redirect('sirkulasi/peminjaman/validasi_peminjaman');
+        redirect('sirkulasi/Peminjaman/validasi_peminjaman');
     }
 
     public function ajax_perpanjangan($username)

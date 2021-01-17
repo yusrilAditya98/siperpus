@@ -29,10 +29,10 @@ class sumber_koleksi extends CI_Controller
         $res = $this->m_sumber_koleksi->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         }
     }
 
@@ -41,10 +41,10 @@ class sumber_koleksi extends CI_Controller
         $res = $this->m_sumber_koleksi->updateData($id_sumber);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         }
     }
 
@@ -53,10 +53,10 @@ class sumber_koleksi extends CI_Controller
         $res = $this->m_sumber_koleksi->deleteData($id_sumber);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/sumber_koleksi');
+            redirect('data/Sumber_koleksi');
         }
     }
 }

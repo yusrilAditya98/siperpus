@@ -41,10 +41,10 @@ class Koleksi_digital extends CI_Controller
             $addKoleksi = $this->kd->insertKoleksi();
             if ($addKoleksi == true) {
                 $this->session->set_flashdata('success', 'Data berhasil ditambah');
-                redirect('data/koleksi_digital');
+                redirect('data/Koleksi_digital');
             } else {
                 $this->session->set_flashdata('danger', 'Data gagal ditambah');
-                redirect('data/koleksi_digital');
+                redirect('data/Koleksi_digital');
             }
         }
     }
@@ -54,10 +54,10 @@ class Koleksi_digital extends CI_Controller
         $addKoleksi = $this->kd->updateKoleksi($id_koleksi);
         if ($addKoleksi == true) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         } else {
             $this->session->set_flashdata('danger', 'Data gagal diubah');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         }
     }
 
@@ -65,6 +65,6 @@ class Koleksi_digital extends CI_Controller
     {
         $this->kd->deleteKoleksi($id_koleksi);
         $this->session->set_flashdata('success', 'Data berhasil dihapus');
-        redirect('data/koleksi_digital');
+        redirect('data/Koleksi_digital');
     }
 }

@@ -29,10 +29,10 @@ class Kategori extends CI_Controller
         $res = $this->M_kategori_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         }
     }
 
@@ -41,10 +41,10 @@ class Kategori extends CI_Controller
         $res = $this->M_kategori_buku->updateData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         }
     }
 
@@ -53,10 +53,10 @@ class Kategori extends CI_Controller
         $res = $this->M_kategori_buku->deleteData($id_kategori);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/kategori');
+            redirect('data/Kategori');
         }
     }
 }

@@ -44,7 +44,7 @@ class Auth extends CI_Controller
             if ($user['date_ended'] == $today) {
                 $updateUser = $this->u->updateStatusUser($username);
                 $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This username expired !</div>');
-                redirect('auth');
+                redirect('Auth');
             } else {
                 // jika usernya aktif
                 if ($user['status_aktif'] == 1) {
@@ -57,25 +57,25 @@ class Auth extends CI_Controller
                         ];
                         $this->session->set_userdata($data);
                         if ($user['ru_role_id'] == 1) {
-                            redirect('user/admin');
+                            redirect('user/Admin');
                         } elseif ($user['ru_role_id'] == 2) {
-                            redirect('user/anggota');
+                            redirect('user/Anggota');
                         } else {
-                            redirect('user/non_anggota');
+                            redirect('user/Non_anggota');
                         }
                     } else {
                         $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">Wrong Password !</div>');
-                        redirect('auth');
+                        redirect('Auth');
                     }
                 } else {
                     $updateUser = $this->u->updateStatusUser($username);
                     $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">This username has not been activated !</div>');
-                    redirect('auth');
+                    redirect('Auth');
                 }
             }
         } else {
             $this->session->set_flashdata('message', '<div class="alert alert-danger" role="alert">username is not registerd !</div>');
-            redirect('auth');
+            redirect('Auth');
         }
     }
 
@@ -84,7 +84,7 @@ class Auth extends CI_Controller
         $this->session->unset_userdata('username');
         $this->session->unset_userdata('role_id');
         $this->session->set_flashdata('message', '<div class="alert alert-success" role="alert">You have been logged out!</div>');
-        redirect('auth');
+        redirect('Auth');
     }
     public function blocked()
     {

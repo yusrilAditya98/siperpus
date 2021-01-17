@@ -29,10 +29,10 @@ class Petugas extends CI_Controller
         $res = $this->M_petugas->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         }
     }
 
@@ -41,10 +41,10 @@ class Petugas extends CI_Controller
         $res = $this->M_petugas->updateData($id_petugas);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         }
     }
 
@@ -53,10 +53,10 @@ class Petugas extends CI_Controller
         $res = $this->M_petugas->deleteData($id_petugas);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/petugas');
+            redirect('data/Petugas');
         }
     }
 

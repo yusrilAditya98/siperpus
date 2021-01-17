@@ -169,8 +169,6 @@ $('#p_username').keyup(function () {
 
 })
 
-var maxDate = year + '-' + month + '-' + day;
-$('#txtDate').attr('min', maxDate);
 
 //  restrict past dates
 $(function(){

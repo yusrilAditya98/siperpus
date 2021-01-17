@@ -49,9 +49,9 @@ class Buku extends CI_Controller
             }
             // add html for action
             $row[] = '<div class="btn-group"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
-            <a href="' . site_url('data/buku/ubah/' . $item->register) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+            <a href="' . site_url('data/Buku/ubah/' . $item->register) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
             <button type="button" class="btn btn-sm btn-warning" data-toggle="modal" data-target="#koleksiDigital' . $item->register . '"><i class="fas fa-plus"></i></button>
-            <a href="' . site_url('data/buku/deleteDataBuku/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a></div>
+            <a href="' . site_url('data/Buku/deleteDataBuku/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a></div>
             
             <div class="modal fade koleksi-digital" id="koleksiDigital' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
@@ -109,7 +109,7 @@ class Buku extends CI_Controller
                               
                                 <div class="row pt-4">
                                 <div class="col-lg-12 text-center">
-                                    <img src="' . site_url('data/buku/QRcode/' . $item->register) . '">
+                                    <img src="' . site_url('data/Buku/QRcode/' . $item->register) . '">
                                 </div>
                             </div>
                             </div>
@@ -328,7 +328,7 @@ class Buku extends CI_Controller
                                         <img class="img-thumbnail" src="' . base_url('assets/sampul_buku/' . $item->sampul) . '">
                                         <div class="row pt-4">
                                         <div class="col-lg-12 text-center">
-                                            <img src="' . site_url('data/buku/QRcode/' . $item->register) . '">
+                                            <img src="' . site_url('data/Buku/QRcode/' . $item->register) . '">
                                         </div>
                                     </div>
                                     </div>
@@ -611,10 +611,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->insertDataBuku();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menambahkan data');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         }
     }
 
@@ -623,10 +623,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->updateDataBuku();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal mengubah data');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         }
     }
 
@@ -635,10 +635,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->deleteDataBuku($register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menghapus data');
-            redirect('data/buku/katalog_buku_admin');
+            redirect('data/Buku/katalog_buku_admin');
         }
     }
 
@@ -648,10 +648,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/buku');
+            redirect('data/Buku');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menambahkan data');
-            redirect('data/buku');
+            redirect('data/Buku');
         }
     }
 
@@ -660,10 +660,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->updateData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/buku');
+            redirect('data/Buku');
         } else {
             $this->session->set_flashdata('warning', 'Gagal mengubah data');
-            redirect('data/buku');
+            redirect('data/Buku');
         }
     }
 
@@ -672,10 +672,10 @@ class Buku extends CI_Controller
         $res = $this->M_katalog_buku->deleteData($id_katalog_buku);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/buku');
+            redirect('data/Buku');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menghapus data');
-            redirect('data/buku');
+            redirect('data/Buku');
         }
     }
 
@@ -863,7 +863,7 @@ class Buku extends CI_Controller
                             </div>
                             <div class="row pt-4">
                                 <div class="col-lg-12 text-center">
-                                    <img src="' . site_url('data/buku/QRcode/' . $item->register) . '">
+                                    <img src="' . site_url('data/Buku/QRcode/' . $item->register) . '">
                                 </div>
                             </div>
                         </div>
@@ -967,6 +967,6 @@ class Buku extends CI_Controller
         unlink($path);
         // alihkan halaman ke index.php
         $this->session->set_flashdata('success', 'Impor data buku berhasil');
-        redirect('data/buku/katalog_buku_admin');
+        redirect('data/Buku/katalog_buku_admin');
     }
 }

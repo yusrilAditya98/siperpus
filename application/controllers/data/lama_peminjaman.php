@@ -29,10 +29,10 @@ class Lama_peminjaman extends CI_Controller
         $res = $this->M_lama_peminjaman->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         }
     }
 
@@ -41,10 +41,10 @@ class Lama_peminjaman extends CI_Controller
         $res = $this->M_lama_peminjaman->updateData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         }
     }
 
@@ -53,10 +53,10 @@ class Lama_peminjaman extends CI_Controller
         $res = $this->M_lama_peminjaman->deleteData($id_lama_peminjaman);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/lama_peminjaman');
+            redirect('data/Lama_peminjaman');
         }
     }
 }

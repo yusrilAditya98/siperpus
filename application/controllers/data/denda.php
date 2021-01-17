@@ -29,10 +29,10 @@ class Denda extends CI_Controller
         $res = $this->M_jenis_denda->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/denda');
+            redirect('data/Denda');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/denda');
+            redirect('data/Denda');
         }
     }
 
@@ -41,10 +41,10 @@ class Denda extends CI_Controller
         $res = $this->M_jenis_denda->updateData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/denda');
+            redirect('data/Denda');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/denda');
+            redirect('data/Denda');
         }
     }
 
@@ -53,10 +53,10 @@ class Denda extends CI_Controller
         $res = $this->M_jenis_denda->deleteData($id_denda);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/denda');
+            redirect('data/Denda');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/denda');
+            redirect('data/Denda');
         }
     }
 

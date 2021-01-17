@@ -43,7 +43,7 @@ class Stock_opname extends CI_Controller
             $row[] = ucwords($item->nama_jenis);
             $row[] = '<button id="menu_akses' . $item->id_buku_opname . '" type="button" class="btn" data-toggle="popover" style="border-bottom:1px solid blue; color:blue;" > ' . ucwords($jenis_akses[0]['nama_jenis']) . ' </button>';
 
-            $row[] = '<a href="' . base_url('data/stock_opname/hapus_buku_opname/' . $item->id_buku_opname . '/' . $item->o_id_opname) . '" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick=\'return confirm("ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?")\'>
+            $row[] = '<a href="' . base_url('data/Stock_opname/hapus_buku_opname/' . $item->id_buku_opname . '/' . $item->o_id_opname) . '" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick=\'return confirm("ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?")\'>
             <i class="fa fa-trash"></i> Hapus
         </a>';
 
@@ -199,10 +199,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         }
     }
 
@@ -211,10 +211,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         }
     }
 
@@ -223,10 +223,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->deleteData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/stock_opname');
+            redirect('data/Stock_opname');
         }
     }
 
@@ -236,10 +236,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+            redirect('data/Stock_opname/detail/' . $_POST['o_id_opname']);
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+            redirect('data/Stock_opname/detail/' . $_POST['o_id_opname']);
         }
     }
 
@@ -248,10 +248,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->deleteDataOpname($id_buku_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         }
     }
 
@@ -261,10 +261,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateDataOpnameStatus($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         }
     }
 
@@ -274,10 +274,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateDataOpnameAkses($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/stock_opname/detail/' . $id_opname);
+            redirect('data/Stock_opname/detail/' . $id_opname);
         }
     }
 }

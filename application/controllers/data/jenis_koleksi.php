@@ -29,10 +29,10 @@ class Jenis_koleksi extends CI_Controller
         $res = $this->M_jenis_koleksi->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         }
     }
 
@@ -41,10 +41,10 @@ class Jenis_koleksi extends CI_Controller
         $res = $this->M_jenis_koleksi->updateData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         }
     }
 
@@ -53,10 +53,10 @@ class Jenis_koleksi extends CI_Controller
         $res = $this->M_jenis_koleksi->deleteData($id_jenis_akses);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/jenis_koleksi');
+            redirect('data/Jenis_koleksi');
         }
     }
 }

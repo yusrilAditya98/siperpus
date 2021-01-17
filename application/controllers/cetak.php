@@ -30,7 +30,7 @@ class Cetak extends CI_Controller
     }
     public function QRtransak($register)
     {
-        $transaksi = base_url('cetak/cetak_transaksi/' . $register);
+        $transaksi = base_url('Cetak/cetak_transaksi/' . $register);
         QRcode::png(
             $transaksi,
             $outfile = false,
@@ -375,11 +375,11 @@ class Cetak extends CI_Controller
                     </div>
 
                 ';
-                $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
+                $row[] = '<a target="_blank" href="' . site_url() . 'Cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             } else {
                 $row[] = '<span class="badge bg-success">Bebas Tanggungan</span>';
                 $row[] = '<span class="badge bg-success"><i class="fas fa-check"></i></span>';
-                $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/bebas" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
+                $row[] = '<a target="_blank" href="' . site_url() . 'Cetak/bebas_pustaka_view/' . $item->username . '/bebas" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             }
             $data[] = $row;
         }
@@ -508,7 +508,7 @@ class Cetak extends CI_Controller
 
     public function QRPustaka($username, $status)
     {
-        $transaksi = base_url('cetak/bebas_pustaka_view/' . $username . '/' . $status);
+        $transaksi = base_url('Cetak/bebas_pustaka_view/' . $username . '/' . $status);
         QRcode::png(
             $transaksi,
             $outfile = false,

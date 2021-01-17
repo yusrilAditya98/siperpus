@@ -39,8 +39,8 @@ class Sumbangan_buku extends CI_Controller
             }
             // add html for action
             $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->id_sumbangan . '"><i class="fa fa-info"></i></button>
-            <a href="' . site_url('sirkulasi/sumbangan_buku/ubah/' . $item->id_sumbangan) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-            <a href="' . site_url('sirkulasi/sumbangan_buku/deleteDataSumbangan/' . $item->id_sumbangan . '/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a>
+            <a href="' . site_url('sirkulasi/Sumbangan_buku/ubah/' . $item->id_sumbangan) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+            <a href="' . site_url('sirkulasi/Sumbangan_buku/deleteDataSumbangan/' . $item->id_sumbangan . '/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a>
             <div class="modal fade" id="btnDetailBuku' . $item->id_sumbangan . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
@@ -243,8 +243,8 @@ class Sumbangan_buku extends CI_Controller
             // add html for action
             if ($item->status_sumbangan == 1) {
                 $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->id_sumbangan . '"><i class="fa fa-info"></i></button>
-                    <a href="' . site_url('sirkulasi/sumbangan_buku/terima_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
-                    <a href="' . site_url('sirkulasi/sumbangan_buku/tolak_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
+                    <a href="' . site_url('sirkulasi/Sumbangan_buku/terima_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-success"><i class="fa fa-check"></i></a>
+                    <a href="' . site_url('sirkulasi/Sumbangan_buku/tolak_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-danger"><i class="fa fa-times"></i></a>
                     <div class="modal fade" id="btnDetailBuku' . $item->id_sumbangan . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -411,7 +411,7 @@ class Sumbangan_buku extends CI_Controller
                     </div>';
             } else {
                 $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->id_sumbangan . '"><i class="fa fa-info"></i></button>
-                    <a href="' . site_url('sirkulasi/sumbangan_buku/batal_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-warning text-white">Batalkan</a>
+                    <a href="' . site_url('sirkulasi/Sumbangan_buku/batal_sumbangan/' . $item->id_sumbangan) . '" class="btn btn-sm btn-warning text-white">Batalkan</a>
                     <div class="modal fade" id="btnDetailBuku' . $item->id_sumbangan . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                         <div class="modal-dialog modal-dialog-centered">
                             <div class="modal-content">
@@ -615,8 +615,8 @@ class Sumbangan_buku extends CI_Controller
             }
             // add html for action
             $row[] = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->id_sumbangan . '"><i class="fa fa-info"></i></button>
-                <a href="' . site_url('sirkulasi/sumbangan_buku/ubah/' . $item->id_sumbangan) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
-                <a href="' . site_url('sirkulasi/sumbangan_buku/deleteDataSumbanganAdmin/' . $item->id_sumbangan . '/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a>
+                <a href="' . site_url('sirkulasi/Sumbangan_buku/ubah/' . $item->id_sumbangan) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
+                <a href="' . site_url('sirkulasi/Sumbangan_buku/deleteDataSumbanganAdmin/' . $item->id_sumbangan . '/' . $item->register) . '" class="btn btn-sm btn btn-danger mr-2" title="Hapus Data Ini" onclick="return confirm(/"ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?/")"><i class="fa fa-trash"></i></a>
                 <div class="modal fade" id="btnDetailBuku' . $item->id_sumbangan . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered">
                         <div class="modal-content">
@@ -849,10 +849,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->terima_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal mengubah data');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         }
     }
 
@@ -861,10 +861,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->tolak_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal mengubah data');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         }
     }
 
@@ -873,10 +873,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->batal_sumbangan($id_sumbangan);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal mengubah data');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         }
     }
 
@@ -884,20 +884,19 @@ class Sumbangan_buku extends CI_Controller
     {
         $this->form_validation->set_rules('register', 'Register', 'required|is_unique[buku.register]');
         if ($this->form_validation->run() == false) {
-        
+
             $this->session->set_flashdata('warning', $this->form_validation->error_string());
-            redirect('sirkulasi/sumbangan_buku/tambah_sumbangan_buku_admin');
-        }else{
+            redirect('sirkulasi/Sumbangan_buku/tambah_sumbangan_buku_admin');
+        } else {
             $res = $this->M_sumbangan_buku->insertData();
             if ($res >= 1) {
                 $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-                redirect('sirkulasi/sumbangan_buku/admin');
+                redirect('sirkulasi/Sumbangan_buku/admin');
             } else {
                 $this->session->set_flashdata('warning', 'Gagal menambahkan data');
-                redirect('sirkulasi/sumbangan_buku/tambah_sumbangan_buku_admin');
+                redirect('sirkulasi/Sumbangan_buku/tambah_sumbangan_buku_admin');
             }
         }
-       
     }
 
     public function deleteDataSumbanganAdmin($id_sumbangan, $register)
@@ -905,10 +904,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menghapus data');
-            redirect('sirkulasi/sumbangan_buku/admin');
+            redirect('sirkulasi/Sumbangan_buku/admin');
         }
     }
 
@@ -934,10 +933,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('sirkulasi/sumbangan_buku');
+            redirect('sirkulasi/Sumbangan_buku');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menambahkan data');
-            redirect('sirkulasi/sumbangan_buku/tambah_sumbangan_buku');
+            redirect('sirkulasi/Sumbangan_buku/tambah_sumbangan_buku');
         }
     }
 
@@ -946,10 +945,10 @@ class Sumbangan_buku extends CI_Controller
         $res = $this->M_sumbangan_buku->deleteDataSumbangan($id_sumbangan, $register);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('sirkulasi/sumbangan_buku');
+            redirect('sirkulasi/Sumbangan_buku');
         } else {
             $this->session->set_flashdata('warning', 'Gagal menghapus data');
-            redirect('sirkulasi/sumbangan_buku');
+            redirect('sirkulasi/Sumbangan_buku');
         }
     }
 }
