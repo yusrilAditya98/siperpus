@@ -21,12 +21,14 @@ class M_katalog_buku extends CI_Model
     private function _get_datatables_query($keywords = null, $filter = null)
     {
         // $this->db->select('*');
-        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber,jk.nama_jenis');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber,jk.nama_jenis, sb.nama_status');
         $this->db->from('buku as b');
+
         $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
         $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
         $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
         $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('status_buku as sb', 'b.status_buku = sb.id_status', 'left');
         $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
         $this->db->join('jenis_koleksi as jk', 'b.jk_id_jenis = jk.id_jenis', 'left');
         if ($keywords != null && $filter != null) {
@@ -45,6 +47,12 @@ class M_katalog_buku extends CI_Model
             $this->db->where('b.digital_pdf !=', '');
         } elseif ($this->input->post('koleksi_digital') == 2) {
             $this->db->where('b.digital_pdf', '');
+        }
+
+        if ($this->session->userdata('role_id') == "role_id_2") {
+            $this->db->where_not_in('status_buku', 0);
+            $status = array(1, 2);
+            $this->db->where_in('status_buku', $status);
         }
 
         $i = 0;
@@ -206,6 +214,12 @@ class M_katalog_buku extends CI_Model
     function count_all($keywords = null, $filter = null)
     {
         $this->db->from('buku');
+        if ($this->session->userdata('role_id') == "role_id_2") {
+            $this->db->where_not_in('status_buku', 0);
+            $status = array(1, 2);
+            $this->db->where_in('status_buku', $status);
+            // $this->db->where('status_buku', 0);
+        }
         if ($keywords != null && $filter != null) {
             $this->db->like($filter, $keywords);
         }
@@ -322,7 +336,9 @@ class M_katalog_buku extends CI_Model
             'f_id_funding' => $this->input->post('f_id_funding'),
             'sk_id_sumber' => $this->input->post('sk_id_sumber'),
             'k_id_kategori' => $this->input->post('k_id_kategori'),
-            'jk_id_jenis' => $this->input->post('jk_id_jenis')
+            'jk_id_jenis' => $this->input->post('jk_id_jenis'),
+            'tanggal_entry' => date("Y-m-d"),
+            'pj_entry_buku' => $this->session->userdata('username')
         ];
 
         // upload sampul
@@ -414,6 +430,16 @@ class M_katalog_buku extends CI_Model
         ];
 
         $this->db->update('denda', $data, ['id_denda' => $id_denda]);
+        return true;
+    }
+
+    public function updateBukuNonAktif($register)
+    {
+        $data =  [
+            'status_buku' => 0,
+        ];
+
+        $this->db->update('buku', $data, ['register' => $register]);
         return true;
     }
 
@@ -578,8 +604,7 @@ class M_katalog_buku extends CI_Model
         if ($status_sirkulasi != null) {
             if ($status_sirkulasi == 0) {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
-            } elseif ($status_sirkulasi == 99) {
-            } else {
+            } elseif ($status_sirkulasi == 99) { } else {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
             }
         }
@@ -609,8 +634,7 @@ class M_katalog_buku extends CI_Model
         if ($status_sirkulasi != null) {
             if ($status_sirkulasi == 0) {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
-            } elseif ($status_sirkulasi == 99) {
-            } else {
+            } elseif ($status_sirkulasi == 99) { } else {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
             }
         }

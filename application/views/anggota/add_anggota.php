@@ -70,6 +70,13 @@
                                     </div>
                                 </div>
                                 <div class="form-group row">
+                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="masukan email aktif anggota...">
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
                                     <label for="status" class="col-sm-2 col-form-label">Status Aktif</label>
                                     <div class="col-sm-10">
                                         <select name="status_aktif" class="form-control" id="status_aktif">
@@ -119,6 +126,17 @@
                                     <div class="col-sm-10">
                                         <input type="password" name="password2" class="form-control" id="password2" placeholder="masukan konfirmasi password...">
                                         <?= form_error('password2', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="date_ended" class="col-sm-2 col-form-label">Masa Berlaku</label>
+                                    <div class="col-sm-10">
+                                        <input type="date" name="date_ended" class="form-control" id="date_ended">
+                                        <small>
+                                            *Masukkan tanggal terakhir masa berlaku akun
+                                        </small>
+                                        <?= form_error('date_ended', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
 

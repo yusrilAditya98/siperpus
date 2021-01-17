@@ -117,6 +117,8 @@
                                             <th>Penerbit</th>
                                             <th>Tahun Terbit</th>
                                             <th>Digital</th>
+                                            <th>Tanggal Entry</th>
+                                            <th>PJ Entry</th>
                                             <th>Status</th>
                                             <th width="15%">Aksi</th>
                                         </tr>

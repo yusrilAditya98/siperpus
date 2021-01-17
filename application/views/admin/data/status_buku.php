@@ -80,8 +80,10 @@
                                                      <input type="text" class="form-control" name="nama_status" value=" <?= $lp['nama_status'] ?>">
                                                  </td>
                                                  <td>
-                                                     <button type="submit" class="btn btn-info">Edit</button>
-                                                     <a href="<?= base_url('data/Status_buku/hapus/' . $lp['id_status']) ?>" class="btn btn-danger">Hapus</a>
+                                                     <?php if ($lp['id_status'] != 1 && $lp['id_status'] != 2) : ?>
+                                                         <button type="submit" class="btn btn-info">Edit</button>
+                                                         <a href="<?= base_url('data/Status_buku/hapus/' . $lp['id_status']) ?>" class="btn btn-danger">Hapus</a>
+                                                     <?php endif; ?>
                                                  </td>
                                              </form>
                                          </tr>

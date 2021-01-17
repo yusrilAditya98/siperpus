@@ -57,13 +57,13 @@
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Tahun</label>
                                                 <div class="col-sm-10">
-                                                    <input type="text" name="tahun" required class="form-control" placeholder="Masukkan Tahun...">
+                                                    <input type="number" min="<?= date("Y") ?>" name="tahun" required class="form-control" placeholder="Masukkan Tahun...">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label class="col-sm-2 col-form-label">Tanggal Mulai</label>
                                                 <div class="col-sm-10">
-                                                    <input type="date" name="tanggal" required class="form-control">
+                                                    <input type="date" min="<?= date("Y-m-d") ?>" name="tanggal" required class="form-control">
                                                 </div>
                                             </div>
                                             <div class="form-group row">

@@ -48,6 +48,7 @@ class Anggota extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[3]|is_unique[user.username]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
+        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
         $this->form_validation->set_rules('status_aktif', 'Status Aktif', 'required');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
@@ -55,6 +56,7 @@ class Anggota extends CI_Controller
             'min_length' => 'Password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
+        $this->form_validation->set_rules('date_ended', 'Tanggal masa berlaku', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -95,10 +97,11 @@ class Anggota extends CI_Controller
         if ($this->input->post('username') != $data['list_user']['username']) {
             $this->form_validation->set_rules('username', 'Username', 'required|min_length[3]|is_unique[user.username]');
         }
+        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
         $this->form_validation->set_rules('status_aktif', 'Status Aktif', 'required');
-
+        $this->form_validation->set_rules('date_ended', 'Tanggal masa berlaku', 'required');
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/topbar');

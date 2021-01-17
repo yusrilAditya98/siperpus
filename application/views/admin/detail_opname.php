@@ -34,7 +34,7 @@ test
 
             <div class="row card pt-4 pl-4 pb-3">
                 <div class="col-lg-12">
-                    <a href="<?= site_url() ?>data/Stock_opname" style="font-size:12px; color:white" class="btn btn-success">
+                    <a href="<?= site_url() ?>data/Stock_opname/doneOpname/<?= $this->uri->segment(4) ?>" style="font-size:12px; color:white" class="btn btn-success">
                         <i class="fa fa-check mr-2"></i> Selesai
                     </a>
                 </div>
