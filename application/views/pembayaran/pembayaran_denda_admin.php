@@ -103,11 +103,30 @@
                           <th>Operator Entry / ID</th>
                           <th>Bukti Foto</th>
                           <th>Jumlah Bayar</th>
-                          <th>Aksi</th>
                         </tr>
                       </thead>
                       <tbody>
-
+                          <?php $index = 1; ?>
+                          <?php foreach($pembayaran as $p): ?>
+                          <tr>
+                            <td><?= $index++?></td>
+                            <td><a href="<?= base_url("Pembayaran/detail_transaksi_pembayaran")?>"><?= $p['no_transaksi']?></a></td>
+                            <td><?= $p['uAnggota'].'/'.$p['u_username']?></td>
+                            <td><?= date('d-m-Y', strtotime($p['tgl_masuk']))?></td>
+                            <?php if($p['status']== 0):?>
+                              <td>Belum Validasi</td>
+                            <?php else:?>
+                              <td>Selesai Validasi</td>
+                            <?php endif;?>
+                            <td><?= $p['uAdmin'].'/'.$p['pj_entry']?></td>
+                            <?php if($p['bukti_foto'] == ''):?>
+                              <td>Belum ada bukti bayar</td>
+                            <?php else:?>
+                              <td><a href="<?= base_url("bukti_bayar/".$p['bukti_foto']);?>" target="_blank">Lihat Bukti</a></td>
+                            <?php endif;?>
+                            <td><?= $p['jumlah_bayar']?></td>
+                          </tr>
+                          <?php endforeach ?>
                         
                       </tbody>
                     </table>

@@ -7,6 +7,7 @@ class Pembayaran extends CI_Controller
     {
         parent::__construct();
         is_logged_in();
+        $this->load->model("M_sirkulasi");
     }
     private function template($title){
         $data['title'] = $title;
@@ -18,8 +19,19 @@ class Pembayaran extends CI_Controller
 
     public function pembayaran_denda_admin(){
         $data['title'] = "Pembayaran";
+        $data['pembayaran'] = $this->M_sirkulasi->getSirkulasiPembayaran();
         $this->template($data['title']);
         $this->load->view('pembayaran/pembayaran_denda_admin', $data);
+        $this->load->view('templates/footer');
+    }
+
+    public function detail_transaksi_pembayaran($no_transaksi){
+        $data['title'] = "Pembayaran";
+        $data['transaksi'] = $this->M_sirkulasi->getSirkulasiPembayaran($no_transaksi);
+        $data['sirkulasi'] = $this->M_sirkulasi->getDetailSirkulasiPembayaran($no_transaksi);
+     
+        $this->template($data['title']);
+        $this->load->view('pembayaran/detail_transaksi_pembayaran', $data);
         $this->load->view('templates/footer');
     }
 }

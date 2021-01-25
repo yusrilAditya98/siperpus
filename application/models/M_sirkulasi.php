@@ -320,4 +320,23 @@ class M_sirkulasi extends CI_Model
         }
         return $this->db->get()->result_array();
     }
+
+    public function getSirkulasiPembayaran($no_transaksi = null){
+        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.jumlah_bayar,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser");
+        $this->db->from('sirkulasi_transaksi as sp');
+        if($no_transaksi != null){
+            $this->db->where('sp.no_transaksi',$no_transaksi);
+            return $this->db->get()->row_array();
+        }
+        return $this->db->get()->result_array();
+    }
+
+    public function getDetailSirkulasiPembayaran($no_transaksi){
+        $this->db->select('s.b_register,s.tanggal_sirkulasi,s.tanggal_mulai,s.tanggal_akhir,s.tanggal_pengembalian, s.tanggal_perpanjangan, b.judul_buku, (SELECT nama_pelanggaran FROM pelanggaran WHERE pelanggaran.id_pelanggaran = sp.p_id_pelanggaran) AS pelanggaran, (SELECT nama_denda FROM denda WHERE denda.id_denda = sp.d_id_denda) AS denda');
+        $this->db->from('sirkulasi as s');
+        $this->db->join('buku as b','b.register = s.b_register','left');
+        $this->db->join('sirkulasi_pelanggaran as sp','s.id_sirkulasi = sp.s_id_sirkulasi','left');
+        $this->db->where('s.no_transaksi',$no_transaksi);
+        return $this->db->get()->result_array();
+    }
 }

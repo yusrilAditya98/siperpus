@@ -739,6 +739,25 @@ class Peminjaman extends CI_Controller
                     'status_pelanggaran' => 1,
                 ];
                 $this->M_sirkulasi->insertSirkulasiPelanggaran($dataPelanggaran);
+
+                // data transaksi
+                $cekTransaksi = $this->db->get_where('sirkulasi_transaksi',[
+                    'no_transaksi'=>$no_transaksi
+                ])->data_seek();
+                if($cekTransaksi == false){
+                    // status jika 0 bernilai belum valid, 1 bernilai valid
+                    $dataTransaksi = [
+                        'no_transaksi'=>$no_transaksi,
+                        'u_username'=>$username,
+                        'tgl_masuk'=>date("Y-m-d"),
+                        'status'=>0,
+                        'pj_entry'=>$this->session->userdata('username')
+                    ];
+                    $this->db->insert('sirkulasi_transaksi',$dataTransaksi);
+                }else{
+                    
+                }
+              
                 $this->M_sirkulasi->updatePengembalianBuku($data);
                 $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
                 $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
