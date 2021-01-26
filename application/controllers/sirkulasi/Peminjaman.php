@@ -713,6 +713,7 @@ class Peminjaman extends CI_Controller
         $username = $this->input->post('username');
         // cek no transaksi 
         $sirkulasi = $this->db->get_where('sirkulasi', ['b_register' => $register, 'no_transaksi' => $no_transaksi])->row_array();
+
         if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 8 || $sirkulasi['status_sirkulasi'] == 9) {
             if ($pelanggaran == "kosong" && $denda == "kosong") {
                 $data = [
@@ -738,26 +739,38 @@ class Peminjaman extends CI_Controller
                     'd_id_denda' => $denda,
                     'status_pelanggaran' => 1,
                 ];
+
+                if ($denda == 3) {
+                    $tahunAwal =  $sirkulasi['tanggal_mulai'];
+                    $tahunAkhir = "";
+                    if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 8) {
+                        $tahunAkhir = $sirkulasi['tanggal_akhir'];
+                    } else {
+                        $tahunAkhir = $sirkulasi['tanggal_perpanjangan'];
+                    }
+
+                    $selisihHari = $this->tgl_selisih($tahunAwal, $tahunAkhir);
+                    $dataPelanggaran['jumlah_bayar'] = $selisihHari * 1000;
+                }
                 $this->M_sirkulasi->insertSirkulasiPelanggaran($dataPelanggaran);
 
                 // data transaksi
-                $cekTransaksi = $this->db->get_where('sirkulasi_transaksi',[
-                    'no_transaksi'=>$no_transaksi
+                $cekTransaksi = $this->db->get_where('sirkulasi_transaksi', [
+                    'no_transaksi' => $no_transaksi
                 ])->data_seek();
-                if($cekTransaksi == false){
+                if ($cekTransaksi == false) {
                     // status jika 0 bernilai belum valid, 1 bernilai valid
                     $dataTransaksi = [
-                        'no_transaksi'=>$no_transaksi,
-                        'u_username'=>$username,
-                        'tgl_masuk'=>date("Y-m-d"),
-                        'status'=>0,
-                        'pj_entry'=>$this->session->userdata('username')
+                        'no_transaksi' => $no_transaksi,
+                        'u_username' => $username,
+                        'tgl_masuk' => date("Y-m-d"),
+                        'status' => 0,
+                        'pj_entry' => $this->session->userdata('username')
                     ];
-                    $this->db->insert('sirkulasi_transaksi',$dataTransaksi);
-                }else{
-                    
+                    $this->db->insert('sirkulasi_transaksi', $dataTransaksi);
+                } else {
                 }
-              
+
                 $this->M_sirkulasi->updatePengembalianBuku($data);
                 $this->db->where('register', $register)->update('buku', ['status_buku' => 1]);
                 $this->session->set_flashdata('success', 'Buku dengan no register ' . $register . ' berhasil dikembalikan');
@@ -960,5 +973,15 @@ class Peminjaman extends CI_Controller
             ];
         }
         echo json_encode($result);
+    }
+
+    public function tgl_selisih($date1, $date2)
+    {
+
+        $diff = abs(strtotime($date2) - strtotime($date1));
+        $years = floor($diff / (365 * 60 * 60 * 24));
+        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
+        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+        return $days;
     }
 }

@@ -107,9 +107,17 @@
         }
     }
 
-    function format_tgl($orgDate){
-        $newDate = date("d-m-Y", strtotime($orgDate));  
-        return $newDate;  
+    function format_tgl($orgDate)
+    {
+        $newDate = date("d-m-Y", strtotime($orgDate));
+        return $newDate;
+    }
+
+    function rupiah($angka)
+    {
+
+        $hasil_rupiah =  number_format($angka, 2, ',', '.');
+        return $hasil_rupiah;
     }
     ?>
     <div class="wrapper">

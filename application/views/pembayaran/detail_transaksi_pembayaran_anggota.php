@@ -65,7 +65,7 @@
                             <td>:<?= $transaksi['uAdmin'] . "/" . $transaksi['pj_entry'] ?></td>
                           </tr>
                           <tr>
-                            <td>Bukti Foto</td>
+                            <td>Bukti Foto - <input type="file" name="bukti_foto"></td>
                             <?php if ($transaksi['bukti_foto'] == '') : ?>
                               <td>:Belum ada bukti bayar</td>
                             <?php else : ?>

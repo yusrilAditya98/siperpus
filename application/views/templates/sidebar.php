@@ -427,6 +427,12 @@
                                        <p>Pengembalian</p>
                                    </a>
                                </li>
+                               <li class="nav-item">
+                                   <a href="<?= site_url() ?>sirkulasi/Pembayaran/pembayaran_denda_anggota" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Pembayaran</p>
+                                   </a>
+                               </li>
                            </ul>
                        </li>
 

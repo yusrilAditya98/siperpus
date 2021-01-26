@@ -110,7 +110,7 @@
                         <?php foreach ($pembayaran as $p) : ?>
                           <tr>
                             <td><?= $index++ ?></td>
-                            <td><a href="<?= base_url("sirkulasi/Pembayaran/detail_transaksi_pembayaran/" . $p['no_transaksi']) ?>"><?= $p['no_transaksi'] ?></a></td>
+                            <td><a href="<?= base_url("sirkulasi/Pembayaran/detail_transaksi/" . $p['no_transaksi']) ?>"><?= $p['no_transaksi'] ?></a></td>
                             <td><?= $p['uAnggota'] . '/' . $p['u_username'] ?></td>
                             <td><?= date('d-m-Y', strtotime($p['tgl_masuk'])) ?></td>
                             <?php if ($p['status'] == 0) : ?>
