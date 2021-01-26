@@ -80,8 +80,12 @@
                             <td>Status</td>
                             <?php if ($transaksi['status'] == 0) : ?>
                               <td>:Belum Validasi</td>
+                            <?php elseif ($transaksi['status'] == 1) : ?>
+                              <td>:Telah Upload Bukti Pembayaran</td>
+                            <?php elseif ($transaksi['status'] == 2) : ?>
+                              <td>:Pembayaran valid</td>
                             <?php else : ?>
-                              <td>:Selesai Validasi</td>
+                              <td>:Revisi Pembayaran </td>
                             <?php endif; ?>
                           </tr>
                         </tbody>

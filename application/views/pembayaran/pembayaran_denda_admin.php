@@ -115,14 +115,18 @@
                             <td><?= date('d-m-Y', strtotime($p['tgl_masuk'])) ?></td>
                             <?php if ($p['status'] == 0) : ?>
                               <td>Belum Validasi</td>
+                            <?php elseif ($p['status'] == 1) : ?>
+                              <td>Telah Upload Bukti Pembayaran</td>
+                            <?php elseif ($p['status'] == 2) : ?>
+                              <td>Pembayaran valid</td>
                             <?php else : ?>
-                              <td>Selesai Validasi</td>
+                              <td>Revisi Pembayaran </td>
                             <?php endif; ?>
                             <td><?= $p['uAdmin'] . '/' . $p['pj_entry'] ?></td>
                             <?php if ($p['bukti_foto'] == '') : ?>
                               <td>Belum ada bukti bayar</td>
                             <?php else : ?>
-                              <td><a href="<?= base_url("bukti_bayar/" . $p['bukti_foto']); ?>" target="_blank">Lihat Bukti</a></td>
+                              <td><a href="<?= base_url("assets/bukti_bayar/" . $p['bukti_foto']); ?>" target="_blank">Lihat Bukti</a></td>
                             <?php endif; ?>
                             <td><?= $p['jumlah_bayar'] ?></td>
                           </tr>

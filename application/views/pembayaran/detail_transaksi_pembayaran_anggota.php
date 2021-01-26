@@ -35,8 +35,9 @@
               <div class="card">
                 <div class="card-body">
                   <div class="table-responsive">
-                    <form action="<?= base_url('sirkulasi/Pembayaran/validasiPembayaran') ?>" method="post">
+                    <form action="<?= base_url('sirkulasi/Pembayaran/uploadPembayaran') ?>" method="post" enctype="multipart/form-data">
                       <input type="hidden" name="no_transaksi" value="<?= $transaksi['no_transaksi'] ?>">
+                      <input type="hidden" name="status" value="<?= $transaksi['status'] ?>">
                       <table class="table table-striped table-white table-bordered" style="width:100%">
                         <thead>
                           <tr>
@@ -69,7 +70,7 @@
                             <?php if ($transaksi['bukti_foto'] == '') : ?>
                               <td>:Belum ada bukti bayar</td>
                             <?php else : ?>
-                              <td><a href="<?= base_url("bukti_bayar/" . $transaksi['bukti_foto']); ?>" target="_blank">:Lihat Bukti</a></td>
+                              <td><a href="<?= base_url("assets/bukti_bayar/" . $transaksi['bukti_foto']); ?>" target="_blank">:Lihat Bukti</a></td>
                             <?php endif; ?>
                           </tr>
                           <tr>
@@ -80,8 +81,12 @@
                             <td>Status</td>
                             <?php if ($transaksi['status'] == 0) : ?>
                               <td>:Belum Validasi</td>
+                            <?php elseif ($transaksi['status'] == 1) : ?>
+                              <td>:Telah Upload Bukti Pembayaran</td>
+                            <?php elseif ($transaksi['status'] == 2) : ?>
+                              <td>:Pembayaran valid</td>
                             <?php else : ?>
-                              <td>:Selesai Validasi</td>
+                              <td>:Revisi Pembayaran </td>
                             <?php endif; ?>
                           </tr>
                         </tbody>
@@ -135,8 +140,10 @@
                           </tr>
                           <tr>
                             <td colspan="10">
-                              <a href="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_admin') ?>" class="btn btn-secondary">Kembali</a>
-                              <button type="submit" class="btn btn-primary">Validasi Pembayaran</button>
+                              <a href="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_anggota') ?>" class="btn btn-secondary">Kembali</a>
+                              <?php if($transaksi['status'] == 0 || $transaksi['status'] == 3):?>
+                              <button type="submit" class="btn btn-primary">Upload Bukti Pembayaran</button>
+                              <?php endif;?>
                             </td>
                           </tr>
                         </tbody>
