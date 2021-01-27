@@ -914,7 +914,7 @@ class Buku extends CI_Controller
             }
             // menangkap data dan memasukkan ke variabel sesuai dengan kolumnya masing-masing
             $result = [
-                "register" => str_replace("\0", "", $data->val($i, 2)),
+                "register" => "0".str_replace("\0", "", $data->val($i, 2)),
                 "judul_buku" => str_replace("\0", "", $data->val($i, 3)),
                 "pengarang" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "penerbit" => str_replace("\0", "", $data->val($i, 5)),

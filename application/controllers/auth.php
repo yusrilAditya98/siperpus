@@ -48,6 +48,11 @@ class Auth extends CI_Controller
                         'role_id' => 'role_id_' . $user['ru_role_id']
                     ];
                     $this->session->set_userdata($data);
+                    $log = [
+                        'username' => $user['username'],
+                        'tanggal' => date('Y-m-d')
+                    ];
+                    $this->db->insert('log_pengunjung', $log);
                     if ($user['ru_role_id'] == 1) {
                         redirect('user/admin');
                     } elseif ($user['ru_role_id'] == 2) {
