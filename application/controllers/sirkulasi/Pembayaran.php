@@ -50,17 +50,22 @@ class Pembayaran extends CI_Controller
         $idSirkulasi = $this->input->post('id_sirkulasi');
         $noTransaksi = $this->input->post('no_transaksi');
         $jumlahBayar = $this->input->post('jumlah_bayar');
-        $dataSirkulasi = [
-            'status_pelanggaran' => 2,
-            'pj_entry_pembayaran' => $this->session->userdata('username')
-        ];
-        foreach ($idSirkulasi as $is) {
-            $this->db->update('sirkulasi_pelanggaran', $dataSirkulasi, ['s_id_sirkulasi' => $is]);
-        }
+        $statusBayar = $this->input->post('status');
+        $keterangan  = $this->input->post('keterangan');
 
+        if($statusBayar == 2){
+            $dataSirkulasi = [
+                'status_pelanggaran' => 2,
+                'pj_entry_pembayaran' => $this->session->userdata('username')
+            ];
+            foreach ($idSirkulasi as $is) {
+                $this->db->update('sirkulasi_pelanggaran', $dataSirkulasi, ['s_id_sirkulasi' => $is]);
+            }
+        }
         $dataTransaksi = [
-            'status' => 1,
-            'jumlah_bayar' => $jumlahBayar
+            'status' =>  $statusBayar,
+            'jumlah_bayar' => $jumlahBayar,
+            'keterangan' => $keterangan
         ];
         $this->db->update('sirkulasi_transaksi', $dataTransaksi, ['no_transaksi' => $noTransaksi]);
 

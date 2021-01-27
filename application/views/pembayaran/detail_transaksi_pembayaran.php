@@ -135,12 +135,37 @@
                             <td colspan="9">Total
                             </td>
                             <td><?= rupiah($totalCost) ?></td>
-                            <input type="hidden" name="jumlah_bayar" value="<?= $totalCost ?>">
                           </tr>
                           <tr>
                             <td colspan="10">
-                              <a href="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_admin') ?>" class="btn btn-secondary">Kembali</a>
-                              <button type="submit" class="btn btn-primary">Validasi Pembayaran</button>
+                         
+                              <div class="row">
+                                <div class="col-lg-2">
+                                  <a href="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_admin') ?>" class="btn btn-secondary">Kembali</a>
+                                </div>
+                                <?php if($transaksi['status'] != 2) :?>
+                                <div class="col-lg-2">
+                                  <select class="form-control" name="status" id="status">
+                                    <option value="2">Valid</option>
+                                    <option value="3">Revisi</option>
+                                  </select>
+                                </div>
+                                <div class="col-lg-2">
+                                  <input type="number" name="jumlah_bayar" class="form-control" value="<?= $totalCost?>">
+                                </div>
+                                <div class="col-lg-6">
+                                  <div class="input-group">
+                                    <textarea type="text" name="keterangan" class="form-control" placeholder="Keterangan"><?= $transaksi['keterangan']?></textarea>
+                                   
+                                    <span class="input-group-append">
+                                       <button type="submit" class="btn btn-primary">Validasi Pembayaran</button>
+                                    </span>
+                                  </div>
+                                </div>
+                                <?php endif; ?>
+                              </div>
+
+
                             </td>
                           </tr>
                         </tbody>
