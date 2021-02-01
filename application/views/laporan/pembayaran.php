@@ -34,14 +34,41 @@
                             <div class="card-body">
                                 <form action="<?= base_url('Laporan/sangsi') ?>" method="get">
                                     <div class="row">
-                                        <div class="col-lg-4">
-                                            <div class="input-group mb-3">
-                                                <div class="input-group-prepend">
-                                                    <span class="input-group-text"><i class="fas fa-calendar mr-2"></i>Mulai</span>
+                                        <div class="col-lg-12">
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <h5>Status Pembayaran</h5>
                                                 </div>
-                                                <input type="date" class="form-control" name="start_date" id="start_date" placeholder="Username">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <select name="id_pelanggaran" id="id_pelanggaran" class="form-control">
+                                                            <option value="">-- Semua Status --</option>
+                                                            <?php foreach ($pelanggaran as $s) : ?>
+                                                                <option value="<?= $s['id_pelanggaran'] ?>"> <?= $s['nama_pelanggaran'] ?> </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
                                             </div>
+                                            <div class="row">
+                                                <div class="col-lg-4">
+                                                    <h5>Range Mulai Tanggal Pembayaran</h5>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="input-group mb-3">
+                                                        <select name="id_pelanggaran" id="id_pelanggaran" class="form-control">
+                                                            <option value="">-- Semua Status --</option>
+                                                            <?php foreach ($pelanggaran as $s) : ?>
+                                                                <option value="<?= $s['id_pelanggaran'] ?>"> <?= $s['nama_pelanggaran'] ?> </option>
+                                                            <?php endforeach; ?>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                           
                                         </div>
+
+
                                         <div class="col-lg-4">
                                             <div class="input-group mb-3">
                                                 <div class="input-group-prepend">
@@ -75,17 +102,16 @@
                                 <div class="table-responsive">
                                     <table id="data-peminjaman" class="table table-striped table-white table-bordered" style="width:100%">
                                         <thead>
-                                            <tr>
-                                                <th>No</th>
-                                                <th>Username</th>
-                                                <th>Nama</th>
-                                                <th>No Transaksi</th>
-                                                <th>Register</th>
-                                                <th>Judul</th>
-                                                <th>Pengarang</th>
-                                                <th>Pelanggaran</th>
-                                                <th>Denda</th>
-                                            </tr>
+                                        <tr>
+                                            <th>No</th>
+                                            <th>No Transaksis</th>
+                                            <th>Nama / Username</th>
+                                            <th>Tanggal Masuk</th>
+                                            <th>Status</th>
+                                            <th>Operator Entry / ID</th>
+                                            <th>Bukti Foto</th>
+                                            <th>Jumlah Bayar</th>
+                                        </tr>
                                         </thead>
                                         <tbody>
 

@@ -256,4 +256,14 @@ class Laporan extends CI_Controller
         $this->load->view('laporan/koleksi_digital', $data);
         $this->load->view('templates/footer');
     }
+
+    //yusril
+    public function pembayaran(){
+        $data['title'] = "Laporan Pembayaran";
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/pembayaran', $data);
+        $this->load->view('templates/footer');
+    }
 }
