@@ -89,6 +89,10 @@
                               <td>:Revisi Pembayaran </td>
                             <?php endif; ?>
                           </tr>
+                          <tr>
+                            <td>Invoice</td>
+                            <td><a target="_blank" href="<?= base_url('sirkulasi/Pembayaran/invoicePembayaran/' . $transaksi['no_transaksi']) ?>">Cetak Invoice</a> </td>
+                          </tr>
                         </tbody>
                       </table>
                       <table class="table table-striped table-white table-bordered table-sm" style="width:100%">
@@ -141,9 +145,9 @@
                           <tr>
                             <td colspan="10">
                               <a href="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_anggota') ?>" class="btn btn-secondary">Kembali</a>
-                              <?php if($transaksi['status'] == 0 || $transaksi['status'] == 3):?>
-                              <button type="submit" class="btn btn-primary">Upload Bukti Pembayaran</button>
-                              <?php endif;?>
+                              <?php if ($transaksi['status'] == 0 || $transaksi['status'] == 3) : ?>
+                                <button type="submit" class="btn btn-primary">Upload Bukti Pembayaran</button>
+                              <?php endif; ?>
                             </td>
                           </tr>
                         </tbody>

@@ -15,6 +15,7 @@ class Pembayaran extends CI_Controller
         parent::__construct();
         is_logged_in();
         $this->load->model("M_sirkulasi");
+        $this->load->library('Ciqrcode');
     }
     private function template($title)
     {
@@ -53,7 +54,7 @@ class Pembayaran extends CI_Controller
         $statusBayar = $this->input->post('status');
         $keterangan  = $this->input->post('keterangan');
 
-        if($statusBayar == 2){
+        if ($statusBayar == 2) {
             $dataSirkulasi = [
                 'status_pelanggaran' => 2,
                 'pj_entry_pembayaran' => $this->session->userdata('username')
@@ -98,7 +99,7 @@ class Pembayaran extends CI_Controller
         $noTransaksi = $this->input->post('no_transaksi');
         $jumlahBayar = $this->input->post('jumlah_bayar');
         $statusOld   = $this->input->post('status');
-        if($statusOld == 0 || $statusOld == 3){
+        if ($statusOld == 0 || $statusOld == 3) {
             $statusOld = 1;
         }
 
@@ -111,7 +112,7 @@ class Pembayaran extends CI_Controller
             $config['allowed_types'] = 'jpg|png|jpeg|JPG|PNG|JPEG';
             $config['max_size']     = '1024'; //kb
             $config['upload_path'] = './assets/bukti_bayar/';
-            $config['file_name'] = $this->session->userdata('username').'_'.$noTransaksi.'_'.time();
+            $config['file_name'] = $this->session->userdata('username') . '_' . $noTransaksi . '_' . time();
             $this->load->library('upload', $config);
             if ($this->upload->do_upload('bukti_foto')) {
                 $dataTransaksi['bukti_foto'] = $this->upload->data('file_name');
@@ -121,5 +122,26 @@ class Pembayaran extends CI_Controller
             }
         }
         redirect('sirkulasi/Pembayaran/detail_transaksi/' . $noTransaksi);
+    }
+
+    public function invoicePembayaran($no_transaksi)
+    {
+
+        $data['title'] = "Inovice Pembayaran";
+        $data['transaksi'] = $this->M_sirkulasi->getSirkulasiPembayaran($no_transaksi);
+        $data['sirkulasi'] = $this->M_sirkulasi->getDetailSirkulasiPembayaran($no_transaksi);
+        $this->load->view('pembayaran/invoice_pembayaran', $data);
+    }
+
+    public function QRcode($trx)
+    {
+        $trx = base_url('sirkulasi/Pembayaran/invoicePembayaran/' . $trx);
+        QRcode::png(
+            $trx,
+            $outfile = false,
+            $level = QR_ECLEVEL_H,
+            $size = 2,
+            $margin = 2
+        );
     }
 }
