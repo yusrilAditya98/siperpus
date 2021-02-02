@@ -258,8 +258,20 @@ class Laporan extends CI_Controller
     }
 
     //yusril
-    public function pembayaran(){
+    public function pembayaran()
+    {
         $data['title'] = "Laporan Pembayaran";
+        $data['show_table'] = false;
+        $data['pembayaran'] = [];
+        $show = $this->input->post('show');
+        $start_date = $this->input->post('start_date');
+        $end_date = $this->input->post('end_date');
+        $status = $this->input->post('status');
+
+        if ($show) {
+            $data['show_table'] = $show;
+            $data['pembayaran'] = $this->M_sirkulasi->getLaporanPembayaran($start_date, $end_date, $status);
+        }
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');

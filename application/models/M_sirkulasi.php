@@ -332,6 +332,20 @@ class M_sirkulasi extends CI_Model
         return $this->db->get()->result_array();
     }
 
+    public function getLaporanPembayaran($start_date = null, $end_date = null, $status = null)
+    {
+        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.jumlah_bayar,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser");
+        $this->db->from('sirkulasi_transaksi as sp');
+        if ($start_date != null && $end_date != null) {
+            $this->db->where('sp.tgl_masuk >=', $start_date);
+            $this->db->where('sp.tgl_masuk <=', $end_date);
+        }
+        if ($status != '99') {
+            $this->db->where('sp.status', $status);
+        }
+        return $this->db->get()->result_array();
+    }
+
     public function getDetailSirkulasiPembayaran($no_transaksi)
     {
         $this->db->select('s.b_register,s.tanggal_sirkulasi,s.tanggal_mulai,s.tanggal_akhir,s.tanggal_pengembalian, s.tanggal_perpanjangan, b.judul_buku, (SELECT nama_pelanggaran FROM pelanggaran WHERE pelanggaran.id_pelanggaran = sp.p_id_pelanggaran) AS pelanggaran, (SELECT nama_denda FROM denda WHERE denda.id_denda = sp.d_id_denda) AS denda,sp.p_id_pelanggaran,sp.d_id_denda,sp.jumlah_bayar, s.id_sirkulasi');
@@ -350,6 +364,4 @@ class M_sirkulasi extends CI_Model
 
         return $this->db->get()->result_array();
     }
-
-
 }
