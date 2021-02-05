@@ -40,13 +40,14 @@ class Buku extends CI_Controller
             }
             $row[] = $item->tanggal_entry;
             $row[] = $item->pj_entry_buku;
-            if ($item->status_buku == 1) {
-                $row[] = '<span class="badge badge-success">tersedia</span>';
-            } elseif ($item->status_buku == 0) {
-                $row[] = '<span class="badge badge-warning">Non Aktif</span>';
-            } else {
-                $row[] = '<span class="badge badge-secondary">' . $item->nama_status . '</span>';
-            }
+            $row[] = $item->nama_status_buku;
+            // if ($item->status_buku == 1) {
+            //     $row[] = '<span class="badge badge-success">tersedia</span>';
+            // } elseif ($item->status_buku == 0) {
+            //     $row[] = '<span class="badge badge-warning">Non Aktif</span>';
+            // } else {
+            //     $row[] = '<span class="badge badge-secondary">' . $item->nama_status . '</span>';
+            // }
             // add html for action
             $row[] = '<div class="btn-group"><button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>
             <a href="' . site_url('data/Buku/ubah/' . $item->register) . '" class="btn btn-sm btn-info"><i class="fa fa-edit"></i></a>
@@ -301,11 +302,12 @@ class Buku extends CI_Controller
             } else {
                 $row[] = '<span class="badge badge-secondary">Belum ada</span>';
             }
-            if ($item->status_buku == 1) {
-                $row[] = '<span class="badge badge-success">tersedia</span>';
-            } else {
-                $row[] = '<span class="badge badge-secondary">' . $item->nama_status . '</span>';
-            }
+            $row[] = $item->nama_status_buku;
+            // if ($item->status_buku == 1) {
+            //     $row[] = '<span class="badge badge-success">tersedia</span>';
+            // } else {
+            //     $row[] = '<span class="badge badge-secondary">' . $item->nama_status . '</span>';
+            // }
             // add html for action
             $temp = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>';
             $temp_btn_pinjam = "";

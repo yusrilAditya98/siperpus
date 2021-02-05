@@ -21,9 +21,8 @@ class M_katalog_buku extends CI_Model
     private function _get_datatables_query($keywords = null, $filter = null)
     {
         // $this->db->select('*');
-        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber,jk.nama_jenis, sb.nama_status');
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber,jk.nama_jenis, sb.nama_status, (SELECT sbuk.nama_status FROM status_buku as sbuk WHERE sbuk.id_status=b.status_buku) AS nama_status_buku');
         $this->db->from('buku as b');
-
         $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
         $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
         $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');

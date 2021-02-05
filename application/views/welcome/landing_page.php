@@ -66,7 +66,7 @@
                         <div class="d-flex h-100">
                             <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <h4 class="text-white">Visi</h4>
-                                <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
+                                <p class="mb-0 text-white-50">Menjadi Fakultas Hukum unggul yang berstandar Internasional untuk menghasilkan lulusan berkemampuan akademis, profesional, humanis, etis dan religious</p>
                                 <hr class="d-none d-lg-block mb-0 ml-0" />
                             </div>
                         </div>
@@ -79,9 +79,15 @@
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-navy text-center h-100 project">
                         <div class="d-flex h-100">
-                            <div class="project-text w-100 my-auto text-center text-lg-right">
+                            <div class="project-text w-100 my-auto text-center text-lg-left">
                                 <h4 class="text-white">Misi</h4>
-                                <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well, try this theme on a small screen!</p>
+                                <p class="mb-0 text-white-50">
+                            
+                                1. Menyelenggarakan pendidikan hukum yang dapat mengembangkan penalaran dan kemampuan profesional di bidang hukum. <br>
+                                2. Menyelenggarakan penelitian dan pengkajian perkembangan ilmu hukum. <br>
+                                3. Menyelenggarakan pengabdian kepada masyarakat berdasarkan hasil pendidikan dan penelitian.
+                          
+                                </p>
                                 <hr class="d-none d-lg-block mb-0 mr-0" />
                             </div>
                         </div>
