@@ -69,7 +69,7 @@
                             <?php if ($transaksi['bukti_foto'] == '') : ?>
                               <td>:Belum ada bukti bayar</td>
                             <?php else : ?>
-                              <td><a href="<?= base_url("bukti_bayar/" . $transaksi['bukti_foto']); ?>" target="_blank">:Lihat Bukti</a></td>
+                              <td><a href="<?= base_url("assets/bukti_bayar/" . $transaksi['bukti_foto']); ?>" target="_blank">:Lihat Bukti</a></td>
                             <?php endif; ?>
                           </tr>
                           <tr>

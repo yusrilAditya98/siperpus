@@ -102,7 +102,7 @@
                           <th>Status</th>
                           <th>Operator Entry / ID</th>
                           <th>Bukti Foto</th>
-                          <th>Jumlah Bayar</th>
+                          <th>Total Tagihan</th>
                         </tr>
                       </thead>
                       <tbody>

@@ -87,6 +87,9 @@
         $years = floor($diff / (365 * 60 * 60 * 24));
         $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
         $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
+
+        $diif2 = date_diff(date_create($date1), date_create($date2));
+
         // var_dump($days);
         // die;
         if ($kategori == 1) {
@@ -101,7 +104,7 @@
             return '';
         } else {
             if ($cek) {
-                return $min . '' . $days . ',Anda melewat tanggal jatuh tempo';
+                return $diif2->days . ' Hari';
             }
             return '';
         }

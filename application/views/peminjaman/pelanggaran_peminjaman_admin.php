@@ -124,7 +124,7 @@
                     <div class="col-lg-12 text-center">
                       <img src="<?= site_url('data/Buku/QRcode/' . $b['register'])   ?>">
                     </div>
-                     <!-- <div class="col-lg-12 text-center">
+                    <!-- <div class="col-lg-12 text-center">
                       <button class="btn btn-warning mb-2"><i class="fas fa-print mr-2"></i>Cetak</button>
                     </div> -->
 
@@ -257,12 +257,12 @@
               <input type="hidden" value="<?= $b['p_id_pelanggaran'] ?>" name="id_pelanggaran">
               <div class="modal-footer">
                 <?php if ($b['status_pelanggaran'] == 1) { ?>
-                  <div class="input-group input-group-sm">
+                  <!-- <div class="input-group input-group-sm">
                     <textarea type="text" name="keterangan" class="form-control" placeholder="tambah keterangan.."></textarea>
                     <span class="input-group-append">
                       <button class="btn btn-success btn-sm"><i class="fas fa-check mr-2"></i>validasi Pelanggaran</button>
                     </span>
-                  </div>
+                  </div> -->
                 <?php } ?>
               </div>
             </form>

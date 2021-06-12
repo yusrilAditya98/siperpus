@@ -321,14 +321,37 @@ class M_sirkulasi extends CI_Model
         return $this->db->get()->result_array();
     }
 
-    public function getSirkulasiPembayaran($no_transaksi = null)
+    public function getSirkulasiPembayaran($no_transaksi = null, $status = null, $start_date = null, $end_date = null)
     {
-        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.jumlah_bayar,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser");
+        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser,
+
+        (
+            SELECT SUM(sirkulasi_pelanggaran.jumlah_bayar)  FROM sirkulasi_pelanggaran 
+            INNER JOIN sirkulasi
+            ON sirkulasi_pelanggaran.s_id_sirkulasi = sirkulasi.id_sirkulasi
+            WHERE sirkulasi.no_transaksi = sp.no_transaksi
+            GROUP BY sirkulasi.no_transaksi
+        ) AS jumlah_bayar
+        
+        ");
         $this->db->from('sirkulasi_transaksi as sp');
         if ($no_transaksi != null) {
             $this->db->where('sp.no_transaksi', $no_transaksi);
             return $this->db->get()->row_array();
         }
+
+        if ($status != null) {
+            $this->db->where('sp.status', $status);
+        }
+
+        if ($start_date) {
+            $this->db->where('sp.tgl_masuk >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('sp.tgl_masuk <=', $end_date);
+        }
+
+
         return $this->db->get()->result_array();
     }
 
@@ -358,7 +381,17 @@ class M_sirkulasi extends CI_Model
 
     public function getSirkulasiPembayaranAnggota($username)
     {
-        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.jumlah_bayar,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser");
+        $this->db->select("sp.no_transaksi,(SELECT nama FROM user WHERE user.username = sp.u_username) AS uAnggota, sp.u_username,sp.pj_entry, sp.tgl_masuk,sp.status, (SELECT nama FROM user WHERE user.username = sp.pj_entry) AS uAdmin,sp.bukti_foto,sp.keterangan , (SELECT prodi.nama_prodi FROM user LEFT JOIN prodi ON user.p_id_prodi=prodi.id_prodi WHERE user.username = sp.u_username) AS prodiUser,
+
+        (
+            SELECT SUM(sirkulasi_pelanggaran.jumlah_bayar)  FROM sirkulasi_pelanggaran 
+            INNER JOIN sirkulasi
+            ON sirkulasi_pelanggaran.s_id_sirkulasi = sirkulasi.id_sirkulasi
+            WHERE sirkulasi.no_transaksi = sp.no_transaksi
+            GROUP BY sirkulasi.no_transaksi
+        ) AS jumlah_bayar
+        
+        ");
         $this->db->from('sirkulasi_transaksi as sp');
         $this->db->where('sp.u_username', $username);
 

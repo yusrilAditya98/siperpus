@@ -135,13 +135,13 @@
                                         <td><?= $b['pengarang'] ?></td>
                                         <td><?= date('d-m-Y', strtotime($b['tanggal_mulai'])) ?></td>
                                         <?php if (date('Y-m-d') > $b['tanggal_akhir']) : ?>
-                                          <td class="text-danger"><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?></td>
+                                          <td class="text-danger bg-danger"><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?> *telat</td>
                                         <?php else : ?>
                                           <td class="text-success"><?= ($b['tanggal_akhir'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_akhir'])); ?></td>
                                         <?php endif; ?>
                                         <?php if ($b['status_sirkulasi'] == 9) : ?>
                                           <?php if (date('Y-m-d') > $b['tanggal_perpanjangan']) : ?>
-                                            <td class="text-danger"><?= ($b['tanggal_perpanjangan'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_perpanjangan'])); ?></td>
+                                            <td class="text-danger bg-danger"><?= ($b['tanggal_perpanjangan'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_perpanjangan'])); ?></td>
                                           <?php else : ?>
                                             <td class="text-success"><?= ($b['tanggal_perpanjangan'] == '0000-00-00') ? '00-00-0000' : date('d-m-Y', strtotime($b['tanggal_perpanjangan'])); ?></td>
                                           <?php endif; ?>

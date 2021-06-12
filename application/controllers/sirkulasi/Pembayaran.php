@@ -29,7 +29,7 @@ class Pembayaran extends CI_Controller
     public function pembayaran_denda_admin()
     {
         $data['title'] = "Pembayaran";
-        $data['pembayaran'] = $this->M_sirkulasi->getSirkulasiPembayaran();
+        $data['pembayaran'] = $this->M_sirkulasi->getSirkulasiPembayaran(null, $this->input->get('status'), $this->input->get("start_date"), $this->input->get("end_date"));
         $this->template($data['title']);
         $this->load->view('pembayaran/pembayaran_denda_admin', $data);
         $this->load->view('templates/footer');

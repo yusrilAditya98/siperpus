@@ -33,7 +33,7 @@
             <div class="col-lg-12">
               <div class="card">
                 <div class="card-body">
-                  <form action="<?= base_url('sirkulasi/Peminjaman/daftar_buku_dipinjam') ?>" method="get">
+                  <form action="<?= base_url('sirkulasi/Pembayaran/pembayaran_denda_admin') ?>" method="get">
                     <div class="row">
                       <div class="col-lg-4">
                         <div class="input-group mb-3">
@@ -65,18 +65,12 @@
                         // 10 selesai pengembalian -->
                       <div class="col-lg-4">
                         <div class="input-group">
-                          <select name="status_sirkulasi" id="status_sirkulasi" class="form-control">
-                            <option value="99">-- status --</option>
-                            <option value="2">sedang dipersiapkan</option>
-                            <option value="3">dapat diambil</option>
-                            <option value="4">pinjam</option>
-                            <option value="5">tolak peminjaman</option>
-                            <option value="6">pelanggaran</option>
-                            <option value="7">pengajuan perpanjangan</option>
-                            <option value="8">tolak perpanjangan</option>
-                            <option value="9">valid perpanjang</option>
-                            <option value="10">selesai pengembalian</option>
-
+                          <select name="status" id="status" class="form-control">
+                            <option value="">-- status --</option>
+                            <option value="0">Belum Validasi</option>
+                            <option value="1">Telah Upload Bukti Pembayaran</option>
+                            <option value="2">Pembayaran valid</option>
+                            <option value="3">Belum ada bukti bayar</option>
                           </select>
                           <div class="input-group-prepend">
                             <button class="btn btn-primary" type="submit">Go!</button>
@@ -102,7 +96,7 @@
                           <th>Status</th>
                           <th>Operator Entry / ID</th>
                           <th>Bukti Foto</th>
-                          <th>Jumlah Bayar</th>
+                          <th>Total Tagihan</th>
                         </tr>
                       </thead>
                       <tbody>

@@ -312,8 +312,8 @@ class Peminjaman extends CI_Controller
                     <td>' . $status . '</td>
                 </tr>';
             }
-		$this->codeTransaksi($item->no_transaksi);
-		$link = base_url() . 'cetak/cetak_transaksi/' . $item->no_transaksi;
+            $this->codeTransaksi($item->no_transaksi);
+            $link = base_url() . 'cetak/cetak_transaksi/' . $item->no_transaksi;
             $row[] = $temp . " " .  $btnValid . " " . ' <div class="modal fade" id="btnDetailTransaksi' . $item->no_transaksi . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailTransaksiLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -408,7 +408,7 @@ class Peminjaman extends CI_Controller
         echo json_encode($output);
     }
 
-	public function codeTransaksi($no_transaksi)
+    public function codeTransaksi($no_transaksi)
     {
         $this->load->library('ciqrcode'); //pemanggilan library QR CODE
         $image_name = 'transaksi_' . $no_transaksi . '.png';
@@ -636,7 +636,7 @@ class Peminjaman extends CI_Controller
         $title = 'Perpanjangan Peminjaman | Portal FH';
         $data['buku_perpanjangan'] = $data['buku_perpanjangan'] = $this->M_katalog_buku->getBukuPerpanjangan($this->session->userdata('username'), $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
 
-        $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $this->session->userdata('username')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
+        $data['pinjaman'] = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $this->session->userdata('username'), 'tanggal_akhir >=' => date("Y-m-d")])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->get()->result_array();
         $this->template($title);
         $this->load->view('peminjaman/perpanjangan_peminjaman', $data);
         $this->load->view('templates/footer');
@@ -770,13 +770,16 @@ class Peminjaman extends CI_Controller
                 ];
 
                 if ($denda == 3) {
-                    $tahunAwal =  $sirkulasi['tanggal_mulai'];
                     $tahunAkhir = "";
+                    $tahunAkhir =  date("Y-m-d");
                     if ($sirkulasi['status_sirkulasi'] == 4 || $sirkulasi['status_sirkulasi'] == 8) {
-                        $tahunAkhir = $sirkulasi['tanggal_akhir'];
+                        $tahunAwal = $sirkulasi['tanggal_akhir'];
                     } else {
-                        $tahunAkhir = $sirkulasi['tanggal_perpanjangan'];
+                        $tahunAwal = $sirkulasi['tanggal_perpanjangan'];
                     }
+
+                    var_dump("tahun awal" . $tahunAwal);
+                    var_dump("tahun akhir" . $tahunAkhir);
 
                     $selisihHari = $this->tgl_selisih($tahunAwal, $tahunAkhir);
                     $dataPelanggaran['jumlah_bayar'] = $selisihHari * 1000;
@@ -982,7 +985,7 @@ class Peminjaman extends CI_Controller
 
     public function ajax_perpanjangan($username)
     {
-        $tempData = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $username])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->join('user', 'user.username = sirkulasi.u_username')->get()->result_array();
+        $tempData = $this->db->where(['jenis_sirkulasi' => 1, 'status_sirkulasi' => 4, 'u_username' => $username, 'tanggal_akhir >=' => date('Y-m-d')])->from('sirkulasi')->join('buku', 'buku.register = sirkulasi.b_register')->join('user', 'user.username = sirkulasi.u_username')->get()->result_array();
         $data = [];
         foreach ($tempData as $b) {
             if (date('Y-m-d') <= $b['tanggal_akhir']) {
@@ -1006,11 +1009,7 @@ class Peminjaman extends CI_Controller
 
     public function tgl_selisih($date1, $date2)
     {
-
-        $diff = abs(strtotime($date2) - strtotime($date1));
-        $years = floor($diff / (365 * 60 * 60 * 24));
-        $months = floor(($diff - $years * 365 * 60 * 60 * 24) / (30 * 60 * 60 * 24));
-        $days = floor(($diff - $years * 365 * 60 * 60 * 24 - $months * 30 * 60 * 60 * 24) / (60 * 60 * 24));
-        return $days;
+        $diff2 = date_diff(date_create($date1), date_create($date2));
+        return  $diff2->days;
     }
 }
