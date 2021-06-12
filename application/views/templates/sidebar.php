@@ -165,14 +165,14 @@
                            </ul>
                        </li>
 
-                       <li class="nav-item">
+                       <!-- <li class="nav-item">
                            <a href="<?= site_url() ?>sirkulasi/Sumbangan_buku/admin" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
                                </p>
                            </a>
-                       </li>
+                       </li> -->
                        <li class="nav-item">
                            <a href="<?= site_url() ?>data/Stock_opname" class="nav-link">
                                <i class="nav-icon fas fa-layer-group"></i>
@@ -462,14 +462,14 @@
                            </ul>
                        </li>
 
-                       <li class="nav-item">
+                       <!-- <li class="nav-item">
                            <a href="<?= site_url() ?>sirkulasi/Sumbangan_buku" class="nav-link">
                                <i class="nav-icon fas fa-file-archive"></i>
                                <p>
                                    Sumbangan Buku
                                </p>
                            </a>
-                       </li>
+                       </li> -->
                        <li class="nav-item">
                            <a href="<?= site_url() ?>user/Anggota/bebas_pustaka" class="nav-link">
                                <i class="nav-icon fas fa-flag-checkered"></i>

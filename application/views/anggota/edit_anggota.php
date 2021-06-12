@@ -104,7 +104,7 @@
                                         <a class="nav-link" id="vert-tabs-kartu-tab" data-toggle="pill" href="#vert-tabs-kartu" role="tab" aria-controls="vert-tabs-kartu" aria-selected="false">Kartu Anggota</a>
                                         <a class="nav-link" id="vert-tabs-peminjaman-tab" data-toggle="pill" href="#vert-tabs-peminjaman" role="tab" aria-controls="vert-tabs-peminjaman" aria-selected="false">Peminjaman</a>
                                         <a class="nav-link" id="vert-tabs-pelanggaran-tab" data-toggle="pill" href="#vert-tabs-pelanggaran" role="tab" aria-controls="vert-tabs-pelanggaran" aria-selected="false">Pelanggaran</a>
-                                        <a class="nav-link" id="vert-tabs-sumbangan -tab" data-toggle="pill" href="#vert-tabs-sumbangan " role="tab" aria-controls="vert-tabs-sumbangan " aria-selected="false">Sumbangan </a>
+                                        <!-- <a class="nav-link" id="vert-tabs-sumbangan -tab" data-toggle="pill" href="#vert-tabs-sumbangan " role="tab" aria-controls="vert-tabs-sumbangan " aria-selected="false">Sumbangan </a> -->
                                         <a class="nav-link" id="vert-tabs-perpanjang-tab" data-toggle="pill" href="#vert-tabs-perpanjang" role="tab" aria-controls="vert-tabs-perpanjang" aria-selected="false">Perpanjang</a>
 
                                     </div>

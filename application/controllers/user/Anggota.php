@@ -338,7 +338,8 @@ class Anggota extends CI_Controller
                     </div>
                     </div>
                 ';
-                $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
+                $row[] = '';
+                // $row[] = '<a target="_blank" href="' . site_url() . 'cetak/bebas_pustaka_view/' . $item->username . '/tanggungan" id="cetak_pustaka' . $item->username . '" class="btn btn-success btn-block">Cetak</a>';
             } else {
                 $row[] = '<span class="badge bg-success">Bebas Tanggungan</span>';
                 $row[] = '<span class="badge bg-success"><i class="fas fa-check"></i></span>';
