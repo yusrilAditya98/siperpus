@@ -65,7 +65,7 @@
         return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
     }
 
-    function tgl_selisih($date1, $date2, $kategori = null, $status)
+    function tgl_selisih($date1, $date2, $kategori = null, $status = null)
     {
         $min = '';
         $cek = false;;
