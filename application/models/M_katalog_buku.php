@@ -601,14 +601,15 @@ class M_katalog_buku extends CI_Model
         $this->db->join('user as u', 's.u_username=u.username', 'left');
         $this->db->order_by('s.status_sirkulasi', 'asc');
         $this->db->where('s.jenis_sirkulasi', 1);
-        $this->db->where_not_in('s.status_sirkulasi', [0, 1]);
+        $this->db->where_not_in('s.status_sirkulasi', [0]);
         if ($username) {
             $this->db->where('u.username', $username);
         }
         if ($status_sirkulasi != null) {
             if ($status_sirkulasi == 0) {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
-            } elseif ($status_sirkulasi == 99) { } else {
+            } elseif ($status_sirkulasi == 99) {
+            } else {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
             }
         }
@@ -638,7 +639,8 @@ class M_katalog_buku extends CI_Model
         if ($status_sirkulasi != null) {
             if ($status_sirkulasi == 0) {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
-            } elseif ($status_sirkulasi == 99) { } else {
+            } elseif ($status_sirkulasi == 99) {
+            } else {
                 $this->db->where('s.status_sirkulasi', $status_sirkulasi);
             }
         }

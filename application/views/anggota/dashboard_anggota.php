@@ -27,7 +27,7 @@
             <div class="icon">
               <i class="fas fa-book"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('sirkulasi/Peminjaman/daftar_buku_dipinjam') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -41,7 +41,7 @@
             <div class="icon">
               <i class="fas fa-book"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="#" class="small-box-footer" style="cursor:default">.</a>
           </div>
         </div>
         <!-- ./col -->
@@ -57,7 +57,7 @@
             <div class="icon">
               <i class="fas fa-book"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
+            <a href="<?= base_url('sirkulasi/Peminjaman/pelanggaran_peminjaman') ?>" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
