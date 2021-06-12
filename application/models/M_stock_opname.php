@@ -56,17 +56,11 @@ class M_stock_opname extends CI_Model
 
     public function getStockStatus($id_opname)
     {
-        $this->db->select('b.*, j.nama_jenis, sb.nama_status');
-        $this->db->from('buku as b');
-        $this->db->join('jenis_akses as j', 'b.jenis_akses = j.id_jenis', 'left');
-        $this->db->join('status_buku as sb', 'b.status_buku = sb.id_status', 'left');
-
-        $temp = $this->getRegisterOpname(" where o_id_opname = '$id_opname'");
-        $test = [];
-        for ($i = 0; $i < count($temp); $i++) {
-            $test[] = $temp[$i]['b_register'];
-        }
-        $this->db->where_in('register', $test);
+        $this->db->select('b.*, j.nama_jenis, sb.nama_status, b.akses_now as jenis_akses, b.status_now as status_buku');
+        $this->db->from('buku_opname as b');
+        $this->db->join('jenis_akses as j', 'b.akses_now = j.id_jenis', 'left');
+        $this->db->join('status_buku as sb', 'b.status_now = sb.id_status', 'left');
+        $this->db->where('o_id_opname', $id_opname);
 
         return $this->db->get()->result_array();
     }
@@ -213,18 +207,58 @@ class M_stock_opname extends CI_Model
     {
         $this->db->select('b.*, j.nama_jenis, sb.nama_status');
         $this->db->from('buku as b');
+        $this->db->where_not_in('b.status_buku', 3);
+
         $this->db->join('jenis_akses as j', 'b.jenis_akses = j.id_jenis', 'left');
         $this->db->join('status_buku as sb', 'b.status_buku = sb.id_status', 'left');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
 
-        $temp = $this->getRegisterOpname(" where o_id_opname = '$id_opname'");
-
-        if ($temp != null) {
-            $test = [];
-            for ($i = 0; $i < count($temp); $i++) {
-                $test[] = $temp[$i]['b_register'];
-            }
-            $this->db->where_not_in('register', $test);
+        if ($this->input->post('jenis_koleksi')) {
+            $this->db->where('b.jk_id_jenis', $this->input->post('jenis_koleksi'));
         }
+
+        if ($this->input->post('koleksi_digital') == 1) {
+            $this->db->where('b.digital_pdf !=', '');
+        } elseif ($this->input->post('koleksi_digital') == 2) {
+            $this->db->where('b.digital_pdf', '');
+        }
+	$temp = $this->getRegisterOpname(" where o_id_opname = '$id_opname'");
+	if ($temp != null) {
+            $test = [];
+            $pembagian = ceil(count($temp) / 1000);
+            $sisa = (count($temp) % 1000);
+
+            $mulai = 1;
+            $step = 1000;
+            if ($sisa = 0) {
+                for ($z = 1; $z <= ($pembagian); $z++) {
+                    for ($x = ($mulai + ($step * $z - $step)); $x < ($step * $z); $x++) {
+                        $test[] = $temp[$x]['b_register'];
+                    }
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
+            } else {
+                for ($z = 1; $z <= ($pembagian - 1); $z++) {
+                    for ($x = ($mulai + ($step * $z - $step)); $x < ($step * $z); $x++) {
+                        $test[] = $temp[$x]['b_register'];
+                    }
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
+                $countTemp = 1000 * ($pembagian - 1);
+                for ($i = ($countTemp + 1); $i <= ($sisa + $countTemp); $i++) {
+                    $test[] = $temp[$i]['b_register'];
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
+            }
+        }
+        
 
         $i = 0;
         foreach ($this->column_search as $item) { // loop column 
@@ -268,10 +302,34 @@ class M_stock_opname extends CI_Model
         $temp = $this->getRegisterOpname(" where o_id_opname = '$id_opname'");
         if ($temp != null) {
             $test = [];
-            for ($i = 0; $i < count($temp); $i++) {
-                $test[] = $temp[$i]['b_register'];
+            $pembagian = ceil(count($temp) / 1000);
+            $sisa = (count($temp) % 1000);
+
+            $mulai = 1;
+            $step = 1000;
+            if ($sisa = 0) {
+                for ($z = 1; $z <= ($pembagian); $z++) {
+                    for ($x = ($mulai + ($step * $z - $step)); $x < ($step * $z); $x++) {
+                        $test[] = $temp[$x]['b_register'];
+                    }
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
+            } else {
+                for ($z = 1; $z <= ($pembagian - 1); $z++) {
+                    for ($x = ($mulai + ($step * $z - $step)); $x < ($step * $z); $x++) {
+                        $test[] = $temp[$x]['b_register'];
+                    }
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
+                $countTemp = 1000 * ($pembagian - 1);
+                for ($i = ($countTemp + 1); $i <= ($sisa + $countTemp); $i++) {
+                    $test[] = $temp[$i]['b_register'];
+                    $this->db->where_not_in('register', $test);
+                    $test = [];
+                }
             }
-            $this->db->where_not_in('register', $test);
         }
         return $this->db->count_all_results();
     }
@@ -295,5 +353,63 @@ class M_stock_opname extends CI_Model
         }
         return $this->db->get()->result_array();
         // return $data->result_array();
+    }
+
+    public function updateBukuNonAktif($last_opname)
+    {
+        $buku = $this->get_datatables($last_opname);
+        $i = 1;
+        $dataBuku = [];
+        foreach ($buku as $p) {
+            $dataBuku[$i++] =
+                [
+                    'register' => $p->register,
+                    'status_buku' => 3,
+                ];
+        }
+        $this->db->update_batch('buku', $dataBuku, 'register');
+        return true;
+    }
+
+    public function getDataBukuNonAktif()
+    {
+        $this->db->select('b.*, k.nama_kategori, ba.nama_bahasa, c.nama_circ_type, f.nama_funding, sk.nama_sumber, j.nama_jenis, jk.nama_jenis as jenis_koleksi, jk.id_jenis as id_jenis_koleksi');
+        $this->db->from('buku as b');
+        $this->db->join('kategori as k', 'b.k_id_kategori = k.id_kategori', 'left');
+        $this->db->join('bahasa as ba', 'b.b_id_bahasa = ba.id_bahasa', 'left');
+        $this->db->join('circ_type as c', 'b.ct_id_circ_type = c.id_circ_type', 'left');
+        $this->db->join('funding as f', 'b.f_id_funding = f.id_funding', 'left');
+        $this->db->join('sumber_koleksi as sk', 'b.sk_id_sumber = sk.id_sumber', 'left');
+        $this->db->join('jenis_akses as j', 'b.jenis_akses = j.id_jenis', 'left');
+        $this->db->join('jenis_koleksi as jk', 'b.jk_id_jenis = jk.id_jenis', 'left');
+
+        $this->db->where('status_buku', 3);
+        return $this->db->get()->result_array();
+        // return $data->result_array();
+    }
+
+    public function updateBukuNonAktifToAktif()
+    {
+        $buku = $this->getDataBukuNonAktif();
+        $i = 1;
+        $dataBuku = [];
+        foreach ($buku as $p) {
+            $dataBuku[$i++] =
+                [
+                    'register' => $p['register'],
+                    'status_buku' => 1,
+                ];
+        }
+        $this->db->update_batch('buku', $dataBuku, 'register');
+        return true;
+    }
+	
+public function getDataBukuOpname($o_id_opname = null)
+    {
+        $this->db->from('buku_opname as b');
+        if ($o_id_opname != null) {
+            $this->db->where('o_id_opname', $o_id_opname);
+        }
+        return $this->db->get()->result_array();
     }
 }

@@ -126,6 +126,46 @@ class Laporan extends CI_Controller
         echo json_encode($output);
     }
 
+    // kharis
+    public function pengunjung_web()
+    {
+        $data['title'] = "Laporan Pengunjung Web";
+        
+        $this->db->from('log_pengunjung as p')
+        ->join('user as u', 'p.username = u.username');
+        if ($this->input->get('start_date')) {
+            $this->db->where('tanggal >=', $this->input->get('start_date'));
+        }
+        if ($this->input->get('end_date')) {
+            $this->db->where('tanggal <=', $this->input->get('end_date'));
+        }
+        $data['pengunjung'] = $this->db->get()->result_array();
+        $this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/pengunjung_web', $data);
+        $this->load->view('templates/footer');
+    }
+
+    // kharis
+    public function pengunjung_perpus()
+    {
+        $data['title'] = "Laporan Pengunjung Perpus";
+        $this->db->from('pengunjung as p')
+        ->join('user as u', 'p.username = u.username');
+        if ($this->input->get('start_date')) {
+            $this->db->where('tanggal >=', $this->input->get('start_date'));
+        }
+        if ($this->input->get('end_date')) {
+            $this->db->where('tanggal <=', $this->input->get('end_date'));
+        }
+        $data['pengunjung'] = $this->db->get()->result_array();$this->load->view('templates/header', $data);
+        $this->load->view('templates/topbar');
+        $this->load->view('templates/sidebar');
+        $this->load->view('laporan/pengunjung_perpus', $data);
+        $this->load->view('templates/footer');
+    }
+
 
     // yusril
     public function peminjaman()

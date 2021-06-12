@@ -126,9 +126,9 @@
                     <div class="col-lg-12 text-center">
                       <img src="<?= site_url('data/Buku/QRcode/' . $b['register'])   ?>">
                     </div>
-                    <div class="col-lg-12 text-center">
+                     <!-- <div class="col-lg-12 text-center">
                       <button class="btn btn-warning mb-2"><i class="fas fa-print mr-2"></i>Cetak</button>
-                    </div>
+                    </div> -->
 
                   </div>
                 </div>

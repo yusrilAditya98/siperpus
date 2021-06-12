@@ -43,7 +43,7 @@ class Stock_opname extends CI_Controller
             $row[] = ucwords($item->nama_jenis);
             $row[] = '<button id="menu_akses' . $item->id_buku_opname . '" type="button" class="btn" data-toggle="popover" style="border-bottom:1px solid blue; color:blue;" > ' . ucwords($jenis_akses[0]['nama_jenis']) . ' </button>';
 
-            $row[] = '<a href="' . base_url('data/Stock_opname/hapus_buku_opname/' . $item->id_buku_opname . '/' . $item->o_id_opname) . '" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick=\'return confirm("ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?")\'>
+            $row[] = '<a href="' . base_url('data/stock_opname/hapus_buku_opname/' . $item->id_buku_opname . '/' . $item->o_id_opname) . '" style="font-size:12px;" class="btn btn-danger mr-2" title="Hapus Data Ini" onclick=\'return confirm("ANDA YAKIN AKAN MENGHAPUS DATA PENTING INI ... ?")\'>
             <i class="fa fa-trash"></i> Hapus
         </a>';
 
@@ -91,13 +91,7 @@ class Stock_opname extends CI_Controller
     public function doneOpname($last_opname)
     {
         if ($last_opname != 0) {
-            $list = $this->M_stock_opname->get_datatables($last_opname);
-            $data = array();
-            $no = @$_POST['start'];
-            foreach ($list as $item) {
-                $no++;
-                $update = $this->M_katalog_buku->updateBukuNonAktif($item->register);
-            }
+            $list = $this->M_stock_opname->updateBukuNonAktif($last_opname);
             $this->index();
         } else {
             $this->index();
@@ -121,7 +115,7 @@ class Stock_opname extends CI_Controller
             for ($j = 0; $j < count($data_status_buku); $j++) {
                 if ($data_stock[$i]['status_buku'] == $data_status_buku[$j]['id_status']) {
                     $temp_nama_status[] = $data_stock[$i]['status_buku'];
-                    $temp_status_buku[$data_status_buku[$j]['id_status']][] = $data_stock[$i]['register'];
+                    $temp_status_buku[$data_status_buku[$j]['id_status']][] = $data_stock[$i]['b_register'];
                 }
             }
         }
@@ -186,7 +180,12 @@ class Stock_opname extends CI_Controller
         $data_stock_opname = $this->M_stock_opname->getDataOpname(null, $id_opname);
         $data_status_buku = $this->M_status_buku->getData();
         $data_jenis_akses = $this->M_jenis_akses->getData();
-
+        $data['jenis_koleksi'] = $this->db->get('jenis_koleksi')->result_array();
+        $data['status_buku'] = $this->db->get('status_buku')->result_array();
+        $data['koleksi_digital'] = [
+            0 => ['status' => 1, 'nama' => 'Ada'],
+            1 => ['status' => 2, 'nama' => 'Tidak Ada']
+        ];
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');
         $this->load->view('templates/sidebar');
@@ -199,10 +198,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->insertData();
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
         }
     }
 
@@ -211,10 +210,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
         }
     }
 
@@ -223,24 +222,76 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->deleteData($id_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/Stock_opname');
+            redirect('data/stock_opname');
+        }
+    }
+
+    public function updateNonAktifToAktif()
+    {
+        $this->M_stock_opname->updateBukuNonAktifToAktif();
+    }
+
+    public function cek_add_opname()
+    {
+        $data = $this->M_katalog_buku->getData($_POST['b_register']);
+        $buku = $this->M_stock_opname->getDataOpname(null, $_POST['o_id_opname']);
+        $temp_status = 0;
+        foreach ($buku as $b) {
+            if ($_POST['b_register'] == $b['b_register']) {
+                $temp_status = 1;
+            }
+        }
+        if ($temp_status == 1) {
+            echo "2";
+        } else {
+            if (count($data) > 0 && $data[0]['status_buku'] != 3 && $data[0]['status_buku'] != 0) {
+                $data = $this->M_katalog_buku->getData($_POST['b_register']);
+                $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
+                echo "1";
+            } else {
+                echo "0";
+            }
         }
     }
 
     public function add_buku_opname()
     {
+        // $data = $this->M_katalog_buku->getData($register);
         $data = $this->M_katalog_buku->getData($_POST['b_register']);
-        $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
-        if ($res >= 1) {
-            $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
-            redirect('data/Stock_opname/detail/' . $_POST['o_id_opname']);
-        } else {
-            $this->session->set_flashdata('danger', 'Gagal menambahkan data');
-            redirect('data/Stock_opname/detail/' . $_POST['o_id_opname']);
+        $buku = $this->M_stock_opname->getDataOpname(null, $_POST['o_id_opname']);
+        $temp_status = 0;
+        foreach ($buku as $b) {
+            if ($_POST['b_register'] == $b['b_register']) {
+                $temp_status = 1;
+            }
         }
+        if ($temp_status == 1) {
+            // echo "2";
+            $this->session->set_flashdata('danger', 'Data buku sudah dilakukan opname');
+            redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+        } else {
+            if (count($data) > 0 && $data[0]['status_buku'] != 3 && $data[0]['status_buku'] != 0) {
+                $data = $this->M_katalog_buku->getData($_POST['b_register']);
+                $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
+                $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
+                redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+            } else {
+                // echo "0";
+                $this->session->set_flashdata('danger', 'Data buku tidak ada dalam database buku');
+                redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+            }
+        }
+        // $res = $this->M_stock_opname->insertDataOpname($data[0]['status_buku'], $data[0]['jenis_akses']);
+        // if ($res >= 1) {
+        //     $this->session->set_flashdata('success', 'Data berhasil ditambahkan');
+        //     redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+        // } else {
+        //     $this->session->set_flashdata('danger', 'Gagal menambahkan data');
+        //     redirect('data/stock_opname/detail/' . $_POST['o_id_opname']);
+        // }
     }
 
     function hapus_buku_opname($id_buku_opname, $id_opname)
@@ -248,10 +299,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->deleteDataOpname($id_buku_opname);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil dihapus');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal menghapus data');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         }
     }
 
@@ -261,10 +312,10 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateDataOpnameStatus($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         }
     }
 
@@ -274,10 +325,15 @@ class Stock_opname extends CI_Controller
         $res = $this->M_stock_opname->updateDataOpnameAkses($data[0]['b_register']);
         if ($res >= 1) {
             $this->session->set_flashdata('success', 'Data berhasil diubah');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         } else {
             $this->session->set_flashdata('danger', 'Gagal mengubah data');
-            redirect('data/Stock_opname/detail/' . $id_opname);
+            redirect('data/stock_opname/detail/' . $id_opname);
         }
+    }
+
+function getArray()
+    {
+        $data = $this->M_stock_opname->getArray();
     }
 }

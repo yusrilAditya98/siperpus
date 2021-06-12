@@ -57,6 +57,14 @@
                            </ul>
                        </li>
                        <li class="nav-header">Menu Admin</li>
+                       <li class="nav-item">
+                           <a href="<?= site_url() ?>sirkulasi/kunjungan" class="nav-link">
+                               <i class="nav-icon fas fa-user"></i>
+                               <p>
+                                   Kunjungan
+                               </p>
+                           </a>
+                       </li>
                        <li class="nav-item has-treeview">
                            <a href="#" class="nav-link">
                                <i class="nav-icon fas fa-book"></i>
@@ -278,6 +286,18 @@
                                </p>
                            </a>
                            <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                   <a href="<?= base_url('Laporan/pengunjung_web') ?>" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Pengunjung Website</p>
+                                   </a>
+                               </li>
+                               <li class="nav-item">
+                                   <a href="<?= base_url('Laporan/pengunjung_perpus') ?>" class="nav-link">
+                                       <i class="far fa-circle nav-icon"></i>
+                                       <p>Pengunjung Perpustakaan</p>
+                                   </a>
+                               </li>
                                <li class="nav-item">
                                    <a href="<?= base_url('Laporan/peminjaman') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
@@ -305,7 +325,7 @@
                                <li class="nav-item">
                                    <a href="<?= base_url('Laporan/sangsi') ?>" class="nav-link">
                                        <i class="far fa-circle nav-icon"></i>
-                                       <p>Sangsi</p>
+                                       <p>Sanksi</p>
                                    </a>
                                </li>
                                <li class="nav-item">

@@ -15,6 +15,19 @@ class Admin extends CI_Controller
         cek_admin();
     }
 
+    public function updated_buku(){
+        // Query
+        $case = '';
+
+        $buku = $this->db->get('buku')->result_array();
+        foreach ($buku as $b) {
+           $case .= " WHEN register = " . $b['register'] . " THEN 0" . $b['register'] . "";
+        }
+        $sql = "UPDATE buku set register = CASE $case END";
+        // echo json_encode($sql);die;
+        $this->db->query($sql);
+    }
+
     public function index()
     {
         $data['title'] = 'Dashboard';
@@ -23,6 +36,26 @@ class Admin extends CI_Controller
         $data['baca_ditempat'] = $this->M_katalog_buku->dataHotBuku(2);
         $data['dipinjam'] = $this->M_katalog_buku->dataHotBuku(1);
         $data['buku_today'] = $this->M_katalog_buku->bukuToday();
+
+        $data['top10_denda'] = $this->db->select('u.nama as nama, u.username as username, count(sp.s_id_sirkulasi) as jumlah_denda')
+        ->from('sirkulasi_pelanggaran as sp')
+        ->join('sirkulasi as s', 'sp.s_id_sirkulasi = s.id_sirkulasi')
+        ->join('user as u', 's.u_username = u.username')
+        ->group_by('s.u_username')
+        ->order_by('jumlah_denda', 'desc')
+        ->limit(10)->get()->result_array();
+
+        $data['top10_buku'] = $this->db->select('b.judul_buku as judul, count(s.id_sirkulasi) as jumlah_pinjam')
+        ->from('sirkulasi as s')
+        ->join('buku as b', 'b.register = s.b_register', 'left')
+        ->where('s.jenis_sirkulasi', 1)   
+        ->where_in('s.status_sirkulasi', [4,6,7,8,9,10])
+        ->group_by('s.b_register')
+        ->order_by('jumlah_pinjam', 'desc')
+        ->limit(10)->get()->result_array();
+
+        $data['log_pengunjung'] = count($this->db->get_where('log_pengunjung', ['tanggal' => date('Y-m-d')])->result_array());
+        $data['pengunjung'] = count($this->db->get_where('pengunjung', ['tanggal' => date('Y-m-d')])->result_array());
 
         $this->load->view('templates/header', $data);
         $this->load->view('templates/topbar');

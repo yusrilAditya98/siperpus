@@ -312,6 +312,8 @@ class Peminjaman extends CI_Controller
                     <td>' . $status . '</td>
                 </tr>';
             }
+		$this->codeTransaksi($item->no_transaksi);
+		$link = base_url() . 'cetak/cetak_transaksi/' . $item->no_transaksi;
             $row[] = $temp . " " .  $btnValid . " " . ' <div class="modal fade" id="btnDetailTransaksi' . $item->no_transaksi . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailTransaksiLabel" aria-hidden="true">
                 <div class="modal-dialog modal-lg">
                     <div class="modal-content">
@@ -325,7 +327,7 @@ class Peminjaman extends CI_Controller
                         <div class="modal-body">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <img src="' . site_url('sirkulasi/Peminjaman/QRcode/' . $item->no_transaksi) . '">
+                                    <img width="350" src="' . site_url('assets/qrcode/transaksi_' . $item->no_transaksi . '.png') . '">
                                 </div>
                                 <div class="col-lg-6"> 
                                     <div class="mt-4">
@@ -404,6 +406,33 @@ class Peminjaman extends CI_Controller
         );
         // output to json format
         echo json_encode($output);
+    }
+
+	public function codeTransaksi($no_transaksi)
+    {
+        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+        $image_name = 'transaksi_' . $no_transaksi . '.png';
+        $temp = base_url() . 'cetak/cetak_transaksi/' . $no_transaksi;
+        $config['cacheable']    = true; //boolean, the default is true
+        $config['cachedir']     = './assets/'; //string, the default is application/cache/
+        $config['errorlog']     = './assets/'; //string, the default is application/logs/
+        $config['imagedir']     = './assets/qrcode/'; //direktori penyimpanan qr code
+        $config['quality']      = true; //boolean, the default is true
+        $config['size']         = '1024'; //interger, the default is 1024
+        $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+        $params['data'] = $temp; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/qrcode/
+        //hapus dulu jika ada
+        if (file_exists($params['savename'])) //file_exists of a url returns false.It should be real file path
+        {
+            $path = './assets/qrcode/';
+            unlink($path . $image_name);
+        }
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
     }
 
     public function Barcode($id = 12332)
@@ -577,7 +606,7 @@ class Peminjaman extends CI_Controller
         $this->session->set_flashdata('success', 'Keranjang buku sudah dihapus');
         if ($this->session->userdata('role_id') == 'role_id_1') {
             $username = $this->input->get('username');
-            redirect(site_url('/sirkulasi/Peminjaman/Peminjaman_buku_admin?username=' . $username));
+            redirect(site_url('/sirkulasi/Peminjaman/peminjaman_buku_admin?username=' . $username));
         } else {
             redirect(site_url('/sirkulasi/Peminjaman/keranjang_peminjaman'));
         }
@@ -803,7 +832,7 @@ class Peminjaman extends CI_Controller
             $data['user'] = null;
         }
         $this->template($title);
-        $this->load->view('peminjaman/Peminjaman_buku_admin', $data);
+        $this->load->view('peminjaman/peminjaman_buku_admin', $data);
         $this->load->view('templates/footer');
     }
     public function pinjam_admin()
@@ -833,7 +862,7 @@ class Peminjaman extends CI_Controller
         } else {
             $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
         }
-        redirect(site_url('/sirkulasi/Peminjaman/Peminjaman_buku_admin?username=' . $username));
+        redirect(site_url('/sirkulasi/Peminjaman/peminjaman_buku_admin?username=' . $username));
     }
 
     public function perpanjangan_peminjaman_admin()

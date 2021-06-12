@@ -416,7 +416,12 @@ class M_katalog_buku extends CI_Model
 
     public function deleteDataBuku($register)
     {
-        $this->db->delete('buku', ['register' => $register]);
+        // $this->db->delete('buku', ['register' => $register]);
+        $data =  [
+            'status_buku' => 0,
+        ];
+
+        $this->db->update('buku', $data, ['register' => $register]);
         return true;
     }
 

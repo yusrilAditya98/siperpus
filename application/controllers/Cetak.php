@@ -482,13 +482,13 @@ class Cetak extends CI_Controller
         for ($i = 0; $i < count($register); $i++) {
             $buku_cetak = $this->M_katalog_buku->getData($register[$i]);
             if ($_POST['pilihan'] == 1) {
-                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^1^0";
+                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^1^0^" . $buku_cetak[0]['title_abrev'];
             }
             if ($_POST['pilihan'] == 2) {
-                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^0^1";
+                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^0^1^" . $buku_cetak[0]['title_abrev'];
             }
             if ($_POST['pilihan'] == 3) {
-                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^1^1";
+                $data['cetak_buku'][] = $buku_cetak[0]['register'] . "^" . $buku_cetak[0]['judul_buku'] . "^" . $buku_cetak[0]['no_dewey'] . "^" . $buku_cetak[0]['author_abrev'] . "^1^1^" . $buku_cetak[0]['title_abrev'];
             }
         }
 
@@ -506,11 +506,10 @@ class Cetak extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function QRPustaka($username, $status)
+    public function QRPustaka($link)
     {
-        $transaksi = base_url('Cetak/bebas_pustaka_view/' . $username . '/' . $status);
         QRcode::png(
-            $transaksi,
+            $link,
             $outfile = false,
             $level = QR_ECLEVEL_H,
             $size = 12,
@@ -525,12 +524,69 @@ class Cetak extends CI_Controller
         $data['petugas'] = $this->M_petugas->getData(null, 1);
         $data['status'] = "$status";
         $data['kop_surat'] = $this->M_kop_surat->getData(null, 1);
+        $this->codePustaka($username, $status);
         $this->load->view('admin/bebas_pustaka_view', $data);
+    }
+
+    public function codePustaka($username, $status)
+    {
+        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+        $image_name = 'bebaspustaka_' . $username . '_' . $status . '.png';
+        $temp = base_url() . 'cetak/bebas_pustaka_view/' . $username . '/' . $status;
+        $config['cacheable']    = true; //boolean, the default is true
+        $config['cachedir']     = './assets/'; //string, the default is application/cache/
+        $config['errorlog']     = './assets/'; //string, the default is application/logs/
+        $config['imagedir']     = './assets/qrcode/'; //direktori penyimpanan qr code
+        $config['quality']      = true; //boolean, the default is true
+        $config['size']         = '1024'; //interger, the default is 1024
+        $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+        $params['data'] = $temp; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/qrcode/
+        //hapus dulu jika ada
+        if (file_exists($params['savename'])) //file_exists of a url returns false.It should be real file path
+        {
+            $path = './assets/qrcode/';
+            unlink($path . $image_name);
+        }
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
     }
 
     public function cetak_transaksi($no_transaksi)
     {
+        $data['kop_surat'] = $this->M_kop_surat->getData(null, 1);
         $data['buku'] = $this->db->select('register,judul_buku,user.*,sirkulasi.*')->from('sirkulasi')->join('buku', 'buku.register=sirkulasi.b_register', 'left')->join('user', 'user.username=sirkulasi.u_username', 'left')->where('no_transaksi', $no_transaksi)->get()->result_array();
+        $this->codeTransaksi($no_transaksi);
         $this->load->view('page/invoice_transaksi', $data);
+    }
+
+    public function codeTransaksi($no_transaksi)
+    {
+        $this->load->library('ciqrcode'); //pemanggilan library QR CODE
+        $image_name = 'transaksi_' . $no_transaksi . '.png';
+        $temp = base_url() . 'cetak/cetak_transaksi/' . $no_transaksi;
+        $config['cacheable']    = true; //boolean, the default is true
+        $config['cachedir']     = './assets/'; //string, the default is application/cache/
+        $config['errorlog']     = './assets/'; //string, the default is application/logs/
+        $config['imagedir']     = './assets/qrcode/'; //direktori penyimpanan qr code
+        $config['quality']      = true; //boolean, the default is true
+        $config['size']         = '1024'; //interger, the default is 1024
+        $config['black']        = array(224, 255, 255); // array, default is array(255,255,255)
+        $config['white']        = array(70, 130, 180); // array, default is array(0,0,0)
+        $this->ciqrcode->initialize($config);
+        $params['data'] = $temp; //data yang akan di jadikan QR CODE
+        $params['level'] = 'H'; //H=High
+        $params['size'] = 10;
+        $params['savename'] = FCPATH . $config['imagedir'] . $image_name; //simpan image QR CODE ke folder assets/qrcode/
+        //hapus dulu jika ada
+        if (file_exists($params['savename'])) //file_exists of a url returns false.It should be real file path
+        {
+            $path = './assets/qrcode/';
+            unlink($path . $image_name);
+        }
+        $this->ciqrcode->generate($params); // fungsi untuk generate QR CODE
     }
 }

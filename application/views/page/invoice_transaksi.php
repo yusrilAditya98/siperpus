@@ -35,12 +35,12 @@
         }
 
         #logo {
-            text-align: center;
+            /* text-align: center; */
             margin-bottom: 10px;
         }
 
         #logo img {
-            width: 90px;
+            width: 800px;
         }
 
         h1 {
@@ -170,19 +170,21 @@
         // variabel pecahkan 1 = bulan
         // variabel pecahkan 2 = tahun
 
-        return $pecahkan[2] . ' ' . $bulan[(int)$pecahkan[1]] . ' ' . $pecahkan[0];
+        return $pecahkan[2] . ' ' . $bulan[(int) $pecahkan[1]] . ' ' . $pecahkan[0];
     }
     ?>
     <header class="clearfix">
         <div id="logo">
-            <img src="logo.png">
+            <img src="<?= site_url() ?>assets/img/kopSurat/<?= $kop_surat[0]['nama_file'] ?>" alt="" srcset="">
         </div>
+
         <h1>BUKTI TRANSAKSI PEMINJAMAN BUKU</h1>
         <div id="company" class="clearfix">
-            <div>Fakultas Hukum Univeristas Brawijaya</div>
+            <img width="100" src="<?= site_url('assets/qrcode/transaksi_' . $buku[0]['no_transaksi'] . '.png') ?>">
+            <!-- <div>Fakultas Hukum Univeristas Brawijaya</div>
             <div>455 Foggy Heights,<br /> AZ 85004, US</div>
             <div>(602) 519-0450</div>
-            <div><a href="mailto:company@example.com">company@example.com</a></div>
+            <div><a href="mailto:company@example.com">company@example.com</a></div> -->
         </div>
         <div id="project">
             <div><span>NAMA</span><?= $buku[0]['nama'] ?></div>
@@ -238,14 +240,14 @@
                 </tr>
             </tbody>
         </table>
-        <div id="notices">
+        <!-- <div id="notices">
             <div>NOTICE:</div>
             <div class="notice">A finance charge of 1.5% will be made on unpaid balances after 30 days.</div>
             <div><img width="100" src="<?= base_url('Cetak/QRtransaksi/' . $buku[0]['no_transaksi']) ?>" alt=""></div>
-        </div>
+        </div> -->
     </main>
     <footer>
-        Invoice was created on a computer and is valid without the signature and seal.
+        <!-- Invoice was created on a computer and is valid without the signature and seal. -->
     </footer>
     <script>
         window.print();

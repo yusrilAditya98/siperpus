@@ -63,4 +63,38 @@ class M_pelanggaran extends CI_Model
         }
         return $this->db->get()->result_array();
     }
+    public function getListPelanggaranUser($username = null, $status_pelanggaran = null, $nama_pelanggaran = null, $denda = null, $start_date = null, $end_date = null)
+    {
+
+        $this->db->select('*');
+        $this->db->from('sirkulasi');
+        $this->db->join('buku', 'buku.register = sirkulasi.b_register', 'left');
+        $this->db->join('user', 'user.username = sirkulasi.u_username', 'left');
+        $this->db->join('sirkulasi_pelanggaran', 'sirkulasi_pelanggaran.s_id_sirkulasi = sirkulasi.id_sirkulasi', 'left');
+        $this->db->join('pelanggaran', 'sirkulasi_pelanggaran.p_id_pelanggaran = pelanggaran.id_pelanggaran', 'left');
+        $this->db->join('denda', 'sirkulasi_pelanggaran.d_id_denda = denda.id_denda', 'left');
+        $this->db->where(['jenis_sirkulasi' => 1]);
+        $this->db->where_in('status_sirkulasi', [6]);
+        if ($this->session->userdata('role_id') != 'role_id_1') {
+            $this->db->where('sirkulasi.u_username', $this->session->userdata('username'));
+        }else{
+            $this->db->where('sirkulasi.u_username',$username);
+        }
+        if ($status_pelanggaran != null) {
+            $this->db->where('sirkulasi_pelanggaran.status_pelanggaran', $status_pelanggaran);
+        }
+        if ($nama_pelanggaran != null) {
+            $this->db->where('sirkulasi_pelanggaran.p_id_pelanggaran', $nama_pelanggaran);
+        }
+        if ($denda != null) {
+            $this->db->where('sirkulasi_pelanggaran.d_id_denda', $denda);
+        }
+        if ($start_date) {
+            $this->db->where('sirkulasi.tanggal_pengembalian >=', $start_date);
+        }
+        if ($end_date) {
+            $this->db->where('sirkulasi.tanggal_pengembalian <=', $end_date);
+        }
+        return $this->db->get()->result_array();
+    }
 }

@@ -1,3 +1,63 @@
+<style>
+    #id {
+        width: 450px;
+        height: 350px;
+        position: relative;
+        opacity: 0.88;
+        font-family: sans-serif;
+
+        transition: 0.4s;
+        /* background-color: #FFFFFF; */
+        border-radius: 2%;
+        margin-left: 50px;
+    }
+
+    #id2 {
+        width: 450px;
+        height: 350px;
+        position: relative;
+        opacity: 0.88;
+        font-family: sans-serif;
+
+        transition: 0.4s;
+        /* background-color: #FFFFFF; */
+        border-radius: 2%;
+        margin-left: 50px;
+    }
+
+    #id::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('<?= base_url('assets/kartu_anggota/bkg-2.jpg'); ?>');
+        /*if you want to change the background image replace logo.png*/
+        /* background-repeat: repeat-x; */
+        background-size: 450px 450px;
+        border-radius: 2%;
+        /* opacity: 0.2; */
+        z-index: -1;
+        text-align: center;
+
+    }
+
+    #id2::before {
+        content: "";
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background: url('<?= base_url('assets/kartu_anggota/bkg-2.jpg'); ?>');
+        /*if you want to change the background image replace logo.png*/
+        /* background-repeat: repeat-x; */
+        background-size: 450px 300px;
+        border-radius: 2%;
+        /* opacity: 0.2; */
+        z-index: -1;
+        text-align: center;
+
+    }
+</style>
+
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -136,16 +196,87 @@
                                         </div>
 
                                         <div class="tab-pane fade" id="vert-tabs-kartu" role="tabpanel" aria-labelledby="vert-tabs-kartu-tab">
-                                            <div class="card">
-                                                <div class="card-body">
-                                                    <table>
-                                                        <tbody>
+                                            <div id="id">
+                                                <table>
+                                                    <tr>
+                                                        <h4 style="color:white; margin-top: 10px; padding-top: 10px; text-align: center;"><b>Perpustakaan Fakultas Hukum <br>Universitas Brawijaya</b></h4>
+                                                    </tr>
+                                                </table>
 
-                                                        </tbody>
-                                                    </table>
-                                                </div>
+                                                <table style="margin-left: 50px; margin-top: 50px">
+                                                    <tr>
+                                                        <td>
+                                                            <?php
+
+                                                            // $serial = $list_user['username'];
+                                                            // $Bar = new Picqer\Barcode\BarcodeGeneratorHTML();
+                                                            // $code = $Bar->getBarcode($serial, $Bar::TYPE_CODE_128, 3, 30);
+
+                                                            $profil = $this->db->where('username', $list_user['username'])->from('user')->join('prodi', 'user.p_id_prodi = prodi.id_prodi')->get()->row_array();
+                                                            ?>
+                                                            <img src="<?= base_url('assets/foto_profil/' . $profil['foto']) ?>" height='170px' width='135px' alt='' style='border: 2px solid black;'>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td></td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p>No Anggota</p>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <p style="font-weight: bold;margin-top:-4%; ;"><?= $profil['username'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p>Nama</p>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <p style="font-weight: bold;margin-top:-4%; ;"><?= $profil['nama'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p>Prodi</p>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <p style="font-weight: bold;margin-top:-4%; ;"><?= $profil['nama_prodi'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <p>Alamat</p>
+                                                                    </td>
+                                                                    <td>:</td>
+                                                                    <td>
+                                                                        <p style="font-weight: bold;margin-top:-4%; ;"><?= $profil['alamat'] ?></p>
+                                                                    </td>
+                                                                </tr>
+                                                                <tr style="text-align: center;">
+                                                                    <!-- <?= $code; ?> -->
+                                                                </tr>
+                                                                <br>
+                                                            </table>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+
+                                            <div id="id2">
+                                                <table>
+                                                    <tr>
+                                                        <h4 style="color:black; margin-top: 50px; padding-top: 150px; text-align: center;"><b>Perpustakaan Fakultas Hukum <br>Universitas Brawijaya</b></h4>
+                                                    </tr>
+                                                </table>
                                             </div>
                                         </div>
+
                                         <div class="tab-pane fade" id="vert-tabs-password" role="tabpanel" aria-labelledby="vert-tabs-password-tab">
                                             <form action="<?= base_url('user/Anggota/ubahPassword') ?>" method="post">
                                                 <input type="hidden" name="username" id="ubah_password" value="<?= $list_user['username'] ?>">

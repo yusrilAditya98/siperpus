@@ -11,7 +11,12 @@ class Anggota extends CI_Controller
         $this->load->library('form_validation');
         $this->load->model('M_user', 'u');
         $this->load->model('M_cetak');
-        $this->load->model('M_prodi', 'p');
+        $this->load->model('M_prodi', 'p');        
+        $this->load->model('M_sumbangan_buku');
+        $this->load->model('M_katalog_buku');
+        $this->load->model('M_sirkulasi');
+        $this->load->model('M_pelanggaran');
+
         is_logged_in();
         cek_anggota();
     }
@@ -48,7 +53,6 @@ class Anggota extends CI_Controller
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         $this->form_validation->set_rules('username', 'Username', 'required|min_length[3]|is_unique[user.username]');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
-        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
         $this->form_validation->set_rules('status_aktif', 'Status Aktif', 'required');
         $this->form_validation->set_rules('password1', 'Password', 'required|trim|min_length[3]|matches[password2]', [
@@ -56,7 +60,6 @@ class Anggota extends CI_Controller
             'min_length' => 'Password too short!'
         ]);
         $this->form_validation->set_rules('password2', 'Password', 'required|trim|matches[password1]');
-        $this->form_validation->set_rules('date_ended', 'Tanggal masa berlaku', 'required');
 
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
@@ -92,16 +95,42 @@ class Anggota extends CI_Controller
         $data['title'] = 'Ubah Anggota';
         $data['list_prodi'] = $this->p->getProdi();
         $data['list_user'] = $this->u->getUser($username);
+        // Peminjaman
+        $data['buku_dipinjam'] =  $this->M_katalog_buku->getBukuDipinjam($username, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        // Pelanggaran
+        $buku = $this->M_pelanggaran->getListPelanggaranUser($username);
+        for ($i = 0; $i < count($buku); $i++) {
+            if ($buku[$i]['d_id_denda'] == 3) {
+                if ($buku[$i]['tanggal_pengembalian'] > $buku[$i]['tanggal_akhir']) {
+                    $awal  = date_create($buku[$i]['tanggal_akhir']);
+                    $akhir = date_create($buku[$i]['tanggal_pengembalian']); // waktu sekarang
+                    $diff  = date_diff($awal, $akhir);
+                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . $diff->days . ' = Rp. ' . (1000 * intval($diff->days));
+                } else {
+                    $buku[$i]['denda'] = 'Membayar denda sebesar Rp.1000 x ' . 0 . ' = Rp. ' . (1000 * 0);
+                }
+            } else {
+                $buku[$i]['denda'] = '';
+            }
+        }
+        $data['buku_pelanggaran'] = $buku;
+        // Sumbangan Buku
+        $data_sumbangan_buku = $this->M_sumbangan_buku->getDataUser(null, $username);
+        $data['sumbangan_buku'] = $data_sumbangan_buku;
+
+        // Perpanjangan
+        $data['buku_perpanjangan'] = $this->M_katalog_buku->getBukuPerpanjangan($username, $this->input->get('status_sirkulasi'), $this->input->get('start_date'), $this->input->get('end_date'));
+        
+        // echo json_encode($data);die;
 
         $this->form_validation->set_rules('nama', 'Nama', 'required');
         if ($this->input->post('username') != $data['list_user']['username']) {
             $this->form_validation->set_rules('username', 'Username', 'required|min_length[3]|is_unique[user.username]');
         }
-        $this->form_validation->set_rules('email', 'Email', 'required');
         $this->form_validation->set_rules('alamat', 'Alamat', 'required');
         $this->form_validation->set_rules('no_hp', 'No HP', 'required');
         $this->form_validation->set_rules('status_aktif', 'Status Aktif', 'required');
-        $this->form_validation->set_rules('date_ended', 'Tanggal masa berlaku', 'required');
+
         if ($this->form_validation->run() == false) {
             $this->load->view('templates/header', $data);
             $this->load->view('templates/topbar');
@@ -188,7 +217,7 @@ class Anggota extends CI_Controller
                 "nama" => str_replace("\0", "", $data->val($i, 3)),
                 "alamat" => intval(str_replace("\0", "", $data->val($i, 4))),
                 "no_hp" => str_replace("\0", "", $data->val($i, 5)),
-                "password" => 'p' . str_replace("\0", "", $data->val($i, 2)),
+                "password" => password_hash('p' . str_replace("\0", "", $data->val($i, 2)), PASSWORD_DEFAULT),
                 "status_aktif" => str_replace("\0", "", $data->val($i, 6)),
                 "foto" => '',
                 "date_created" => date('Y-m-d'),

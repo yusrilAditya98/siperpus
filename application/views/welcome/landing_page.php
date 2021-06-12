@@ -54,12 +54,12 @@
                 <div class="col-xl-4 col-lg-5">
                     <div class="featured-text text-center text-lg-left">
                         <h4>About</h4>
-                        <p class="text-black-50 mb-0">Grayscale is open source and MIT licensed. This means you can use it for any project - even commercial projects! Download it, customize it, and publish your website!</p>
+                        <p class="text-black-50 mb-0">Sistem informasi perpustakaan FH UB adalah sebuah layanan perpustakan untuk memudahkan civitas fakultas hukum dalam menggunakan layanan perpustakan seperti meminjam buku, melihat artikel online, hingga laporan kegiatan perpustakan.</p>
                     </div>
                 </div>
             </div>
             <!-- Project One Row-->
-            <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
+            <!-- <div class="row justify-content-center no-gutters mb-5 mb-lg-0">
                 <div class="col-lg-6"><img class="img-fluid" src="<?= base_url('assets/img/demo-image-01.jpg') ?>" alt="" /></div>
                 <div class="col-lg-6">
                     <div class="bg-navy text-center h-100 project">
@@ -72,9 +72,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- Project Two Row-->
-            <div class="row justify-content-center no-gutters">
+            <!-- <div class="row justify-content-center no-gutters">
                 <div class="col-lg-6"><img class="img-fluid" src="<?= base_url('assets/img/demo-image-02.jpg') ?>" alt="" /></div>
                 <div class="col-lg-6 order-lg-first">
                     <div class="bg-navy text-center h-100 project">
@@ -93,7 +93,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
         </div>
     </section>
 

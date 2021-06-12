@@ -86,6 +86,24 @@ class M_sumbangan_buku extends CI_Model
         // $data = $this->db->query('select * from sumbangan_buku ' . $where);
         // return $data->result_array();
     }
+    public function getDataUser($id_sumbangan = null, $username = null)
+    {
+        $this->db->select('sb.*, u.username, u.nama, b.*');
+        $this->db->from('sumbangan_buku as sb');
+        $this->db->join('user as u', 'sb.u_username = u.username', 'left');
+        $this->db->join('buku as b', 'sb.b_register = b.register', 'left');
+        if ($id_sumbangan != null) {
+            $this->db->where('id_sumbangan', $id_sumbangan);
+        }
+        if ($username != null) {
+            $this->db->where('u.username', $username);
+        }
+
+        return $this->db->get()->result_array();
+
+        // $data = $this->db->query('select * from sumbangan_buku ' . $where);
+        // return $data->result_array();
+    }
 
     public function insertData()
     {

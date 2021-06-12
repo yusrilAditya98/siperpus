@@ -70,6 +70,13 @@
                                         <?= form_error('no_hp', '<small class="text-danger pl-3">', '</small>'); ?>
                                     </div>
                                 </div>
+<div class="form-group row">
+                                    <label for="email" class="col-sm-2 col-form-label">Email</label>
+                                    <div class="col-sm-10">
+                                        <input type="email" name="email" class="form-control" id="email" placeholder="masukan email aktif admin...">
+                                        <?= form_error('email', '<small class="text-danger pl-3">', '</small>'); ?>
+                                    </div>
+                                </div>
                                 <div class="form-group row">
                                     <label for="status" class="col-sm-2 col-form-label">Status Aktif</label>
                                     <div class="col-sm-10">
