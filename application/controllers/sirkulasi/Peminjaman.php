@@ -53,7 +53,9 @@ class Peminjaman extends CI_Controller
             $temp = '<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#btnDetailBuku' . $item->register . '"><i class="fa fa-info"></i></button>';
             $temp_btn_pinjam = "";
             if ($temp_role_id == "role_id_2") {
-                $temp_btn_pinjam = '<a href="../../sirkulasi/Peminjaman/pinjam/' . $item->register . '" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i> Pinjam</a>';
+                if ($item->jenis_akses != 2) {
+                    $temp_btn_pinjam = '<a href="../../sirkulasi/Peminjaman/pinjam/' . $item->register . '" class="btn btn-sm btn-success"><i class="fas fa-cart-plus"></i> Pinjam</a>';
+                }
             }
             $row[] = $temp . " " . $temp_btn_pinjam . ' <div class="modal fade" id="btnDetailBuku' . $item->register . '" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="btnDetailBukuLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
