@@ -529,30 +529,38 @@ class Peminjaman extends CI_Controller
 
     public function pinjam($register)
     {
-        $buku = $this->db->get_where('buku', ['register' => $register])->row_array();
-        $status_buku = $buku['status_buku'];
-        // Status Buku
-        // 1 = Buku Ada
-        // 2 = Buku tidak tersedia / Sedang Dipinjam
-        if ($status_buku == 1) {
-            $data = array(
-                'u_username' => $this->session->userdata('username'),
-                'b_register' => $register,
-                'jenis_sirkulasi' => 1,
-                'tanggal_sirkulasi' => date('Y-m-d'),
-                'tanggal_mulai' => date('Y-m-d'),
-                'tanggal_akhir' => '0000-00-00',
-                'tanggal_pengembalian' => '0000-00-00',
-                'tanggal_perpanjangan' => '0000-00-00',
-                'status_sirkulasi' => 0,
-            );
-            $this->db->insert('sirkulasi', $data);
-            $this->db->where('register', $register)->update('buku', ['status_buku' => 2]);
-            $this->session->set_flashdata('success', 'Buku dimasukkan di keranjang');
+        // AYF - Validasi jumlah buku yang dipinjam
+        $jumBukuDipinjam = $this->M_katalog_buku->getJumlahBukuDipinjam($this->session->userdata('username'));
+
+        if ((count($jumBukuDipinjam) + 1) <= 5) {
+            $buku = $this->db->get_where('buku', ['register' => $register])->row_array();
+            $status_buku = $buku['status_buku'];
+            // Status Buku
+            // 1 = Buku Ada
+            // 2 = Buku tidak tersedia / Sedang Dipinjam
+            if ($status_buku == 1) {
+                $data = array(
+                    'u_username' => $this->session->userdata('username'),
+                    'b_register' => $register,
+                    'jenis_sirkulasi' => 1,
+                    'tanggal_sirkulasi' => date('Y-m-d'),
+                    'tanggal_mulai' => date('Y-m-d'),
+                    'tanggal_akhir' => '0000-00-00',
+                    'tanggal_pengembalian' => '0000-00-00',
+                    'tanggal_perpanjangan' => '0000-00-00',
+                    'status_sirkulasi' => 0,
+                );
+                $this->db->insert('sirkulasi', $data);
+                $this->db->where('register', $register)->update('buku', ['status_buku' => 2]);
+                $this->session->set_flashdata('success', 'Buku dimasukkan di keranjang');
+            } else {
+                $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
+            }
+            redirect(site_url('/data/Buku/buku_anggota'));
         } else {
-            $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
+            $this->session->set_flashdata('danger', 'Maaf, Maksimal buku yang dapat dipinjam sebanyak <b>5</b> buku');
+            redirect(site_url('/data/Buku/buku_anggota'));
         }
-        redirect(site_url('/data/Buku/buku_anggota'));
     }
     public function pinjamBuku($id_sirkulasi)
     {
@@ -844,29 +852,36 @@ class Peminjaman extends CI_Controller
     {
         $username = $this->input->post('username');
         $register = $this->input->post('register');
-        $buku = $this->db->get_where('buku', ['register' => $register])->row_array();
-        $status_buku = $buku['status_buku'];
-        // Status Buku
-        // 1 = Buku Ada
-        // 2 = Buku tidak tersedia / Sedang Dipinjam
-        if ($status_buku == 1) {
-            $data = array(
-                'u_username' => $username,
-                'b_register' => $register,
-                'jenis_sirkulasi' => 1,
-                'tanggal_sirkulasi' => date('Y-m-d'),
-                'tanggal_mulai' => date('Y-m-d'),
-                'tanggal_akhir' => '0000-00-00',
-                'tanggal_pengembalian' => '0000-00-00',
-                'tanggal_perpanjangan' => '0000-00-00',
-                'status_sirkulasi' => 0,
-            );
-            $this->db->insert('sirkulasi', $data);
-            $this->db->where('register', $register)->update('buku', ['status_buku' => 2]);
-            $this->session->set_flashdata('success', 'Buku dimasukkan di keranjang');
+        // AYF - Validasi jumlah buku yang dipinjam
+        $jumBukuDipinjam = $this->M_katalog_buku->getJumlahBukuDipinjam($username);
+        if ((count($jumBukuDipinjam) + 1) <= 5) {
+            $buku = $this->db->get_where('buku', ['register' => $register])->row_array();
+            $status_buku = $buku['status_buku'];
+            // Status Buku
+            // 1 = Buku Ada
+            // 2 = Buku tidak tersedia / Sedang Dipinjam
+            if ($status_buku == 1) {
+                $data = array(
+                    'u_username' => $username,
+                    'b_register' => $register,
+                    'jenis_sirkulasi' => 1,
+                    'tanggal_sirkulasi' => date('Y-m-d'),
+                    'tanggal_mulai' => date('Y-m-d'),
+                    'tanggal_akhir' => '0000-00-00',
+                    'tanggal_pengembalian' => '0000-00-00',
+                    'tanggal_perpanjangan' => '0000-00-00',
+                    'status_sirkulasi' => 0,
+                );
+                $this->db->insert('sirkulasi', $data);
+                $this->db->where('register', $register)->update('buku', ['status_buku' => 2]);
+                $this->session->set_flashdata('success', 'Buku dimasukkan di keranjang');
+            } else {
+                $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
+            }
         } else {
-            $this->session->set_flashdata('danger', 'Buku tidak tersedia untuk dipinjam');
+            $this->session->set_flashdata('danger', 'Maaf, Maksimal buku yang dapat dipinjam sebanyak <b>5</b> buku');
         }
+
         redirect(site_url('/sirkulasi/Peminjaman/peminjaman_buku_admin?username=' . $username));
     }
 
@@ -965,11 +980,14 @@ class Peminjaman extends CI_Controller
     public function ubahStatusPeminjaman($no_transaksi)
     {
         $status = $this->input->get('status');
+        // AYF - Ubah status buku jadi bisa dipinjam lagi
         if ($status == 5) {
-            $buku = $this->db->get_where('sirkulasi', ['no_transaksi' => $no_transaksi])->row_array();
-            $this->db->set('status_buku', 1);
-            $this->db->where('register', $buku['b_register']);
-            $this->db->update('buku');
+            $buku = $this->db->get_where('sirkulasi', ['no_transaksi' => $no_transaksi])->result_array();
+            foreach ($buku as $b) {
+                $this->db->set('status_buku', 1);
+                $this->db->where('register', $b['b_register']);
+                $this->db->update('buku');
+            }
         }
         // status pj 1 => peminjaman ; 2 => pengambilan ; 3 => pengembalian
         if ($this->input->get('status_pj') == 1) {
@@ -982,6 +1000,7 @@ class Peminjaman extends CI_Controller
         $this->db->set('status_sirkulasi', $status);
         $this->db->where('no_transaksi', $no_transaksi);
         $this->db->update('sirkulasi');
+        $this->session->set_flashdata('success', 'Status peminjaman buku berhasil diubah');
         redirect('sirkulasi/Peminjaman/validasi_peminjaman');
     }
 

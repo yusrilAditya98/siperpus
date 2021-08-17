@@ -654,4 +654,28 @@ class M_katalog_buku extends CI_Model
 
         return $this->db->get()->result_array();
     }
+
+    // jumlah buku yang dipinjam
+    public function getJumlahBukuDipinjam($username)
+    {
+        $this->db->select('id_sirkulasi,judul_buku');
+        $this->db->from('sirkulasi');
+        $this->db->join('buku as b', 'b.register = sirkulasi.b_register');
+        $this->db->where('u_username', $username);
+        // status sirkulasi terdiri dari
+        // 0 Keranjang peminjaman
+        // 1 proses peminjaman
+        // 2 pinjam
+        // 3 tolak peminjaman
+        // 4 telat (otomatis dari tanggal pengembalian melebihin tanggal sekarang.)
+        // 5 pengajuan perpajangan
+        // 6 tolak perpanjangan
+        // 7 valid perpanjangan
+        // 8 selesai pengembalian
+        // 9 Denda dibayar
+        // 10 denda belum dibayar
+        $this->db->where_in('status_sirkulasi', [0, 1, 2, 4, 5, 7, 9, 10]);
+        $this->db->where('jenis_sirkulasi', 1);
+        return $this->db->get()->result_array();
+    }
 }
